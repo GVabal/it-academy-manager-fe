@@ -2,7 +2,7 @@
   import {Observable, of} from 'rxjs';
   import {Sample} from '../shared/Sample';
 
-@Injectable({
+  @Injectable({
   providedIn: 'root'
 })
 export class SampleService {
