@@ -8,6 +8,5 @@ before_script:
   - npm install -g --silent @angular/cli@11.0.7
 
 script:
-  -npm ci
   -npm run lint
-  -npm run postinstall
+
