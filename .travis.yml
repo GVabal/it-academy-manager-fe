@@ -2,11 +2,8 @@ language: node_js
 node_js:
   - "12"
   -
-cache: npm
-
-before_script:
-  - npm install -g --silent @angular/cli@11.0.7
 
 script:
-  -ng lint
+  - yarn lint
+  - yarn build --prod
 
