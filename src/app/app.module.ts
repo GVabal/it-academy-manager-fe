@@ -11,7 +11,7 @@ import {sampleFeatureKey, sampleReducer} from './store/sample.reducer';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import { StreamComponent } from './stream/stream.component';
 import {HttpClientModule} from '@angular/common/http';
-import { StreamEffects } from './store/stream/stream.effects'
+import { StreamEffects } from './store/stream/stream.effects';
 import { streamFeatureKey, streamReducer } from './store/stream/stream.reducer';
 
 @NgModule({
