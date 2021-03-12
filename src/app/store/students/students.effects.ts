@@ -20,9 +20,7 @@ export class StudentsEffects {
         console.log('action: ', action);
         console.log('action.student: ', action.student);
         return this.studentService.addStudent(action as unknown as Student).pipe(
-          map(student => {
-            return addStudentSuccess({student});
-          }),
+          map(student => addStudentSuccess({student})),
           catchError(error => of(addStudentFailure({error})))
           );
         }

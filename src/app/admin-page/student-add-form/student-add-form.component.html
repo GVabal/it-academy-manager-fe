@@ -1,8 +1,23 @@
 <form [formGroup]="studentForm" (ngSubmit)="submitForm()">
   <input type="text" placeholder="First name" formControlName="firstName">
+  <span *ngIf="firstName.errors?.required">First name is required</span>
+  <span *ngIf="firstName.errors?.maxlength">First name is too long</span>
+
   <input type="text" placeholder="Last name" formControlName="lastName">
+  <span *ngIf="lastName.errors?.required">Last name is required</span>
+  <span *ngIf="lastName.errors?.maxlength">Last name is too long</span>
+
   <input type="url" placeholder="Picture URL" formControlName="pictureUrl">
+  <span *ngIf="pictureUrl.errors?.pattern">Invalid picture url</span>
+
   <input type="text" placeholder="Occupation" formControlName="occupation">
+  <span *ngIf="occupation.errors?.required">Occupation is required</span>
+  <span *ngIf="occupation.errors?.maxlength">Occupation is too long</span>
+
   <input type="text" placeholder="Direction" formControlName="direction">
-  <button>Add</button>
+  <span *ngIf="direction.errors?.required">Direction is required</span>
+  <span *ngIf="direction.errors?.maxlength">Direction is too long</span>
+
+  <button [disabled]="studentForm.invalid">Add</button>
+  <span *ngIf="isLoading">Adding...</span>
 </form>
