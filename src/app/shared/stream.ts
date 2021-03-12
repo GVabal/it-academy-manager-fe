@@ -1,4 +1,4 @@
 export interface Stream {
-    name:string
-    id: number
+    name: string,
+    id: number,
 }
