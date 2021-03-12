@@ -1,0 +1,8 @@
+<form [formGroup]="studentForm" (ngSubmit)="submitForm()">
+  <input type="text" placeholder="First name" formControlName="firstName">
+  <input type="text" placeholder="Last name" formControlName="lastName">
+  <input type="url" placeholder="Picture URL" formControlName="pictureUrl">
+  <input type="text" placeholder="Occupation" formControlName="occupation">
+  <input type="text" placeholder="Direction" formControlName="direction">
+  <button>Add</button>
+</form>
