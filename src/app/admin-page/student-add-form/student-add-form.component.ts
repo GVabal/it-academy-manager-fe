@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Store} from '@ngrx/store';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {addStudent} from '../../store/students/students.actions';
-import {selectIsStudentsLoading} from '../../store/students/students.selectors';
+import {selectHasStudentAddFailed, selectIsStudentsLoading, selectStudentsError} from '../../store/students/students.selectors';
 import {Observable} from 'rxjs';
 
 @Component({
@@ -11,8 +11,10 @@ import {Observable} from 'rxjs';
   styleUrls: ['./student-add-form.component.scss']
 })
 export class StudentAddFormComponent implements OnInit {
+  hasAddFailed$: Observable<boolean> = this.store.select(selectHasStudentAddFailed);
   isLoading$: Observable<boolean> = this.store.select(selectIsStudentsLoading);
-  isLoading = false;
+  error$: Observable<Error | null> = this.store.select(selectStudentsError);
+  error: Error | null = null;
   studentForm!: FormGroup;
 
   constructor(private store: Store,
@@ -20,7 +22,7 @@ export class StudentAddFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.studentForm = this.initStudentForm();
-    this.isLoading$.subscribe(isLoading => this.isLoading = isLoading);
+    this.error$.subscribe(error => this.error = error);
   }
 
   private initStudentForm(): FormGroup {
@@ -68,6 +70,6 @@ export class StudentAddFormComponent implements OnInit {
   }
 
   submitForm(): void {
-    this.store.dispatch(addStudent(this.studentForm.value));
+    this.store.dispatch(addStudent({student: this.studentForm.value}));
   }
 }

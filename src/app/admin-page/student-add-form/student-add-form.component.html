@@ -19,5 +19,6 @@
   <span *ngIf="direction.errors?.maxlength">Direction is too long</span>
 
   <button [disabled]="studentForm.invalid">Add</button>
-  <span *ngIf="isLoading">Adding...</span>
+  <span *ngIf="isLoading$ | async">Adding...</span>
+  <span *ngIf="hasAddFailed$ | async">{{ error.message }}</span>
 </form>

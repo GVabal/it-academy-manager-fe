@@ -5,6 +5,8 @@ export const selectStudentsState = createFeatureSelector<StudentsState>(students
 
 export const selectIsStudentsLoading = createSelector(selectStudentsState, studentsState => studentsState.loading);
 export const selectIsStudentsLoaded = createSelector(selectStudentsState, studentsState => studentsState.loaded);
+export const selectHasStudentAddFailed = createSelector(selectStudentsState, studentsState => studentsState.hasAddFailed);
+export const selectStudentsError = createSelector(selectStudentsState, studentsState => studentsState.error);
 
 export const {
   selectAll: selectStudents,

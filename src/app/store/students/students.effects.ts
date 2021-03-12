@@ -4,7 +4,6 @@ import {StudentService} from '../../service/student.service';
 import {catchError, map, switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {addStudent, addStudentFailure, addStudentSuccess} from './students.actions';
-import {Student} from '../../shared/Student';
 
 
 
@@ -16,14 +15,10 @@ export class StudentsEffects {
   addStudent$ = createEffect(() =>
     this.actions$.pipe(
       ofType(addStudent),
-      switchMap((action) => {
-        console.log('action: ', action);
-        console.log('action.student: ', action.student);
-        return this.studentService.addStudent(action as unknown as Student).pipe(
+      switchMap((action) => this.studentService.addStudent(action.student).pipe(
           map(student => addStudentSuccess({student})),
           catchError(error => of(addStudentFailure({error})))
-          );
-        }
+        )
       )
     )
   );
