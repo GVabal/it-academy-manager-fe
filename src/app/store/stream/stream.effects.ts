@@ -16,15 +16,10 @@ export class StreamEffects {
     this.actions$.pipe(
       ofType(loadStreams),
       switchMap(() => this.streamService.loadStreams().pipe(
-        map(streams => {
-          console.log(streams);
-          return loadStreamSuccess({streams});
-        }),
+        map(streams => loadStreamSuccess({streams})),
         catchError(error => of(loadStreamFailure({error})))
         )
       )
     )
   );
-
-
 }
