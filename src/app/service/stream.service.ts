@@ -13,5 +13,4 @@ export class StreamService {
   loadStreams(): Observable<Stream[]>{
        return this.http.get<Stream[]>('https://it-academy-manager-be.herokuapp.com/api/streams');
   }
-
 }
