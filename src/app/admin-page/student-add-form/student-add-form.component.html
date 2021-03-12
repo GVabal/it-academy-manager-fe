@@ -8,7 +8,7 @@
   <span *ngIf="lastName.errors?.maxlength">Last name is too long</span>
 
   <input type="url" placeholder="Picture URL" formControlName="pictureUrl">
-  <span *ngIf="pictureUrl.errors?.pattern">Invalid picture url</span>
+  <span *ngIf="pictureUrl.errors?.imageUrl">Invalid picture url</span>
 
   <input type="text" placeholder="Occupation" formControlName="occupation">
   <span *ngIf="occupation.errors?.required">Occupation is required</span>

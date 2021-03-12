@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Store} from '@ngrx/store';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {addStudent} from '../../store/students/students.actions';
+import {imageUrlValidator} from '../../shared/validators/image-url.validator';
 import {selectHasStudentAddFailed, selectIsStudentsLoading, selectStudentsError} from '../../store/students/students.selectors';
 import {Observable} from 'rxjs';
 
@@ -27,22 +28,22 @@ export class StudentAddFormComponent implements OnInit {
 
   private initStudentForm(): FormGroup {
     return this.fb.group({
-      firstName: ['John', [
+      firstName: ['', [
         Validators.required,
         Validators.maxLength(255)
       ]],
-      lastName: ['Tron', [
+      lastName: ['', [
         Validators.required,
         Validators.maxLength(255)
       ]],
-      pictureUrl: ['https://www.google.com/image.png', [
-        Validators.pattern(/(^https?:\/\/(?:[a-z0-9\-]+\.)+[a-z]{2,6}(?:\/[^/#?]+)+\.(?:jpg|gif|png|bmp)$)/)
+      pictureUrl: ['', [
+        imageUrlValidator
       ]],
-      occupation: ['Homeless', [
+      occupation: ['', [
         Validators.required,
         Validators.maxLength(255)
       ]],
-      direction: ['QA', [
+      direction: ['', [
         Validators.required,
         Validators.maxLength(255)
       ]]
