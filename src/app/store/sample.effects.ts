@@ -6,7 +6,6 @@ import {of} from 'rxjs';
 import {SampleService} from '../service/sample.service';
 
 
-
 @Injectable()
 export class SampleEffects {
   constructor(private actions$: Actions,
