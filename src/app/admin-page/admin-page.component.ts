@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-admin-page',
-  templateUrl: './admin-page.component.html',
-  styleUrls: ['./admin-page.component.scss']
+  template: `
+    <app-student-add-form></app-student-add-form>
+  `,
+  styles: []
 })
 export class AdminPageComponent implements OnInit {
 
