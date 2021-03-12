@@ -21,5 +21,4 @@ export class StreamComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(loadStreams());
   }
-  
 }

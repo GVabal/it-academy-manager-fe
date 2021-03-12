@@ -19,7 +19,7 @@ export class StreamEffects {
         map(streams => {
           console.log(streams);
           return loadStreamSuccess({streams});
-        }),    
+        }),
         catchError(error => of(loadStreamFailure({error})))
         )
       )
