@@ -6,7 +6,7 @@ export const loadStreams = createAction(
 );
 
 export const loadStreamSuccess = createAction(
-  '[Stream] Load Streams Succes',
+  '[Stream] Load Streams Success',
   props<{streams: Stream[]}>()
 );
 
