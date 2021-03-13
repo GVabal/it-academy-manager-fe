@@ -13,7 +13,6 @@ import { AdminPageComponent } from './admin-page/admin-page.component';
 import { StudentAddFormComponent } from './admin-page/student-add-form/student-add-form.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { StreamComponent } from './stream/stream.component';
-import {HttpClientModule} from '@angular/common/http';
 import { StreamEffects } from './store/stream/stream.effects';
 import { streamFeatureKey, streamReducer } from './store/stream/stream.reducer';
 
@@ -21,8 +20,7 @@ import { streamFeatureKey, streamReducer } from './store/stream/stream.reducer';
   declarations: [
     AppComponent,
     AdminPageComponent,
-    StudentAddFormComponent
-    SampleComponent,
+    StudentAddFormComponent,
     StreamComponent,
   ],
   imports: [

@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import {Student} from '../../shared/Student';
+import {Student} from '../../shared/student';
 
 export const addStudent = createAction(
   '[Students] Add Student',

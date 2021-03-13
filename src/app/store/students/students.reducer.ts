@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import {createEntityAdapter, EntityState} from '@ngrx/entity';
-import {Student} from '../../shared/Student';
+import {Student} from '../../shared/student';
 import { addStudent, addStudentFailure, addStudentSuccess } from './students.actions';
 
 
