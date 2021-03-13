@@ -1,0 +1,82 @@
+<form class="center-content" [formGroup]="studentForm" (ngSubmit)="submitForm()">
+  <div class="card">
+    <h1>New Student Form</h1>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-2">
+          <p class="form-label">First name</p>
+        </div>
+        <div class="col-7">
+          <input class="form-control" type="text" formControlName="firstName">
+        </div>
+        <div class="col-3" *ngIf="firstName.dirty || firstName.touched">
+          <span *ngIf="firstName.errors?.required">First name is required</span>
+          <span *ngIf="firstName.errors?.maxlength">First name is too long</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <p class="form-label">Last name</p>
+        </div>
+        <div class="col-7">
+          <input class="form-control" type="text" formControlName="lastName">
+        </div>
+        <div class="col-3" *ngIf="lastName.dirty || lastName.touched">
+          <span *ngIf="lastName.errors?.required">Last name is required</span>
+          <span *ngIf="lastName.errors?.maxlength">Last name is too long</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <p class="form-label">Picture URL</p>
+        </div>
+        <div class="col-7">
+          <input class="form-control" type="url" formControlName="pictureUrl">
+        </div>
+        <div class="col-3" *ngIf="pictureUrl.dirty || pictureUrl.touched">
+          <span *ngIf="pictureUrl.errors?.imageUrl">Invalid picture url</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <p class="form-label">Occupation</p>
+        </div>
+        <div class="col-7">
+          <input class="form-control" type="text" formControlName="occupation">
+        </div>
+        <div class="col-3" *ngIf="occupation.dirty || occupation.touched">
+          <span *ngIf="occupation.errors?.required">Occupation is required</span>
+          <span *ngIf="occupation.errors?.maxlength">Occupation is too long</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <p class="form-label">Direction</p>
+        </div>
+        <div class="col-7">
+          <input class="form-control" type="text" formControlName="direction">
+        </div>
+        <div class="col-3" *ngIf="direction.dirty || direction.touched">
+          <span *ngIf="direction.errors?.required">Direction is required</span>
+          <span *ngIf="direction.errors?.maxlength">Direction is too long</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col center-content">
+          <button *ngIf="!isLoading" class="btn btn-primary" [disabled]="studentForm.invalid">
+            Add
+          </button>
+          <div *ngIf="isLoading" class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col center-content">
+          <span *ngIf="!hasAddFailed && isLoaded">Success!</span>
+          <span *ngIf="hasAddFailed">{{ error?.message }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
