@@ -12,12 +12,18 @@ import {studentsFeatureKey, studentsReducer} from './store/students/students.red
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { StudentAddFormComponent } from './admin-page/student-add-form/student-add-form.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import { StreamComponent } from './stream/stream.component';
+import {HttpClientModule} from '@angular/common/http';
+import { StreamEffects } from './store/stream/stream.effects';
+import { streamFeatureKey, streamReducer } from './store/stream/stream.reducer';
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminPageComponent,
     StudentAddFormComponent
+    SampleComponent,
+    StreamComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,10 +31,12 @@ import {ReactiveFormsModule} from '@angular/forms';
     HttpClientModule,
     ReactiveFormsModule,
     EffectsModule.forRoot([
-      StudentsEffects
+      StudentsEffects,
+      StreamEffects
     ]),
     StoreModule.forRoot({
-      [studentsFeatureKey]: studentsReducer
+      [studentsFeatureKey]: studentsReducer,
+      [streamFeatureKey]: streamReducer
     }),
     StoreDevtoolsModule.instrument(),
   ],
