@@ -3,7 +3,12 @@ import {Store} from '@ngrx/store';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {addStudent} from '../../store/students/students.actions';
 import {imageUrlValidator} from '../../shared/validators/image-url.validator';
-import {selectHasStudentAddFailed, selectIsStudentsLoading, selectStudentsError} from '../../store/students/students.selectors';
+import {
+  selectHasStudentAddFailed,
+  selectIsStudentsLoaded,
+  selectIsStudentsLoading,
+  selectStudentsError
+} from '../../store/students/students.selectors';
 import {Observable} from 'rxjs';
 
 @Component({
@@ -14,7 +19,11 @@ import {Observable} from 'rxjs';
 export class StudentAddFormComponent implements OnInit {
   hasAddFailed$: Observable<boolean> = this.store.select(selectHasStudentAddFailed);
   isLoading$: Observable<boolean> = this.store.select(selectIsStudentsLoading);
+  isLoaded$: Observable<boolean> = this.store.select(selectIsStudentsLoaded);
   error$: Observable<Error | null> = this.store.select(selectStudentsError);
+  hasAddFailed = false;
+  isLoading = false;
+  isLoaded = false;
   error: Error | null = null;
   studentForm!: FormGroup;
 
@@ -23,6 +32,9 @@ export class StudentAddFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.studentForm = this.initStudentForm();
+    this.hasAddFailed$.subscribe(hasAddFailed => this.hasAddFailed = hasAddFailed);
+    this.isLoading$.subscribe(isLoading => this.isLoading = isLoading);
+    this.isLoaded$.subscribe(isLoaded => this.isLoaded = isLoaded);
     this.error$.subscribe(error => this.error = error);
   }
 
