@@ -17,7 +17,7 @@ export class StreamService {
        return this.http.get<Stream[]>(apiUrl);
   }
 
-  deleteStream(id: number): Observable<boolean> {
-    return this.http.delete<boolean>(`${apiUrl}/${id}`);
+  deleteStream(id: number): Observable<void> {
+    return this.http.delete<void>(`${apiUrl}/${id}`);
   }
 }
