@@ -9,10 +9,10 @@ export const selectHasStudentAddFailed = createSelector(selectStudentsState, stu
 export const selectStudentsError = createSelector(selectStudentsState, studentsState => studentsState.error);
 
 export const getStudents = createSelector(selectStudentsState, studentsAdapter.getSelectors().selectAll);
-export const getStudentById = (id : string) => createSelector(getStudents, (students) => {
+export const getStudentById = (id: string) => createSelector(getStudents, (students) => {
   if (students) {
     return students.find(student => {
-      return student.id! === parseInt(id);
+      return student.id === parseInt(id, 10);
     });
   } else {
     return {};

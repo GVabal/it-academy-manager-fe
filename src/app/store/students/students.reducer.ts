@@ -2,8 +2,6 @@ import { createReducer, on } from '@ngrx/store';
 import {createEntityAdapter, EntityState} from '@ngrx/entity';
 import {Student} from '../../shared/student';
 import * as studentActions from './students.actions';
-//import { addStudent, addStudentFailure, addStudentSuccess, loadStudentById, loadStudentByIdSuccess, loadStudentByIdFailure} from './students.actions';
-
 
 export const studentsFeatureKey = 'students';
 
@@ -60,8 +58,8 @@ export const studentsReducer = createReducer(
   })
   ,
   on(studentActions.loadStudentByIdSuccess, (state, action) => {
-    return studentsAdapter.upsertOne(action.student,{ 
-      ...state
+    return studentsAdapter.upsertOne(action.student, {
+            ...state
     });
   }),
   on(studentActions.loadStudentByIdFailure, (state, action) => {

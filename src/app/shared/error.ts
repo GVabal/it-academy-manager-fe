@@ -1,4 +1,4 @@
 export interface TestError{
-    status? : number,
-    message? : String
+    status?: number;
+    message?: string;
 }

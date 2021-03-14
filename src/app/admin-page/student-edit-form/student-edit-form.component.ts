@@ -30,7 +30,7 @@ export class StudentEditFormComponent implements OnInit {
   isLoaded = false;
   error: TestError| null = null;
   studentForm!: FormGroup;
-  studentId!: string;
+  studentId = '';
 
   constructor(private store: Store,
               private fb: FormBuilder,
@@ -40,25 +40,25 @@ export class StudentEditFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.studentForm = this.initStudentForm();
-    this.studentId = this.route.snapshot.paramMap.get('id')!;
-    (this.store.select(getStudentById(this.studentId)) as Observable<Student>).subscribe((student)=>{ 
-      if(student){
+    this.studentId = this.route.snapshot.paramMap.get('id') || '';
+    (this.store.select(getStudentById(this.studentId)) as Observable<Student>).subscribe((student) => {
+      if (student){
               this.studentForm.patchValue({
         firstName: student.firstName,
         lastName: student.lastName,
         pictureUrl: student.pictureUrl,
         occupation: student.occupation,
-        direction: student.direction 
-      })
+        direction: student.direction
+      });
       }
     });
-    this.store.dispatch(loadStudentById({id: this.studentId}))
+    this.store.dispatch(loadStudentById({id: this.studentId}));
     this.hasAddFailed$.subscribe(hasAddFailed => this.hasAddFailed = hasAddFailed);
     this.isLoading$.subscribe(isLoading => this.isLoading = isLoading);
     this.isLoaded$.subscribe(isLoaded => this.isLoaded = isLoaded);
-    this.error$.subscribe((error) =>{ 
+    this.error$.subscribe((error) => {
       this.error = error;
-      if(this.error?.status === 404){
+      if (this.error?.status === 404){
         this.router.navigate(['admin-page']);
       }
   });

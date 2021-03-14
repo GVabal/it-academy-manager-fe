@@ -18,7 +18,7 @@ export const addStudentFailure = createAction(
 
 export const loadStudentById = createAction(
   '[Students] Load Student',
-  props<{id: String}>()
+  props<{id: string}>()
 );
 
 export const loadStudentByIdSuccess = createAction(
