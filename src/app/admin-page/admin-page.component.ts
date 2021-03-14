@@ -3,9 +3,18 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-admin-page',
   template: `
-    <app-student-add-form></app-student-add-form>
+    <div>
+      <app-student-add-form></app-student-add-form>
+      <app-stream-list></app-stream-list>
+    </div>
   `,
-  styles: []
+  styles: [`
+    div {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  `]
 })
 export class AdminPageComponent implements OnInit {
 

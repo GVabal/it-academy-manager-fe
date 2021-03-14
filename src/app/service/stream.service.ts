@@ -2,6 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Stream } from '../shared/stream';
+import {environment} from '../../environments/environment';
+
+const apiUrl = `${environment.baseUrl}/streams`;
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +14,10 @@ export class StreamService {
   constructor(private http: HttpClient) { }
 
   loadStreams(): Observable<Stream[]>{
-       return this.http.get<Stream[]>('https://it-academy-manager-be.herokuapp.com/api/streams');
+       return this.http.get<Stream[]>(apiUrl);
+  }
+
+  deleteStream(id: number): Observable<boolean> {
+    return this.http.delete<boolean>(`${apiUrl}/${id}`);
   }
 }

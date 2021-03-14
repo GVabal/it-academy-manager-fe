@@ -1,0 +1,16 @@
+<h1>Streams</h1>
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">Stream Name</th>
+    <th scope="col">Remove</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let stream of streams$ | async">
+    <td>{{ stream.name }}</td>
+    <td><button (click)="deleteStream(stream.id)">Remove</button></td>
+  </tr>
+  <tr>
+  </tbody>
+</table>

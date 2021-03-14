@@ -1,17 +1,25 @@
 import { createEntityAdapter, EntityState } from '@ngrx/entity';
 import { createReducer, on } from '@ngrx/store';
 import { Stream } from 'src/app/shared/stream';
-import { loadStreamFailure, loadStreams, loadStreamSuccess } from './stream.actions';
+import {deleteStream, deleteStreamFailure, deleteStreamSuccess, loadStreamFailure, loadStreams, loadStreamSuccess} from './stream.actions';
 
 
 export const streamFeatureKey = 'stream';
 
-export interface State extends EntityState<Stream> {
-
+export interface StreamState extends EntityState<Stream> {
+  loading: boolean;
+  loaded: boolean;
+  error: Error | null;
+  idToDelete: number;
 }
 export const adapter = createEntityAdapter<Stream>();
 
-export const initialState: State =  adapter.getInitialState({});
+export const initialState: StreamState =  adapter.getInitialState({
+  loading: false,
+  loaded: false,
+  error: null,
+  idToDelete: 0
+});
 
 
 
@@ -19,21 +27,56 @@ export const streamReducer = createReducer(
   initialState,
   on(loadStreams, (state) => {
     return {
-      ...state
+      ...state,
+      loading: true,
+      loaded: false,
+      error: null
     };
   }),
 
   on(loadStreamSuccess, (state, action) => {
     return adapter.addMany(action.streams, {
-      ...state
+      ...state,
+      loading: false,
+      loaded: true,
+      error: null
     });
   }),
 
-  on(loadStreamFailure, (state) => {
+  on(loadStreamFailure, (state, action) => {
     return {
-      ...state
+      ...state,
+      loading: false,
+      loaded: false,
+      error: action.error
+    };
+  }),
+  on(deleteStream, (state, action) => {
+    return {
+      ...state,
+      loading: true,
+      loaded: false,
+      error: null,
+      idToDelete: action.id
+    };
+  }),
+  on(deleteStreamSuccess, (state) => {
+    return adapter.removeOne(state.idToDelete, {
+      ...state,
+      loading: false,
+      loaded: true,
+      error: null,
+      idToDelete: 0
+    });
+  }),
+  on(deleteStreamFailure, (state, action) => {
+    return {
+      ...state,
+      loading: false,
+      loaded: false,
+      error: action.error,
+      idToDelete: 0
     };
   })
-
 );
 
