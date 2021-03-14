@@ -1,7 +1,8 @@
 import { createReducer, on } from '@ngrx/store';
 import {createEntityAdapter, EntityState} from '@ngrx/entity';
 import {Student} from '../../shared/student';
-import { addStudent, addStudentFailure, addStudentSuccess } from './students.actions';
+import * as studentActions from './students.actions';
+//import { addStudent, addStudentFailure, addStudentSuccess, loadStudentById, loadStudentByIdSuccess, loadStudentByIdFailure} from './students.actions';
 
 
 export const studentsFeatureKey = 'students';
@@ -25,7 +26,7 @@ export const initialState: StudentsState = studentsAdapter.getInitialState({
 
 export const studentsReducer = createReducer(
   initialState,
-  on(addStudent, (state) => {
+  on(studentActions.addStudent, (state) => {
     return {
       ...state,
       loading: true,
@@ -34,7 +35,7 @@ export const studentsReducer = createReducer(
       error: null
     };
   }),
-  on(addStudentSuccess, (state, action) => {
+  on(studentActions.addStudentSuccess, (state, action) => {
     return studentsAdapter.addOne(action.student, {
       ...state,
       loading: false,
@@ -43,13 +44,44 @@ export const studentsReducer = createReducer(
       error: null
     });
   }),
-  on(addStudentFailure, (state, action) => {
+  on(studentActions.addStudentFailure, (state, action) => {
     return {
       ...state,
       loading: false,
       loaded: false,
       hasStudentAddFailed: true,
       error: action.error
+    };
+  }),
+  on(studentActions.loadStudentById, (state) => {
+    return {
+      ...state
+    };
+  })
+  ,
+  on(studentActions.loadStudentByIdSuccess, (state, action) => {
+    return studentsAdapter.upsertOne(action.student,{ 
+      ...state
+    });
+  }),
+  on(studentActions.loadStudentByIdFailure, (state, action) => {
+    return {
+      ...state,
+      error: action.error
+    };
+  }),  on(studentActions.editStudent, (state) => {
+    return {
+      ...state,
+    };
+  }),
+  on(studentActions.editStudentSuccess, (state, action) => {
+    return studentsAdapter.addOne(action.student, {
+      ...state,
+    });
+  }),
+  on(studentActions.editStudentFailure, (state, action) => {
+    return {
+      ...state,
     };
   })
 );

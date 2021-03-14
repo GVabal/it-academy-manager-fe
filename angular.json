@@ -127,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "it-academy-manager-ui"
+  "defaultProject": "it-academy-manager-ui",
+  "cli": {
+    "analytics": false
+  }
 }

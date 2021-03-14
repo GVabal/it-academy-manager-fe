@@ -3,7 +3,7 @@ import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {StudentService} from '../../service/student.service';
 import {catchError, map, switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
-import {addStudent, addStudentFailure, addStudentSuccess} from './students.actions';
+import {addStudent, addStudentFailure, addStudentSuccess, loadStudentById, loadStudentByIdSuccess, loadStudentByIdFailure} from './students.actions';
 
 
 
@@ -22,4 +22,16 @@ export class StudentsEffects {
       )
     )
   );
+
+  loadStudentById$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(loadStudentById),
+    switchMap((action) => this.studentService.getStudentById(action.id).pipe(
+        map(student => loadStudentByIdSuccess({student})),
+        catchError(error => of(loadStudentByIdFailure({error})))
+      )
+    )
+  )
+);
+
 }

@@ -15,6 +15,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import { StreamComponent } from './stream/stream.component';
 import { StreamEffects } from './store/stream/stream.effects';
 import { streamFeatureKey, streamReducer } from './store/stream/stream.reducer';
+import { StudentEditFormComponent } from './admin-page/student-edit-form/student-edit-form.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { streamFeatureKey, streamReducer } from './store/stream/stream.reducer';
     AdminPageComponent,
     StudentAddFormComponent,
     StreamComponent,
+    StudentEditFormComponent,
   ],
   imports: [
     BrowserModule,
