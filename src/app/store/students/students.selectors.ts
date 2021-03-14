@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import {studentsAdapter, studentsFeatureKey, StudentsState} from './students.reducer';
+import { studentsAdapter, studentsFeatureKey, StudentsState } from './students.reducer';
 
 export const selectStudentsState = createFeatureSelector<StudentsState>(studentsFeatureKey);
 

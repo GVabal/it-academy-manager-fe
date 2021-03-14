@@ -1,11 +1,11 @@
 import { createReducer, on } from '@ngrx/store';
 import { createEntityAdapter, EntityState, Update } from '@ngrx/entity';
-import {Student} from '../../shared/student';
+import { Student } from '../../shared/student';
 import * as studentActions from './students.actions';
 
 export const studentsFeatureKey = 'students';
 
-export interface StudentsState extends EntityState<Student>{
+export interface StudentsState extends EntityState<Student> {
 
   loading: boolean;
   loaded: boolean;
@@ -31,7 +31,7 @@ export const initialState: StudentsState = studentsAdapter.getInitialState({
       occupation: 'studentas',
       direction: 'fe'
     }
-},
+  },
 
   loading: false,
   loaded: false,
@@ -74,7 +74,7 @@ export const studentsReducer = createReducer(
   }),
 
   on(studentActions.loadStudentEdit, (state, action) => {
-    return{
+    return {
       ...state,
       studentEdit: true,
       studentEditId: action.id
@@ -98,7 +98,7 @@ export const studentsReducer = createReducer(
       loaded: true,
       hasStudentEditFailed: false,
       error: null
-});
+    });
   }),
   on(studentActions.editStudentFailure, (state, action) => {
     return {
