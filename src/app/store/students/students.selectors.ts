@@ -8,6 +8,11 @@ export const selectIsStudentsLoaded = createSelector(selectStudentsState, studen
 export const selectHasStudentAddFailed = createSelector(selectStudentsState, studentsState => studentsState.hasStudentAddFailed);
 export const selectStudentsError = createSelector(selectStudentsState, studentsState => studentsState.error);
 
+
+export const selectIsEditingStudent = createSelector(selectStudentsState, studentsState => studentsState.studentEdit);
+export const selectSudentEditId = createSelector(selectStudentsState, studentsState => studentsState.studentEditId);
+export const selectHasStudentEditFailed = createSelector(selectStudentsState, studentsState => studentsState.hasStudentEditFailed);
+
 export const getStudents = createSelector(selectStudentsState, studentsAdapter.getSelectors().selectAll);
 export const getStudentById = (id: string) => createSelector(getStudents, (students) => {
   if (students) {

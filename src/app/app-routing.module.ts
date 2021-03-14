@@ -7,7 +7,6 @@ import { StudentEditFormComponent } from './admin-page/student-edit-form/student
 const routes: Routes = [
   {path: 'streams', component: StreamComponent},
   {path: 'admin-page', component: AdminPageComponent},
-  {path: 'student/edit/:id', component: StudentEditFormComponent},
   {path: '', redirectTo: '/admin-page', pathMatch: 'full'}
 ];
 

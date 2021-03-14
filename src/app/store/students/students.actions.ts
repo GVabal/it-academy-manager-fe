@@ -1,5 +1,6 @@
+import { Student } from './../../shared/student';
+import { Update } from '@ngrx/entity';
 import { createAction, props } from '@ngrx/store';
-import {Student} from '../../shared/student';
 
 export const addStudent = createAction(
   '[Students] Add Student',
@@ -16,32 +17,27 @@ export const addStudentFailure = createAction(
   props<{error: Error}>()
 );
 
-export const loadStudentById = createAction(
-  '[Students] Load Student',
+export const loadStudentEdit = createAction(
+  '[Studetns] Load Student Edit',
   props<{id: string}>()
-);
-
-export const loadStudentByIdSuccess = createAction(
-  '[Students] Load Student Success',
-  props<{student: Student}>()
-);
-
-export const loadStudentByIdFailure = createAction(
-  '[Students] Load Student Failure',
-  props<{error: Error}>()
 );
 
 export const editStudent = createAction(
   '[Students] Edit Student',
-  props<{student: Student}>()
+  props<{student: Student, id: string}>()
 );
 
 export const editStudentSuccess = createAction(
   '[Students] Edit Student Success',
-  props<{student: Student}>()
+  props< {update: Update<Student>}>()
 );
 
 export const editStudentFailure = createAction(
   '[Students] Edit Student Failure',
   props<{error: Error}>()
 );
+
+export const editStudentDone = createAction(
+  '[Studetns] Edit Student Done',
+);
+

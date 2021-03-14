@@ -1,4 +1,5 @@
-<form class="center-content" [formGroup]="studentForm" (ngSubmit)="submitForm()">
+<div *ngIf="this.isEditing">
+  <form class="center-content" [formGroup]="studentForm" (ngSubmit)="submitForm()">
     <div class="card">
       <h1>Student Edit Form</h1>
       <div class="card-body">
@@ -63,7 +64,7 @@
         </div>
         <div class="row">
           <div class="col center-content">
-            <button *ngIf="!isLoading" class="btn btn-primary" >
+            <button *ngIf="!isLoading" class="btn btn-primary" [disabled]="studentForm.invalid">
               Save
             </button>
             <div *ngIf="isLoading" class="spinner-border text-primary" role="status">
@@ -73,11 +74,11 @@
         </div>
         <div class="row">
           <div class="col center-content">
-            <span *ngIf="!hasAddFailed && isLoaded">Success!</span>
-            <span *ngIf="hasAddFailed">{{ error?.message }}</span>
+            <span *ngIf="!hasEditFailed && isLoaded">Success!</span>
+            <span *ngIf="hasEditFailed">{{ error?.message }}</span>
           </div>
         </div>
       </div>
     </div>
   </form>
-  
+</div>
