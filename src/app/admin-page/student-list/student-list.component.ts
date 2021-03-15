@@ -4,7 +4,7 @@ import { combineLatest, Observable } from 'rxjs';
 import { filter, take, tap } from 'rxjs/operators';
 import { StudentService } from '../../service/student.service';
 import { Student } from '../../shared/student';
-import { loadStudents } from '../../store/students/students.actions';
+import { deleteStudent, loadStudents } from '../../store/students/students.actions';
 import { getHasStudentLoadFailed, selectIsStudentsLoaded, selectIsStudentsLoading, selectStudents, selectStudentsError } from '../../store/students/students.selectors';
 
 @Component({
@@ -40,5 +40,11 @@ export class StudentListComponent implements OnInit {
     ).subscribe();
 
     this.students$ = this.store.select(selectStudents);
+  }
+
+  deleteStudent(id: number): void {
+    if (confirm('Are you sure you want to remove this student?')) {
+      this.store.dispatch(deleteStudent({id}));
+    }
   }
 }

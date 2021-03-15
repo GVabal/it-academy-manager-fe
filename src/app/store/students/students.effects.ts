@@ -3,7 +3,9 @@ import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {StudentService} from '../../service/student.service';
 import {catchError, map, mergeMap, switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
-import {addStudent, addStudentFailure, addStudentSuccess, loadStudents, loadStudentsFailure, loadStudentsSuccess} from './students.actions';
+import {addStudent, addStudentFailure, addStudentSuccess,
+  deleteStudent, deleteStudentSuccess, deleteStudentFailure,
+  loadStudents, loadStudentsFailure, loadStudentsSuccess} from './students.actions';
 
 
 
@@ -31,6 +33,17 @@ export class StudentsEffects {
         .pipe(
           map(students => loadStudentsSuccess({students})),
           catchError(error => of(loadStudentsFailure({error})))
+        )
+      )
+    )
+  );
+
+  deleteStudent$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(deleteStudent),
+      switchMap((action) => this.studentService.deleteStudent(action.id).pipe(
+          map((student) => deleteStudentSuccess({student})),
+          catchError(error => of(deleteStudentFailure({error})))
         )
       )
     )
