@@ -9,7 +9,7 @@ export const selectHasStudentAddFailed = createSelector(selectStudentsState, stu
 export const selectStudentsError = createSelector(selectStudentsState, studentsState => studentsState.error);
 export const getHasStudentLoadFailed = createSelector(selectStudentsState, studentsState => studentsState.hasStudentLoadFailed);
 
-export const selectSudentEditId = createSelector(selectStudentsState, studentsState => studentsState.studentEditId);
+export const selectStudentEditId = createSelector(selectStudentsState, studentsState => studentsState.studentEditId);
 export const selectHasStudentEditFailed = createSelector(selectStudentsState, studentsState => studentsState.hasStudentEditFailed);
 export const selectEditOrCreateForm = createSelector(selectStudentsState, studentsState => studentsState.editOrCreateForm);
 
