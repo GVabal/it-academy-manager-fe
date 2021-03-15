@@ -22,7 +22,6 @@ export const initialState: StudentsState = studentsAdapter.getInitialState({
   error: null
 });
 
-
 export const studentsReducer = createReducer(
   initialState,
   on(addStudent, (state) => {
@@ -34,6 +33,7 @@ export const studentsReducer = createReducer(
       error: null
     };
   }),
+
   on(addStudentSuccess, (state, action) => {
     return studentsAdapter.addOne(action.student, {
       ...state,
@@ -43,6 +43,7 @@ export const studentsReducer = createReducer(
       error: null
     });
   }),
+  
   on(addStudentFailure, (state, action) => {
     return {
       ...state,

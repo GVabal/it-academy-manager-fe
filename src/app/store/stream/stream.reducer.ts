@@ -1,9 +1,7 @@
-import { Actions } from '@ngrx/effects';
 import { createEntityAdapter, EntityState } from '@ngrx/entity';
 import { createReducer, on } from '@ngrx/store';
 import { Stream } from 'src/app/shared/stream';
 import { addStream, addStreamFailure, addStreamSuccess, loadStreamFailure, loadStreams, loadStreamSuccess } from './stream.actions';
-
 
 export const streamFeatureKey = 'stream';
 
@@ -23,8 +21,6 @@ export const initialState: State =  adapter.getInitialState({
   hasStreamAddFailed: false,
   error: null,
 });
-
-
 
 export const streamReducer = createReducer(
   initialState,

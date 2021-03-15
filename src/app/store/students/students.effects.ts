@@ -5,8 +5,6 @@ import {catchError, map, switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {addStudent, addStudentFailure, addStudentSuccess} from './students.actions';
 
-
-
 @Injectable()
 export class StudentsEffects {
   constructor(private actions$: Actions,

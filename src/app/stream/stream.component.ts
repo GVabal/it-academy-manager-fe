@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { StreamService } from '../service/stream.service';
 import { Stream } from '../shared/stream';
-import { addStream, loadStreams } from '../store/stream/stream.actions';
-import { selectIsStreamsLoaded, selectIsStreamsLoading, selectStreams } from '../store/stream/stream.selectors';
+import { addStream } from '../store/stream/stream.actions';
+import { selectStreams } from '../store/stream/stream.selectors';
 
 
 @Component({
