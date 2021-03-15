@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
-import {createEntityAdapter, EntityState} from '@ngrx/entity';
-import {Student} from '../../shared/student';
+import { createEntityAdapter, EntityState } from '@ngrx/entity';
+import { Student } from '../../shared/student';
 import * as studentActions from './students.actions';
 
 
@@ -13,6 +13,7 @@ export interface StudentsState extends EntityState<Student> {
   hasStudentAddFailed: boolean;
   hasStudentEditFailed: boolean;
   hasStudentLoadFailed: boolean;
+  hasStudentDeleteFailed: boolean;
   error: Error | null;
   studentEditId: number;
   editOrCreateForm: boolean;
@@ -28,7 +29,8 @@ export const initialState: StudentsState = studentsAdapter.getInitialState({
   error: null,
   studentEditId: -1,
   hasStudentLoadFailed: false,
-  editOrCreateForm: false
+  editOrCreateForm: false,
+  hasStudentDeleteFailed: false,
 });
 
 
@@ -138,6 +140,31 @@ on(studentActions.loadStudents, (state) => {
       loading: false,
       loaded: false,
       hasStudentLoadFailed: true,
+      error: action.error
+    };
+  }),
+  on(studentActions.deleteStudent, (state) => {
+    return {
+      ...state,
+      loading: true,
+      loaded: false,
+      error: null
+    };
+  }),
+  on(studentActions.deleteStudentSuccess, (state, action) => {
+    return studentsAdapter.removeOne(action.id, {
+      ...state,
+      loading: false,
+      loaded: true,
+      error: null
+    });
+  }),
+  on(studentActions.deleteStudentFailure, (state, action) => {
+    return{
+      ...state,
+      loading: false,
+      loaded: false,
+      hasStudentDeleteFailed: true,
       error: action.error
     };
   })
