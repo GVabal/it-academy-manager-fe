@@ -1,14 +1,8 @@
 import { createReducer, on } from '@ngrx/store';
-<<<<<<< HEAD
-import { createEntityAdapter, EntityState, Update } from '@ngrx/entity';
-import { Student } from '../../shared/student';
-import * as studentActions from './students.actions';
-=======
 import {createEntityAdapter, EntityState} from '@ngrx/entity';
 import {Student} from '../../shared/student';
-import { addStudent, addStudentFailure, addStudentSuccess, loadStudents, loadStudentsFailure, loadStudentsSuccess } from './students.actions';
+import * as studentActions from './students.actions';
 
->>>>>>> development
 
 export const studentsFeatureKey = 'students';
 
@@ -17,11 +11,8 @@ export interface StudentsState extends EntityState<Student> {
   loading: boolean;
   loaded: boolean;
   hasStudentAddFailed: boolean;
-<<<<<<< HEAD
   hasStudentEditFailed: boolean;
-=======
   hasStudentLoadFailed: boolean;
->>>>>>> development
   error: Error | null;
   studentEdit: boolean;
   studentEditId: string;
@@ -30,32 +21,14 @@ export interface StudentsState extends EntityState<Student> {
 export const studentsAdapter = createEntityAdapter<Student>();
 
 export const initialState: StudentsState = studentsAdapter.getInitialState({
-
-  // temp for testing
-  ids: [1],
-  entities: {
-    1: {
-      id: 1,
-      firstName: 'Jonas',
-      lastName: 'Petrauskas',
-      pictureUrl: 'https://i.ibb.co/JFxWcDZ/wed-blog-shutterstock-1703194387-low-nwm.jpg',
-      occupation: 'studentas',
-      direction: 'fe'
-    }
-  },
-
   loading: false,
   loaded: false,
   hasStudentAddFailed: false,
-<<<<<<< HEAD
   hasStudentEditFailed: false,
   error: null,
   studentEdit: false,
   studentEditId: '',
-=======
   hasStudentLoadFailed: false,
-  error: null
->>>>>>> development
 });
 
 
@@ -88,7 +61,6 @@ export const studentsReducer = createReducer(
       error: action.error
     };
   }),
-<<<<<<< HEAD
 
   on(studentActions.loadStudentEdit, (state, action) => {
     return {
@@ -99,14 +71,10 @@ export const studentsReducer = createReducer(
   }),
 
   on(studentActions.editStudent, (state) => {
-=======
-  on(loadStudents, (state) => {
->>>>>>> development
     return {
       ...state,
       loading: true,
       loaded: false,
-<<<<<<< HEAD
       hasStudentEditFailed: false,
       error: null
     };
@@ -142,11 +110,15 @@ export const studentsReducer = createReducer(
     };
   }),
 
-=======
+on(studentActions.loadStudents, (state) => {
+      return {
+        ...state,
+        loading: true,
+        loaded: false,
       error: null
     };
   }),
-  on(loadStudentsSuccess, (state, action) => {
+  on(studentActions.loadStudentsSuccess, (state, action) => {
     return studentsAdapter.addMany(action.students, {
       ...state,
       loading: false,
@@ -154,7 +126,7 @@ export const studentsReducer = createReducer(
       error: null
     });
   }),
-  on(loadStudentsFailure, (state, action) => {
+  on(studentActions.loadStudentsFailure, (state, action) => {
     return{
       ...state,
       loading: false,
@@ -163,5 +135,4 @@ export const studentsReducer = createReducer(
       error: action.error
     };
   })
->>>>>>> development
 );

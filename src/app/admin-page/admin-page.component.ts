@@ -6,14 +6,6 @@ import { Store } from '@ngrx/store';
 @Component({
   selector: 'app-admin-page',
   template: `
-<<<<<<< HEAD
-    <app-student-add-form></app-student-add-form>
-    <div class ="d-flex justify-content-center">
-      <button class="btn btn-primary " (click) ="onClick()" >Edit</button>
-      <button class="btn btn-primary " (click) ="onFinish()" >Done</button>
-    </div>
-    <app-student-edit-form></app-student-edit-form>
-=======
   <div class="container">
     <div class="row">
       <div class="col-3">
@@ -27,7 +19,6 @@ import { Store } from '@ngrx/store';
       </div>
     </div>
   </div>
->>>>>>> development
   `,
   styles: []
 })
