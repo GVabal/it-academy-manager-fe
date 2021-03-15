@@ -12,7 +12,6 @@ import { loadStudentCreate, loadStudentEdit } from 'src/app/store/students/stude
 })
 export class StudentListComponent implements OnInit {
   students$: Observable<Student[]> | undefined;
-
   isStudentsLoading$: Observable<boolean> | undefined;
   isStudentsLoaded$: Observable<boolean> | undefined ;
   hasLoadFailed$: Observable<boolean> | undefined ;
@@ -30,13 +29,13 @@ export class StudentListComponent implements OnInit {
   }
 
 
-  onEdit(student: Student){
-    if(student.id){
+  onEdit(student: Student): void{
+    if (student.id){
       this.store.dispatch(loadStudentEdit({id: student.id}));
     }
   }
 
-  onCreate(){
+  onCreate(): void{
     this.store.dispatch(loadStudentCreate());
   }
 }

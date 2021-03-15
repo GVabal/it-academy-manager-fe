@@ -117,10 +117,10 @@ export const studentsReducer = createReducer(
   }),
 
 on(studentActions.loadStudents, (state) => {
-      return {
-        ...state,
-        loading: true,
-        loaded: false,
+    return {
+      ...state,
+      loading: true,
+      loaded: false,
       error: null
     };
   }),

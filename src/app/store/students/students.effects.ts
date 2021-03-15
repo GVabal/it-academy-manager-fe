@@ -5,7 +5,7 @@ import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {StudentService} from '../../service/student.service';
 import {catchError, map, mergeMap, switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
-import {addStudent, addStudentFailure, addStudentSuccess, loadStudents, loadStudentsFailure, loadStudentsSuccess, editStudent, editStudentFailure, editStudentSuccess} from './students.actions';
+import * as studentActions from './students.actions';
 
 
 
@@ -16,10 +16,10 @@ export class StudentsEffects {
 
   addStudent$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(addStudent),
+      ofType(studentActions.addStudent),
       switchMap((action) => this.studentService.addStudent(action.student).pipe(
-        map(student => addStudentSuccess({ student })),
-        catchError(error => of(addStudentFailure({ error })))
+        map(student => studentActions.addStudentSuccess({ student })),
+        catchError(error => of(studentActions.addStudentFailure({ error })))
       )
       )
     )
@@ -27,7 +27,7 @@ export class StudentsEffects {
 
   editStudent$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(editStudent),
+      ofType(studentActions.editStudent),
       switchMap((action) => this.studentService.updateStudent(action.student, action.id).pipe(
         map((student) => {
           const updatedStudent: Update<Student> = {
@@ -36,9 +36,9 @@ export class StudentsEffects {
               ...student,
             }
           };
-          return editStudentSuccess({ update: updatedStudent });
+          return studentActions.editStudentSuccess({ update: updatedStudent });
         }),
-        catchError(error => of(editStudentFailure({ error })))
+        catchError(error => of(studentActions.editStudentFailure({ error })))
       )
       )
     )
@@ -46,11 +46,11 @@ export class StudentsEffects {
 
   loadStudents$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(loadStudents),
+      ofType(studentActions.loadStudents),
       mergeMap(() => this.studentService.loadStudents()
         .pipe(
-          map(students => loadStudentsSuccess({students})),
-          catchError(error => of(loadStudentsFailure({error})))
+          map(students => studentActions.loadStudentsSuccess({students})),
+          catchError(error => of(studentActions.loadStudentsFailure({error})))
         )
       )
     )

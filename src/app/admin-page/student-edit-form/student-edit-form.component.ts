@@ -28,10 +28,6 @@ export class StudentEditFormComponent implements OnInit {
   error$: Observable<Error | null> = this.store.select(selectStudentsError);
   studentId$: Observable<number> = this.store.select(selectSudentEditId);
 
-  hasEditFailed = false;
-  isLoading = false;
-  isLoaded = false;
-  error: Error | null = null;
   studentForm!: FormGroup;
   studentId = 0;
 
@@ -39,7 +35,6 @@ export class StudentEditFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.studentForm = this.initStudentForm();
-
     this.studentId$.pipe(
       switchMap(studentId => (this.store.select(getStudentById(studentId)) as Observable<Student>))
     ).subscribe((student) => {
@@ -54,10 +49,6 @@ export class StudentEditFormComponent implements OnInit {
         });
       }
     });
-    this.isLoading$.subscribe(isLoading => this.isLoading = isLoading);
-    this.isLoaded$.subscribe(isLoaded => this.isLoaded = isLoaded);
-    this.error$.subscribe(error => this.error = error);
-    this.hasEditFailed$.subscribe(hasEditFailed => this.hasEditFailed = hasEditFailed);
   }
 
   private initStudentForm(): FormGroup {

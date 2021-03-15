@@ -63,18 +63,18 @@
       </div>
       <div class="row">
         <div class="col center-content">
-          <button *ngIf="!isLoading" class="btn btn-primary" [disabled]="studentForm.invalid">
+          <button *ngIf="(isLoading$ | async) === false" class="btn btn-primary" [disabled]="studentForm.invalid">
             Save
           </button>
-          <div *ngIf="isLoading" class="spinner-border text-primary" role="status">
+          <div *ngIf="isLoading$ | async" class="spinner-border text-primary" role="status">
             <span class="visually-hidden">Loading...</span>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col center-content">
-          <span *ngIf="!hasEditFailed && isLoaded">Success!</span>
-          <span *ngIf="hasEditFailed">{{ error?.message }}</span>
+          <span *ngIf="(hasEditFailed$ | async) === false && (isLoaded$ |async)">Success!</span>
+          <span *ngIf="error$ | async as error">{{ error.message }}</span>
         </div>
       </div>
     </div>

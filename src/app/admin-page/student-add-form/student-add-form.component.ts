@@ -21,10 +21,6 @@ export class StudentAddFormComponent implements OnInit {
   isLoading$: Observable<boolean> = this.store.select(selectIsStudentsLoading);
   isLoaded$: Observable<boolean> = this.store.select(selectIsStudentsLoaded);
   error$: Observable<Error | null> = this.store.select(selectStudentsError);
-  hasAddFailed = false;
-  isLoading = false;
-  isLoaded = false;
-  error: Error | null = null;
   studentForm!: FormGroup;
 
   constructor(private store: Store,
@@ -32,10 +28,6 @@ export class StudentAddFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.studentForm = this.initStudentForm();
-    this.hasAddFailed$.subscribe(hasAddFailed => this.hasAddFailed = hasAddFailed);
-    this.isLoading$.subscribe(isLoading => this.isLoading = isLoading);
-    this.isLoaded$.subscribe(isLoaded => this.isLoaded = isLoaded);
-    this.error$.subscribe(error => this.error = error);
   }
 
   private initStudentForm(): FormGroup {

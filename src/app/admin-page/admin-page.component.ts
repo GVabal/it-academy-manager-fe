@@ -14,8 +14,8 @@ import { Observable } from 'rxjs';
         <app-student-list></app-student-list>
       </div>
       <div class="col-9">
-      <app-student-add-form *ngIf="!this.editOrCreateForm"></app-student-add-form>
-      <app-student-edit-form *ngIf="this.editOrCreateForm"></app-student-edit-form>
+      <app-student-add-form *ngIf="(editOrCreateForm$ | async) === false"></app-student-add-form>
+      <app-student-edit-form *ngIf="editOrCreateForm$ | async"></app-student-edit-form>
       </div>
       <div class="col-3">
         <app-stream-list></app-stream-list>
@@ -27,13 +27,12 @@ import { Observable } from 'rxjs';
 })
 export class AdminPageComponent implements OnInit {
 
-  editOrCreateForm = false;
-  editOrCreateForm$: Observable<boolean> = this.store.select(selectEditOrCreateForm)
+  editOrCreateForm$!: Observable<boolean>;
 
   constructor(private store: Store) { }
 
   ngOnInit(): void {
-    this.editOrCreateForm$.subscribe(value => this.editOrCreateForm = value);
+    this.editOrCreateForm$ = this.store.select(selectEditOrCreateForm);
   }
 
 }
