@@ -29,3 +29,18 @@ export const loadStudentsFailure = createAction(
   '[Students] Load Student Failure',
   props<{error: Error}>()
 );
+
+export const deleteStudent = createAction(
+  '[Student] Delete Student',
+  props<{id: number}>()
+);
+
+export const deleteStudentSuccess = createAction(
+  '[Student] Delete Student Success',
+  props<{id: number}>()
+);
+
+export const deleteStudentFailure = createAction(
+  '[Student] Delete Student Failure',
+  props<{error: Error}>()
+);

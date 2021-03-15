@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { deleteStudent } from 'src/app/store/students/students.actions';
 import { Student } from '../../shared/student';
 import { getHasStudentLoadFailed, selectIsStudentsLoaded, selectIsStudentsLoading, selectStudents, selectStudentsError } from '../../store/students/students.selectors';
 
@@ -26,5 +27,11 @@ export class StudentListComponent implements OnInit {
     this.hasLoadFailed$ = this.store.select(getHasStudentLoadFailed);
     this.error$ = this.store.select(selectStudentsError);
     this.students$ = this.store.select(selectStudents);
+  }
+
+  deleteStudent(id: number): void {
+    if (confirm('Are you sure you want to remove this student?')) {
+      this.store.dispatch(deleteStudent({id}));
+    }
   }
 }
