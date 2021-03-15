@@ -15,3 +15,17 @@ export const addStudentFailure = createAction(
   '[Students] Add Student Failure',
   props<{error: Error}>()
 );
+
+export const loadStudents = createAction(
+  '[Students] Load Students'
+);
+
+export const loadStudentsSuccess = createAction(
+  '[Students] Load Students Success',
+  props<{students: Student[]}>()
+);
+
+export const loadStudentsFailure = createAction(
+  '[Students] Load Student Failure',
+  props<{error: Error}>()
+);
