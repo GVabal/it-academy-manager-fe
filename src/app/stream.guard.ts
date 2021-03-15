@@ -16,7 +16,7 @@ export class StreamGuard implements CanActivate {
 
   canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot):  boolean | UrlTree | Observable<boolean | UrlTree>  {
+    state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree>  {
       this.store.dispatch(loadStreams());
       return this.store.pipe(select(getStreamState),
       filter(stream => !stream.loading),
@@ -25,7 +25,7 @@ export class StreamGuard implements CanActivate {
           if (!stream.loaded) {
               throw stream.error;
           }
-          return true;    
+          return true;
         })
       );
     }

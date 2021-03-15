@@ -29,9 +29,8 @@ export class StreamComponent implements OnInit {
   error: Error | null = null;
 
   constructor(private streamService: StreamService,
-    private store: Store,
-    private fb: FormBuilder) { }
-
+              private store: Store,
+              private fb: FormBuilder) {}
   ngOnInit(): void {
   }
 
