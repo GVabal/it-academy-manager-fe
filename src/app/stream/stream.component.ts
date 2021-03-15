@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { StreamService } from '../service/stream.service';
 import { Stream } from '../shared/stream';
-import { loadStreams } from '../store/stream/stream.actions';
+import { addStream, loadStreams } from '../store/stream/stream.actions';
 import { selectIsStreamsLoaded, selectIsStreamsLoading, selectStreams } from '../store/stream/stream.selectors';
 
 
@@ -16,7 +16,7 @@ import { selectIsStreamsLoaded, selectIsStreamsLoading, selectStreams } from '..
 export class StreamComponent implements OnInit {
 
   streamForm = this.fb.group ({
-    streamName : new FormControl('',[
+    name : new FormControl('',[
       Validators.required,
       Validators.pattern(".{2,50}")
     ])
@@ -36,9 +36,11 @@ export class StreamComponent implements OnInit {
   }
 
   get streamName(): FormControl {
-    return this.streamForm.get('streamName') as FormControl;
+    return this.streamForm.get('name') as FormControl;
   }
 
-  submitForm(){}
+  submitForm(){
+    this.store.dispatch(addStream({stream: this.streamForm.value}))
+  }
 
 }

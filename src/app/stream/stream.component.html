@@ -2,14 +2,11 @@
     <li>{{ stream.name }}</li>
   </ul>
   <form [formGroup]="streamForm" (ngSubmit)="submitForm()">
-  <div>
     <label>
       Name:
-      <input type="text" formControlName="streamName">
+      <input type="text" formControlName="name">
     </label>
-
     <p>
       <button [disabled]="!streamForm.valid"> Add</button>
     </p>
-    </div>
   </form>
