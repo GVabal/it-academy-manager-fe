@@ -1,0 +1,22 @@
+<h1>Stream List</h1>
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let stream of streams$ | async">
+    {{ stream.name }}
+    <span class="spacer"></span>
+    <button class="btn btn-sm btn-outline-danger"
+            (click)="deleteStream(stream.id)"
+            [disabled]="isLoading$ | async"
+    >Remove</button>
+  </li>
+</ul>
+<div class="error-container" *ngIf="error$ | async as error">{{ error.message }}</div>
+<form [formGroup]="streamForm" (ngSubmit)="submitForm()">
+  <p>Name for the new stream:</p>
+    <input type="text" formControlName="name">
+    <div *ngIf="streamName.dirty || streamName.touched">
+      <span *ngIf="streamName.errors?.pattern">Stream name must be between 2 and 50 characters</span>
+    </div>
+  <p>
+    <button [disabled]="!streamForm.valid"> Add new stream</button>
+  </p>
+</form>
