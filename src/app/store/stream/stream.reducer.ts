@@ -38,8 +38,7 @@ export const streamReducer = createReducer(
     return adapter.addMany(action.streams, {
       ...state,
       loading: false,
-      loaded: true,
-      error: null
+      loaded: true
     });
   }),
 
@@ -65,7 +64,6 @@ export const streamReducer = createReducer(
       ...state,
       loading: false,
       loaded: true,
-      error: null,
       idToDelete: 0
     });
   }),

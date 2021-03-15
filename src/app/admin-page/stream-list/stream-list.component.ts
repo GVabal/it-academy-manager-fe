@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { StreamService } from '../../service/stream.service';
 import { Stream } from '../../shared/stream';
 import {deleteStream, loadStreams} from '../../store/stream/stream.actions';
-import {selectIsStreamLoaded, selectIsStreamLoading, selectStreams} from '../../store/stream/stream.selectors';
+import {getIsStreamLoading, getStreamError, selectStreams} from '../../store/stream/stream.selectors';
 
 
 @Component({
@@ -13,18 +13,21 @@ import {selectIsStreamLoaded, selectIsStreamLoading, selectStreams} from '../../
   styleUrls: ['./stream-list.component.scss']
 })
 export class StreamListComponent implements OnInit {
-  isLoading$: Observable<boolean> = this.store.select(selectIsStreamLoading);
-  isLoaded$: Observable<boolean> = this.store.select(selectIsStreamLoaded);
-  streams$: Observable<Stream[]> = this.store.select(selectStreams);
+  isLoading$!: Observable<boolean>;
+  error$!: Observable<Error | null>;
+  streams$!: Observable<Stream[]>;
   isLoading = false;
-  isLoaded = false;
+  error: Error | null = null;
 
   constructor(private streamService: StreamService, private store: Store) { }
 
   ngOnInit(): void {
+    this.isLoading$ = this.store.select(getIsStreamLoading);
+    this.error$ = this.store.select(getStreamError);
+    this.streams$ = this.store.select(selectStreams);
     this.store.dispatch(loadStreams());
     this.isLoading$.subscribe(isLoading => this.isLoading = isLoading);
-    this.isLoaded$.subscribe(isLoaded => this.isLoaded = isLoaded);
+    this.error$.subscribe(error => this.error = error);
   }
 
   deleteStream(id: number): void {
