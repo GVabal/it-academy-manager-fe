@@ -1,0 +1,13 @@
+<h1>Stream List</h1>
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let stream of streams$ | async">
+    {{ stream.name }}
+    <span class="spacer"></span>
+    <button class="btn btn-sm btn-outline-danger"
+            (click)="deleteStream(stream.id)"
+            [disabled]="isLoading$ | async"
+    >Remove</button>
+  </li>
+</ul>
+<div class="error-container" *ngIf="error$ | async as error">{{ error.message }}</div>
+

@@ -11,6 +11,9 @@ import { Component, OnInit } from '@angular/core';
       <div class="col-9">
       <app-student-add-form></app-student-add-form>
       </div>
+      <div class="col-3">
+        <app-stream-list></app-stream-list>
+      </div>
     </div>
   </div>
   `,

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { combineLatest, Observable } from 'rxjs';
-import { filter, take, tap } from 'rxjs/operators';
-import { StudentService } from '../../service/student.service';
+import { Observable } from 'rxjs';
 import { Student } from '../../shared/student';
+<<<<<<< HEAD
 import { deleteStudent, loadStudents } from '../../store/students/students.actions';
+=======
+>>>>>>> development
 import { getHasStudentLoadFailed, selectIsStudentsLoaded, selectIsStudentsLoading, selectStudents, selectStudentsError } from '../../store/students/students.selectors';
 
 @Component({
@@ -28,17 +29,6 @@ export class StudentListComponent implements OnInit {
     this.isStudentsLoaded$ = this.store.select(selectIsStudentsLoaded);
     this.hasLoadFailed$ = this.store.select(getHasStudentLoadFailed);
     this.error$ = this.store.select(selectStudentsError);
-
-    this.store.dispatch(loadStudents());
-
-    combineLatest([this.isStudentsLoading$, this.isStudentsLoaded$]).pipe(
-      filter(([loading, loaded]) => !loading && !loaded),
-      take(1),
-      tap(() => {
-        this.store.dispatch(loadStudents());
-      })
-    ).subscribe();
-
     this.students$ = this.store.select(selectStudents);
   }
 
