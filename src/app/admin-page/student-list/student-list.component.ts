@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { deleteStudent } from 'src/app/store/students/students.actions';
 import { Student } from '../../shared/student';
-<<<<<<< HEAD
-import { deleteStudent, loadStudents } from '../../store/students/students.actions';
-=======
->>>>>>> development
 import { getHasStudentLoadFailed, selectIsStudentsLoaded, selectIsStudentsLoading, selectStudents, selectStudentsError } from '../../store/students/students.selectors';
 
 @Component({
