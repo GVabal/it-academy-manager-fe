@@ -14,15 +14,7 @@ export const selectHasStudentEditFailed = createSelector(selectStudentsState, st
 export const selectEditOrCreateForm = createSelector(selectStudentsState, studentsState => studentsState.editOrCreateForm);
 
 export const getStudents = createSelector(selectStudentsState, studentsAdapter.getSelectors().selectAll);
-export const getStudentById = (id: number) => createSelector(getStudents, (students) => {
-  if (students) {
-    return students.find(student => {
-      return student.id === id;
-    });
-  } else {
-    return {};
-  }
-});
+export const getStudentById = (id: number) => createSelector(getStudents, students => students.find(student => student.id === id));
 
 export const {
   selectAll: selectStudents,

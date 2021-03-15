@@ -41,10 +41,6 @@ export const editStudentFailure = createAction(
   props<{ error: Error }>()
 );
 
-export const editStudentDone = createAction(
-  '[Studetns] Edit Student Done',
-);
-
 export const loadStudents = createAction(
   '[Students] Load Students'
 );
