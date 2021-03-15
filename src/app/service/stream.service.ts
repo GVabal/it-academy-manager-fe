@@ -19,7 +19,7 @@ export class StreamService {
   }
 
   addStream(stream: Stream): Observable<Stream> {
-    return this.http.post<Stream>(apiUrl, stream);   
+    return this.http.post<Stream>(apiUrl, stream);
   }
 
   deleteStream(id: number): Observable<void> {

@@ -1,7 +1,11 @@
 import { createEntityAdapter, EntityState } from '@ngrx/entity';
 import { createReducer, on } from '@ngrx/store';
 import { Stream } from 'src/app/shared/stream';
-import { addStream, addStreamFailure, addStreamSuccess, loadStreamFailure, loadStreams, loadStreamSuccess, deleteStream, deleteStreamFailure, deleteStreamSuccess } from './stream.actions';
+import {
+  addStream, addStreamFailure, addStreamSuccess,
+  loadStreamFailure, loadStreams, loadStreamSuccess,
+  deleteStream, deleteStreamFailure, deleteStreamSuccess
+} from './stream.actions';
 
 export const streamFeatureKey = 'stream';
 

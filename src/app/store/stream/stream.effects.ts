@@ -2,7 +2,11 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { StreamService } from 'src/app/service/stream.service';
-import { loadStreams, loadStreamFailure, loadStreamSuccess, addStream, addStreamFailure, addStreamSuccess, deleteStream, deleteStreamFailure, deleteStreamSuccess } from './stream.actions';
+import {
+  loadStreams, loadStreamFailure, loadStreamSuccess,
+  addStream, addStreamFailure, addStreamSuccess,
+  deleteStream, deleteStreamFailure, deleteStreamSuccess
+} from './stream.actions';
 import {of} from 'rxjs';
 
 @Injectable()

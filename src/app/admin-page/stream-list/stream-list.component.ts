@@ -26,8 +26,8 @@ export class StreamListComponent implements OnInit {
     this.error$ = this.store.select(getStreamError);
     this.streams$ = this.store.select(selectStreams);
 
-     this.streamForm = this.fb.group ({
-      name : new FormControl('', [
+    this.streamForm = this.fb.group({
+      name: new FormControl('', [
         Validators.required,
         Validators.pattern('.{2,50}')
       ])
