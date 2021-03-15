@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { imageUrlValidator } from '../../shared/validators/image-url.validator';
 import {
-  selectSudentEditId,
+  selectStudentEditId,
   selectHasStudentEditFailed,
   getStudentById,
   selectIsStudentsLoaded,
@@ -26,7 +26,7 @@ export class StudentEditFormComponent implements OnInit {
   isLoading$: Observable<boolean> = this.store.select(selectIsStudentsLoading);
   isLoaded$: Observable<boolean> = this.store.select(selectIsStudentsLoaded);
   error$: Observable<Error | null> = this.store.select(selectStudentsError);
-  studentId$: Observable<number> = this.store.select(selectSudentEditId);
+  studentId$: Observable<number> = this.store.select(selectStudentEditId);
 
   studentForm!: FormGroup;
   studentId = 0;
