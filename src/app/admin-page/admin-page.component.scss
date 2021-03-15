@@ -1,0 +1,10 @@
+.my-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.divider {
+  border-left: 1px solid #000000;
+  height: 100vh;
+}
