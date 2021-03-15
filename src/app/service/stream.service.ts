@@ -9,12 +9,17 @@ const apiUrl = `${environment.baseUrl}/streams`;
 @Injectable({
   providedIn: 'root'
 })
+
 export class StreamService {
 
   constructor(private http: HttpClient) { }
 
   loadStreams(): Observable<Stream[]>{
-       return this.http.get<Stream[]>(apiUrl);
+    return this.http.get<Stream[]>(apiUrl);
+  }
+
+  addStream(stream: Stream): Observable<Stream> {
+    return this.http.post<Stream>(apiUrl, stream);
   }
 
   deleteStream(id: number): Observable<void> {

@@ -1,14 +1,19 @@
 import { createEntityAdapter, EntityState } from '@ngrx/entity';
 import { createReducer, on } from '@ngrx/store';
 import { Stream } from 'src/app/shared/stream';
-import {deleteStream, deleteStreamFailure, deleteStreamSuccess, loadStreamFailure, loadStreams, loadStreamSuccess} from './stream.actions';
-
+import {
+  addStream, addStreamFailure, addStreamSuccess,
+  loadStreamFailure, loadStreams, loadStreamSuccess,
+  deleteStream, deleteStreamFailure, deleteStreamSuccess
+} from './stream.actions';
 
 export const streamFeatureKey = 'stream';
 
 export interface StreamState extends EntityState<Stream> {
   loading: boolean;
   loaded: boolean;
+  hasLoadFailed: boolean;
+  hasStreamAddFailed: boolean;
   error: Error | null;
 }
 export const adapter = createEntityAdapter<Stream>();
@@ -16,10 +21,10 @@ export const adapter = createEntityAdapter<Stream>();
 export const initialState: StreamState =  adapter.getInitialState({
   loading: false,
   loaded: false,
-  error: null
+  hasLoadFailed: false,
+  hasStreamAddFailed: false,
+  error: null,
 });
-
-
 
 export const streamReducer = createReducer(
   initialState,
@@ -27,14 +32,15 @@ export const streamReducer = createReducer(
     return {
       ...state,
       loading: true,
-      loaded: false
+      loaded: false,
     };
   }),
 
   on(loadStreamSuccess, (state, action) => {
     return adapter.addMany(action.streams, {
       ...state,
-      loading: false
+      loading: false,
+      loaded: true,
     });
   }),
 
@@ -46,6 +52,7 @@ export const streamReducer = createReducer(
       error: action.error
     };
   }),
+
   on(deleteStream, (state) => {
     return {
       ...state,
@@ -54,6 +61,7 @@ export const streamReducer = createReducer(
       error: null
     };
   }),
+
   on(deleteStreamSuccess, (state, action) => {
     return adapter.removeOne(action.id, {
       ...state,
@@ -61,11 +69,38 @@ export const streamReducer = createReducer(
       loaded: true
     });
   }),
+
   on(deleteStreamFailure, (state, action) => {
     return {
       ...state,
       loading: false,
       loaded: false,
+      error: action.error
+    };
+  }),
+
+  on(addStream, (state) => {
+    return {
+      ...state,
+      loading: true,
+      loaded: false,
+    };
+  }),
+
+  on(addStreamSuccess, (state, action) => {
+    return adapter.addOne(action.stream, {
+      ...state,
+      loading: false,
+      loaded: true,
+    });
+  }),
+
+  on(addStreamFailure, (state, action) => {
+    return {
+      ...state,
+      loading: false,
+      loaded: false,
+      hasStreamAddFailed: true,
       error: action.error
     };
   })

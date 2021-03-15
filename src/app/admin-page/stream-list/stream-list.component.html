@@ -10,4 +10,13 @@
   </li>
 </ul>
 <div class="error-container" *ngIf="error$ | async as error">{{ error.message }}</div>
-
+<form [formGroup]="streamForm" (ngSubmit)="submitForm()">
+  <p>Name for the new stream:</p>
+    <input type="text" formControlName="name">
+    <div *ngIf="streamName.dirty || streamName.touched">
+      <span *ngIf="streamName.errors?.pattern">Stream name must be between 2 and 50 characters</span>
+    </div>
+  <p>
+    <button [disabled]="!streamForm.valid"> Add new stream</button>
+  </p>
+</form>
