@@ -1,9 +1,10 @@
+import { Student } from './../../shared/student';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { deleteStudent } from 'src/app/store/students/students.actions';
-import { Student } from '../../shared/student';
 import { getHasStudentLoadFailed, selectIsStudentsLoaded, selectIsStudentsLoading, selectStudents, selectStudentsError } from '../../store/students/students.selectors';
+import { loadStudentCreate, loadStudentEdit } from 'src/app/store/students/students.actions';
 
 @Component({
   selector: 'app-student-list',
@@ -12,7 +13,6 @@ import { getHasStudentLoadFailed, selectIsStudentsLoaded, selectIsStudentsLoadin
 })
 export class StudentListComponent implements OnInit {
   students$: Observable<Student[]> | undefined;
-
   isStudentsLoading$: Observable<boolean> | undefined;
   isStudentsLoaded$: Observable<boolean> | undefined ;
   hasLoadFailed$: Observable<boolean> | undefined ;
@@ -27,6 +27,16 @@ export class StudentListComponent implements OnInit {
     this.hasLoadFailed$ = this.store.select(getHasStudentLoadFailed);
     this.error$ = this.store.select(selectStudentsError);
     this.students$ = this.store.select(selectStudents);
+  }
+
+  onEdit(student: Student): void{
+    if (student.id){
+      this.store.dispatch(loadStudentEdit({id: student.id}));
+    }
+  }
+
+  onCreate(): void{
+    this.store.dispatch(loadStudentCreate());
   }
 
   deleteStudent(id: number): void {

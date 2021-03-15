@@ -1,19 +1,44 @@
+import { Student } from './../../shared/student';
+import { Update } from '@ngrx/entity';
 import { createAction, props } from '@ngrx/store';
-import {Student} from '../../shared/student';
 
 export const addStudent = createAction(
   '[Students] Add Student',
-  props<{student: Student}>()
+  props<{ student: Student }>()
 );
 
 export const addStudentSuccess = createAction(
   '[Students] Add Student Success',
-  props<{student: Student}>()
+  props<{ student: Student }>()
 );
 
 export const addStudentFailure = createAction(
   '[Students] Add Student Failure',
-  props<{error: Error}>()
+  props<{ error: Error }>()
+);
+
+export const loadStudentEdit = createAction(
+  '[Students] Load Student Edit From',
+  props<{ id: number }>()
+);
+
+export const loadStudentCreate = createAction(
+  '[Students] Load Student Create Form',
+);
+
+export const editStudent = createAction(
+  '[Students] Edit Student',
+  props<{ student: Student, id: number }>()
+);
+
+export const editStudentSuccess = createAction(
+  '[Students] Edit Student Success',
+  props<{ update: Update<Student> }>()
+);
+
+export const editStudentFailure = createAction(
+  '[Students] Edit Student Failure',
+  props<{ error: Error }>()
 );
 
 export const loadStudents = createAction(

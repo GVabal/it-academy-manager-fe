@@ -1,4 +1,7 @@
+import { selectEditOrCreateForm } from './../store/students/students.selectors';
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-admin-page',
@@ -9,7 +12,8 @@ import { Component, OnInit } from '@angular/core';
         <app-student-list></app-student-list>
       </div>
       <div class="col-9">
-      <app-student-add-form></app-student-add-form>
+      <app-student-add-form *ngIf="(editOrCreateForm$ | async) === false"></app-student-add-form>
+      <app-student-edit-form *ngIf="editOrCreateForm$ | async"></app-student-edit-form>
       </div>
       <div class="col-3">
         <app-stream-list></app-stream-list>
@@ -21,9 +25,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminPageComponent implements OnInit {
 
-  constructor() { }
+  editOrCreateForm$!: Observable<boolean>;
+
+  constructor(private store: Store) { }
 
   ngOnInit(): void {
+    this.editOrCreateForm$ = this.store.select(selectEditOrCreateForm);
   }
 
 }

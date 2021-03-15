@@ -14,6 +14,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import { StreamListComponent } from './admin-page/stream-list/stream-list.component';
 import { StreamEffects } from './store/stream/stream.effects';
 import { streamFeatureKey, streamReducer } from './store/stream/stream.reducer';
+import { StudentEditFormComponent } from './admin-page/student-edit-form/student-edit-form.component';
 import { StudentListComponent } from './admin-page/student-list/student-list.component';
 
 
@@ -22,6 +23,7 @@ import { StudentListComponent } from './admin-page/student-list/student-list.com
     AppComponent,
     AdminPageComponent,
     StudentAddFormComponent,
+    StudentEditFormComponent,
     StreamListComponent,
     StudentListComponent,
   ],
