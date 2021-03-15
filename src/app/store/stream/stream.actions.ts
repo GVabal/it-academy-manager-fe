@@ -15,7 +15,17 @@ export const loadStreamFailure = createAction(
   props<{error: Error}>()
 );
 
+export const deleteStream = createAction(
+  '[Stream] Delete Stream',
+  props<{id: number}>()
+);
 
+export const deleteStreamSuccess = createAction(
+  '[Stream] Delete Stream Success',
+  props<{id: number}>()
+);
 
-
-
+export const deleteStreamFailure = createAction(
+  '[Stream] Delete Stream Failure',
+  props<{error: Error}>()
+);
