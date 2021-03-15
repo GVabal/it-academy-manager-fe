@@ -5,9 +5,9 @@
     <span class="spacer"></span>
     <button class="btn btn-sm btn-outline-danger"
             (click)="deleteStream(stream.id)"
-            [disabled]="isLoading"
+            [disabled]="isLoading$ | async"
     >Remove</button>
   </li>
 </ul>
-<div class="error-container" *ngIf="error">{{ error?.message }}</div>
+<div class="error-container" *ngIf="error$ | async as error">{{ error.message }}</div>
 

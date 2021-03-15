@@ -27,7 +27,7 @@ export class StreamEffects {
     this.actions$.pipe(
       ofType(deleteStream),
       switchMap(action => this.streamService.deleteStream(action.id).pipe(
-        map(() => deleteStreamSuccess()),
+        map(() => deleteStreamSuccess({id: action.id})),
         catchError(error => of(deleteStreamFailure({error})))
         )
       )

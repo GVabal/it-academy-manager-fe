@@ -16,8 +16,6 @@ export class StreamListComponent implements OnInit {
   isLoading$!: Observable<boolean>;
   error$!: Observable<Error | null>;
   streams$!: Observable<Stream[]>;
-  isLoading = false;
-  error: Error | null = null;
 
   constructor(private streamService: StreamService, private store: Store) { }
 
@@ -25,9 +23,6 @@ export class StreamListComponent implements OnInit {
     this.isLoading$ = this.store.select(getIsStreamLoading);
     this.error$ = this.store.select(getStreamError);
     this.streams$ = this.store.select(selectStreams);
-    this.store.dispatch(loadStreams());
-    this.isLoading$.subscribe(isLoading => this.isLoading = isLoading);
-    this.error$.subscribe(error => this.error = error);
   }
 
   deleteStream(id: number): void {

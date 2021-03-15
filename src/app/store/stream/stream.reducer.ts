@@ -10,15 +10,13 @@ export interface StreamState extends EntityState<Stream> {
   loading: boolean;
   loaded: boolean;
   error: Error | null;
-  idToDelete: number;
 }
 export const adapter = createEntityAdapter<Stream>();
 
 export const initialState: StreamState =  adapter.getInitialState({
   loading: false,
   loaded: false,
-  error: null,
-  idToDelete: 0
+  error: null
 });
 
 
@@ -29,16 +27,14 @@ export const streamReducer = createReducer(
     return {
       ...state,
       loading: true,
-      loaded: false,
-      error: null
+      loaded: false
     };
   }),
 
   on(loadStreamSuccess, (state, action) => {
     return adapter.addMany(action.streams, {
       ...state,
-      loading: false,
-      loaded: true
+      loading: false
     });
   }),
 
@@ -50,21 +46,19 @@ export const streamReducer = createReducer(
       error: action.error
     };
   }),
-  on(deleteStream, (state, action) => {
+  on(deleteStream, (state) => {
     return {
       ...state,
       loading: true,
       loaded: false,
-      error: null,
-      idToDelete: action.id
+      error: null
     };
   }),
-  on(deleteStreamSuccess, (state) => {
-    return adapter.removeOne(state.idToDelete, {
+  on(deleteStreamSuccess, (state, action) => {
+    return adapter.removeOne(action.id, {
       ...state,
       loading: false,
-      loaded: true,
-      idToDelete: 0
+      loaded: true
     });
   }),
   on(deleteStreamFailure, (state, action) => {
@@ -72,8 +66,7 @@ export const streamReducer = createReducer(
       ...state,
       loading: false,
       loaded: false,
-      error: action.error,
-      idToDelete: 0
+      error: action.error
     };
   })
 );

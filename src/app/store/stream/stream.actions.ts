@@ -22,6 +22,7 @@ export const deleteStream = createAction(
 
 export const deleteStreamSuccess = createAction(
   '[Stream] Delete Stream Success',
+  props<{id: number}>()
 );
 
 export const deleteStreamFailure = createAction(

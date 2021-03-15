@@ -1,10 +1,10 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { adapter, StreamState, streamFeatureKey } from './stream.reducer';
 
-export const selectStreamState =  createFeatureSelector<StreamState>(streamFeatureKey);
+export const getStreamFeatureState =  createFeatureSelector<StreamState>(streamFeatureKey);
 
-export const getIsStreamLoading = createSelector(selectStreamState, streamState => streamState.loading);
-export const getIsStreamLoaded = createSelector(selectStreamState, streamState => streamState.loaded);
-export const getStreamError = createSelector(selectStreamState, streamState => streamState.error);
+export const getIsStreamLoading = createSelector(getStreamFeatureState, streamState => streamState.loading);
+export const getIsStreamLoaded = createSelector(getStreamFeatureState, streamState => streamState.loaded);
+export const getStreamError = createSelector(getStreamFeatureState, streamState => streamState.error);
 
-export const {selectAll: selectStreams} = adapter.getSelectors(selectStreamState);
+export const {selectAll: selectStreams} = adapter.getSelectors(getStreamFeatureState);
