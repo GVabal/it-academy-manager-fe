@@ -34,12 +34,14 @@ export class StreamListComponent implements OnInit {
     });
   }
 
-  deleteStream(id: number): void {
-    this.store.dispatch(deleteStream({id}));
-  }
-
   get streamName(): FormControl {
     return this.streamForm.get('name') as FormControl;
+  }
+
+  deleteStream(id: number): void {
+    if (confirm('Are you sure you want to remove this stream?')) {
+      this.store.dispatch(deleteStream({id}));
+    }
   }
 
   submitForm(): void {

@@ -1,9 +1,9 @@
-import { Student } from './../../shared/student';
+import { Student } from '../../shared/student';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { deleteStudent } from 'src/app/store/students/students.actions';
-import { getHasStudentLoadFailed, selectIsStudentsLoaded, selectIsStudentsLoading, selectStudents, selectStudentsError } from '../../store/students/students.selectors';
+import { getHasStudentLoadFailed, getIsStudentsLoaded, getIsStudentsLoading, selectStudents, getStudentsError } from '../../store/students/students.selectors';
 import { loadStudentCreate, loadStudentEdit } from 'src/app/store/students/students.actions';
 
 @Component({
@@ -22,10 +22,10 @@ export class StudentListComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.isStudentsLoading$ =  this.store.select(selectIsStudentsLoading);
-    this.isStudentsLoaded$ = this.store.select(selectIsStudentsLoaded);
+    this.isStudentsLoading$ =  this.store.select(getIsStudentsLoading);
+    this.isStudentsLoaded$ = this.store.select(getIsStudentsLoaded);
     this.hasLoadFailed$ = this.store.select(getHasStudentLoadFailed);
-    this.error$ = this.store.select(selectStudentsError);
+    this.error$ = this.store.select(getStudentsError);
     this.students$ = this.store.select(selectStudents);
   }
 

@@ -16,7 +16,7 @@ export const loadStreamFailure = createAction(
 );
 
 export const addStream = createAction(
-  '[Stream] Add Streams',
+  '[Stream] Add Stream',
   props<{stream: Stream}>()
 );
 

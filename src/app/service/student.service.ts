@@ -18,17 +18,17 @@ export class StudentService {
   }
 
   updateStudent(student: Student, id: number): Observable<Student> {
-    return this.http.put<Student>(apiUrl + '/' + id , student);
+    return this.http.put<Student>(`${apiUrl}/${id}`, student);
   }
 
   getStudentById(id: number): Observable<Student> {
-    return this.http.get<Student>(apiUrl + '/' + id);
+    return this.http.get<Student>(`${apiUrl}/${id}`);
   }
 
   loadStudents(): Observable<Student[]> {
     return this.http.get<Student[]>(apiUrl);
   }
   deleteStudent(id: number): Observable<void> {
-    return this.http.delete<void>(apiUrl + `/${id}`);
+    return this.http.delete<void>(`${apiUrl}/${id}`);
   }
 }
