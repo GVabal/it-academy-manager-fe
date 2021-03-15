@@ -27,10 +27,10 @@ export class StreamListComponent implements OnInit {
     this.streams$ = this.store.select(selectStreams);
 
     this.streamForm = this.fb.group({
-      name: new FormControl('', [
+      name: ['', [
         Validators.required,
-        Validators.pattern('.{2,50}')
-      ])
+        Validators.pattern('.{2,30}')
+      ]]
     });
   }
 

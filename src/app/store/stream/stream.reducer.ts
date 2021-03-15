@@ -57,7 +57,8 @@ export const streamReducer = createReducer(
     return {
       ...state,
       loading: true,
-      loaded: false
+      loaded: false,
+      error: null
     };
   }),
 
@@ -83,6 +84,7 @@ export const streamReducer = createReducer(
       ...state,
       loading: true,
       loaded: false,
+      error: null
     };
   }),
 

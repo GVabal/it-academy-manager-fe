@@ -5,15 +5,11 @@
 <div class="list-group" *ngFor="let student of students$ | async">
   <a class="list-group-item list-group-item-action" aria-current="true">
     <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">{{ student.firstName}} {{student.lastName }}</h5>
-      <small>Id: {{ student.id }}</small>
-    </div>
-    <br>
-    <p class="mb-1"><strong>Current occupation:</strong> {{ student.occupation }}</p>
-    <p class="mb-1"><strong>Direction:</strong> {{ student.direction }}</p>
-    <div class="d-flex flex-row-reverse">
-      <button type="button" class="btn btn-outline-danger" (click)="deleteStudent(student.id)">delete</button>
-      <button class="btn btn-outline-warning" (click)="onEdit(student)">Edit</button>
+      <p class="mb-1">{{ student.firstName}} {{student.lastName }}</p>
+      <div class="d-flex flex-row-reverse">
+        <button type="button" class="btn btn-sm btn-outline-danger" (click)="deleteStudent(student.id)">Delete</button>
+        <button class="btn btn-sm btn-outline-warning" (click)="onEdit(student)">Edit</button>
+      </div>
     </div>
   </a>
 </div>

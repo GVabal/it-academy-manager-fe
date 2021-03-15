@@ -1,5 +1,5 @@
 .card {
-  width: 800px;
+  width: 600px;
 }
 
 .center-content {
@@ -8,7 +8,17 @@
 }
 
 .form-label {
-  padding: 8px 0 0 20px;
+  padding-top: 8px;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+}
+
+.success-message {
+  color: green;
+  font-size: 12px;
 }
 
 h1 {
@@ -17,8 +27,4 @@ h1 {
 
 input {
   margin-bottom: 10px;
-}
-
-span {
-  color: red;
 }

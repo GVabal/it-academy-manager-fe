@@ -55,22 +55,22 @@ export class StudentEditFormComponent implements OnInit {
     return this.fb.group({
       firstName: ['', [
         Validators.required,
-        Validators.maxLength(255)
+        Validators.maxLength(25)
       ]],
       lastName: ['', [
         Validators.required,
-        Validators.maxLength(255)
+        Validators.maxLength(25)
       ]],
       pictureUrl: ['', [
         imageUrlValidator
       ]],
       occupation: ['', [
         Validators.required,
-        Validators.maxLength(255)
+        Validators.maxLength(50)
       ]],
       direction: ['', [
         Validators.required,
-        Validators.maxLength(255)
+        Validators.maxLength(50)
       ]]
     });
   }
