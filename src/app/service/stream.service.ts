@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Stream } from '../shared/stream';
 
-const url = 'http://localhost:8080/api/streams'
+const url = 'https://it-academy-manager-be.herokuapp.com/api/streams';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +11,7 @@ const url = 'http://localhost:8080/api/streams'
 
 
 export class StreamService {
-
-  
+ 
   constructor(private http: HttpClient) { }
 
   loadStreams(): Observable<Stream[]>{

@@ -28,7 +28,6 @@ import { streamFeatureKey, streamReducer } from './store/stream/stream.reducer';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    
     EffectsModule.forRoot([
       StudentsEffects,
       StreamEffects

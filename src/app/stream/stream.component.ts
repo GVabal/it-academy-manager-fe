@@ -16,11 +16,11 @@ import { selectStreams } from '../store/stream/stream.selectors';
 export class StreamComponent implements OnInit {
 
   streamForm = this.fb.group ({
-    name : new FormControl('',[
+    name : new FormControl('', [
       Validators.required,
-      Validators.pattern(".{2,50}")
+      Validators.pattern('.{2,50}')
     ])
-  })
+  });
 
   streams$: Observable<Stream[]> = this.store.select(selectStreams);
   hasLoadFailed = false;
@@ -29,8 +29,8 @@ export class StreamComponent implements OnInit {
   error: Error | null = null;
 
   constructor(private streamService: StreamService,
-     private store: Store,
-     private fb: FormBuilder) { }
+    private store: Store,
+    private fb: FormBuilder) { }
 
   ngOnInit(): void {
   }
@@ -39,8 +39,8 @@ export class StreamComponent implements OnInit {
     return this.streamForm.get('name') as FormControl;
   }
 
-  submitForm(){
-    this.store.dispatch(addStream({stream: this.streamForm.value}))
+  submitForm(): void {
+    this.store.dispatch(addStream({stream: this.streamForm.value}));
   }
 
 }

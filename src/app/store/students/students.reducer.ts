@@ -43,7 +43,7 @@ export const studentsReducer = createReducer(
       error: null
     });
   }),
-  
+
   on(addStudentFailure, (state, action) => {
     return {
       ...state,
