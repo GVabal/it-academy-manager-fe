@@ -19,7 +19,7 @@ export class StudentService {
   loadStudents(): Observable<Student[]> {
     return this.http.get<Student[]>(apiUrl);
   }
-  deleteStudent(id: number): Observable<Student> {
-    return this.http.delete<Student>(apiUrl + `/${id}`);
+  deleteStudent(id: number): Observable<void> {
+    return this.http.delete<void>(apiUrl + `/${id}`);
   }
 }

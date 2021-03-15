@@ -83,21 +83,21 @@ export const studentsReducer = createReducer(
       error: action.error
     };
   }),
-  on(deleteStudent, (state, action) => {
-    return studentsAdapter.removeOne(action.id, {
+  on(deleteStudent, (state) => {
+    return {
       ...state,
       loading: true,
       loaded: false,
       error: null
-    });
+    };
   }),
-  on(deleteStudentSuccess, (state) => {
-    return {
+  on(deleteStudentSuccess, (state, action) => {
+    return studentsAdapter.removeOne(action.id, {
       ...state,
       loading: false,
       loaded: true,
       error: null
-    };
+    });
   }),
   on(deleteStudentFailure, (state, action) => {
     return{

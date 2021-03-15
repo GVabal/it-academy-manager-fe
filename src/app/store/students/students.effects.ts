@@ -42,7 +42,7 @@ export class StudentsEffects {
     this.actions$.pipe(
       ofType(deleteStudent),
       switchMap((action) => this.studentService.deleteStudent(action.id).pipe(
-          map((student) => deleteStudentSuccess({student})),
+          map(() => deleteStudentSuccess({id: action.id})),
           catchError(error => of(deleteStudentFailure({error})))
         )
       )
