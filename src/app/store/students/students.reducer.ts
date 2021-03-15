@@ -59,7 +59,6 @@ export const studentsReducer = createReducer(
       ...state,
       loading: true,
       loaded: false,
-      hasStudentLoadFailed: false,
       error: null
     };
   }),
@@ -68,7 +67,6 @@ export const studentsReducer = createReducer(
       ...state,
       loading: false,
       loaded: true,
-      hasStudentLoadFailed: false,
       error: null
     });
   }),

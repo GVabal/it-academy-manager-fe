@@ -34,13 +34,11 @@ import { StudentListComponent } from './admin-page/student-list/student-list.com
       StudentsEffects,
       StreamEffects
     ]),
-    EffectsModule.forRoot([StudentsEffects]),
     StoreModule.forRoot({
       [studentsFeatureKey]: studentsReducer,
       [streamFeatureKey]: streamReducer
     }),
     StoreDevtoolsModule.instrument(),
-    EffectsModule.forFeature([StudentsEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent]

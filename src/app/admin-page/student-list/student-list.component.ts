@@ -5,7 +5,7 @@ import { filter, take, tap } from 'rxjs/operators';
 import { StudentService } from '../../service/student.service';
 import { Student } from '../../shared/student';
 import { loadStudents } from '../../store/students/students.actions';
-import { selectHasStudentLoadFailed, selectIsStudentsLoaded, selectIsStudentsLoading, selectStudents, selectStudentsError } from '../../store/students/students.selectors';
+import { getHasStudentLoadFailed, selectIsStudentsLoaded, selectIsStudentsLoading, selectStudents, selectStudentsError } from '../../store/students/students.selectors';
 
 @Component({
   selector: 'app-student-list',
@@ -15,14 +15,19 @@ import { selectHasStudentLoadFailed, selectIsStudentsLoaded, selectIsStudentsLoa
 export class StudentListComponent implements OnInit {
   students$: Observable<Student[]> | undefined;
 
-  isStudentsLoading$: Observable<boolean> =  this.store.select(selectIsStudentsLoading);
-  isStudentsLoaded$: Observable<boolean> = this.store.select(selectIsStudentsLoaded);
-  hasLoadFailed$: Observable<boolean> = this.store.select(selectHasStudentLoadFailed);
-  error$: Observable<Error | null> = this.store.select(selectStudentsError);
+  isStudentsLoading$: Observable<boolean> | undefined;
+  isStudentsLoaded$: Observable<boolean> | undefined ;
+  hasLoadFailed$: Observable<boolean> | undefined ;
+  error$: Observable<Error | null> | undefined;
 
   constructor(private store: Store) { }
 
   ngOnInit(): void {
+
+    this.isStudentsLoading$ =  this.store.select(selectIsStudentsLoading);
+    this.isStudentsLoaded$ = this.store.select(selectIsStudentsLoaded);
+    this.hasLoadFailed$ = this.store.select(getHasStudentLoadFailed);
+    this.error$ = this.store.select(selectStudentsError);
 
     this.store.dispatch(loadStudents());
 

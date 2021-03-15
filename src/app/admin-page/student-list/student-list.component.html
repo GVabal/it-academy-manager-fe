@@ -1,7 +1,6 @@
 <h1>Student list</h1>
-<br>
 <div class="list-group" *ngFor="let student of students$ | async">
-  <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+  <a class="list-group-item list-group-item-action" aria-current="true">
     <div class="d-flex w-100 justify-content-between">
       <h5 class="mb-1">{{ student.firstName}} {{student.lastName }}</h5>
       <small>Id: {{ student.id }}</small>
