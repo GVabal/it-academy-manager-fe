@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EffectsModule } from '@ngrx/effects';
@@ -12,18 +11,21 @@ import {studentsFeatureKey, studentsReducer} from './store/students/students.red
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { StudentAddFormComponent } from './admin-page/student-add-form/student-add-form.component';
 import {ReactiveFormsModule} from '@angular/forms';
-import { StreamComponent } from './stream/stream.component';
+import { StreamListComponent } from './admin-page/stream-list/stream-list.component';
 import { StreamEffects } from './store/stream/stream.effects';
 import { streamFeatureKey, streamReducer } from './store/stream/stream.reducer';
 import { StudentEditFormComponent } from './admin-page/student-edit-form/student-edit-form.component';
+import { StudentListComponent } from './admin-page/student-list/student-list.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminPageComponent,
     StudentAddFormComponent,
-    StreamComponent,
     StudentEditFormComponent,
+    StreamListComponent,
+    StudentListComponent,
   ],
   imports: [
     BrowserModule,

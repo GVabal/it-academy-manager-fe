@@ -1,11 +1,20 @@
 import { Student } from './../../shared/student';
 import { Update } from '@ngrx/entity';
 import { Injectable } from '@angular/core';
+<<<<<<< HEAD
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { StudentService } from '../../service/student.service';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { addStudent, addStudentFailure, addStudentSuccess, editStudent, editStudentFailure, editStudentSuccess } from './students.actions';
+=======
+import {Actions, createEffect, ofType} from '@ngrx/effects';
+import {StudentService} from '../../service/student.service';
+import {catchError, map, mergeMap, switchMap} from 'rxjs/operators';
+import {of} from 'rxjs';
+import {addStudent, addStudentFailure, addStudentSuccess, loadStudents, loadStudentsFailure, loadStudentsSuccess} from './students.actions';
+
+>>>>>>> development
 
 
 
@@ -39,6 +48,18 @@ export class StudentsEffects {
         }),
         catchError(error => of(editStudentFailure({ error })))
       )
+      )
+    )
+  );
+
+  loadStudents$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadStudents),
+      mergeMap(() => this.studentService.loadStudents()
+        .pipe(
+          map(students => loadStudentsSuccess({students})),
+          catchError(error => of(loadStudentsFailure({error})))
+        )
       )
     )
   );

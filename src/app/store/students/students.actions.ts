@@ -17,6 +17,7 @@ export const addStudentFailure = createAction(
   props<{ error: Error }>()
 );
 
+<<<<<<< HEAD
 export const loadStudentEdit = createAction(
   '[Studetns] Load Student Edit',
   props<{ id: string }>()
@@ -41,3 +42,18 @@ export const editStudentDone = createAction(
   '[Studetns] Edit Student Done',
 );
 
+=======
+export const loadStudents = createAction(
+  '[Students] Load Students'
+);
+
+export const loadStudentsSuccess = createAction(
+  '[Students] Load Students Success',
+  props<{students: Student[]}>()
+);
+
+export const loadStudentsFailure = createAction(
+  '[Students] Load Student Failure',
+  props<{error: Error}>()
+);
+>>>>>>> development
