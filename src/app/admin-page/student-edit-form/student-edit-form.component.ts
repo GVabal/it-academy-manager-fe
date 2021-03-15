@@ -12,7 +12,6 @@ import {
   selectIsStudentsLoaded,
   selectIsStudentsLoading,
   selectStudentsError,
-  selectIsEditingStudent
 } from '../../store/students/students.selectors';
 import { Observable } from 'rxjs';
 
@@ -27,10 +26,8 @@ export class StudentEditFormComponent implements OnInit {
   isLoading$: Observable<boolean> = this.store.select(selectIsStudentsLoading);
   isLoaded$: Observable<boolean> = this.store.select(selectIsStudentsLoaded);
   error$: Observable<Error | null> = this.store.select(selectStudentsError);
-  isEditing$: Observable<boolean> = this.store.select(selectIsEditingStudent);
-  studentId$: Observable<string> = this.store.select(selectSudentEditId);
+  studentId$: Observable<number> = this.store.select(selectSudentEditId);
 
-  isEditing = false;
   hasEditFailed = false;
   isLoading = false;
   isLoaded = false;
@@ -57,7 +54,6 @@ export class StudentEditFormComponent implements OnInit {
         });
       }
     });
-    this.isEditing$.subscribe(isEditing => this.isEditing = isEditing);
     this.isLoading$.subscribe(isLoading => this.isLoading = isLoading);
     this.isLoaded$.subscribe(isLoaded => this.isLoaded = isLoaded);
     this.error$.subscribe(error => this.error = error);
@@ -109,6 +105,6 @@ export class StudentEditFormComponent implements OnInit {
   }
 
   submitForm(): void {
-    this.store.dispatch(editStudent({ id: this.studentId.toString(), student: this.studentForm.value }));
+    this.store.dispatch(editStudent({ id: this.studentId, student: this.studentForm.value }));
   }
 }

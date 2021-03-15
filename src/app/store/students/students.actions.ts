@@ -18,13 +18,17 @@ export const addStudentFailure = createAction(
 );
 
 export const loadStudentEdit = createAction(
-  '[Studetns] Load Student Edit',
-  props<{ id: string }>()
+  '[Students] Load Student Edit From',
+  props<{ id: number }>()
+);
+
+export const loadStudentCreate = createAction(
+  '[Students] Load Student Create Form',
 );
 
 export const editStudent = createAction(
   '[Students] Edit Student',
-  props<{ student: Student, id: string }>()
+  props<{ student: Student, id: number }>()
 );
 
 export const editStudentSuccess = createAction(

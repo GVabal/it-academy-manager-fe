@@ -9,17 +9,15 @@ export const selectHasStudentAddFailed = createSelector(selectStudentsState, stu
 export const selectStudentsError = createSelector(selectStudentsState, studentsState => studentsState.error);
 export const getHasStudentLoadFailed = createSelector(selectStudentsState, studentsState => studentsState.hasStudentLoadFailed);
 
-
-
-export const selectIsEditingStudent = createSelector(selectStudentsState, studentsState => studentsState.studentEdit);
 export const selectSudentEditId = createSelector(selectStudentsState, studentsState => studentsState.studentEditId);
 export const selectHasStudentEditFailed = createSelector(selectStudentsState, studentsState => studentsState.hasStudentEditFailed);
+export const selectEditOrCreateForm = createSelector(selectStudentsState, studentsState => studentsState.editOrCreateForm);
 
 export const getStudents = createSelector(selectStudentsState, studentsAdapter.getSelectors().selectAll);
-export const getStudentById = (id: string) => createSelector(getStudents, (students) => {
+export const getStudentById = (id: number) => createSelector(getStudents, (students) => {
   if (students) {
     return students.find(student => {
-      return student.id === parseInt(id, 10);
+      return student.id === id;
     });
   } else {
     return {};

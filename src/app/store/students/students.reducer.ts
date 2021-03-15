@@ -14,8 +14,8 @@ export interface StudentsState extends EntityState<Student> {
   hasStudentEditFailed: boolean;
   hasStudentLoadFailed: boolean;
   error: Error | null;
-  studentEdit: boolean;
-  studentEditId: string;
+  studentEditId: number;
+  editOrCreateForm: boolean;
 }
 
 export const studentsAdapter = createEntityAdapter<Student>();
@@ -26,9 +26,9 @@ export const initialState: StudentsState = studentsAdapter.getInitialState({
   hasStudentAddFailed: false,
   hasStudentEditFailed: false,
   error: null,
-  studentEdit: false,
-  studentEditId: '',
+  studentEditId: -1,
   hasStudentLoadFailed: false,
+  editOrCreateForm: false
 });
 
 
@@ -65,8 +65,15 @@ export const studentsReducer = createReducer(
   on(studentActions.loadStudentEdit, (state, action) => {
     return {
       ...state,
-      studentEdit: true,
-      studentEditId: action.id
+      studentEditId: action.id,
+      editOrCreateForm: true
+    };
+  }),
+
+  on(studentActions.loadStudentCreate, (state, action) => {
+    return {
+      ...state,
+      editOrCreateForm: false
     };
   }),
 
@@ -105,8 +112,7 @@ export const studentsReducer = createReducer(
       loaded: false,
       hasStudentEditFailed: false,
       error: null,
-      studentEdit: false,
-      studentEditId: '',
+      studentEditId: -1,
     };
   }),
 

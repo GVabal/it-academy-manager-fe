@@ -1,8 +1,9 @@
+import { Student } from './../../shared/student';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Student } from '../../shared/student';
 import { getHasStudentLoadFailed, selectIsStudentsLoaded, selectIsStudentsLoading, selectStudents, selectStudentsError } from '../../store/students/students.selectors';
+import { loadStudentCreate, loadStudentEdit } from 'src/app/store/students/students.actions';
 
 @Component({
   selector: 'app-student-list',
@@ -26,5 +27,16 @@ export class StudentListComponent implements OnInit {
     this.hasLoadFailed$ = this.store.select(getHasStudentLoadFailed);
     this.error$ = this.store.select(selectStudentsError);
     this.students$ = this.store.select(selectStudents);
+  }
+
+
+  onEdit(student: Student){
+    if(student.id){
+      this.store.dispatch(loadStudentEdit({id: student.id}));
+    }
+  }
+
+  onCreate(){
+    this.store.dispatch(loadStudentCreate());
   }
 }
