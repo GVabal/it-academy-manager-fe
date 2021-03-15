@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { StreamService } from '../service/stream.service';
 import { Stream } from '../shared/stream';
 import { loadStreams } from '../store/stream/stream.actions';
-import { selectStreams } from '../store/stream/stream.selectors';
+import { selectIsStreamsLoaded, selectIsStreamsLoading, selectStreams } from '../store/stream/stream.selectors';
 
 
 @Component({
@@ -14,11 +15,30 @@ import { selectStreams } from '../store/stream/stream.selectors';
 })
 export class StreamComponent implements OnInit {
 
-  streams$: Observable<Stream[]> = this.store.select(selectStreams);
+  streamForm = this.fb.group ({
+    streamName : new FormControl('',[
+      Validators.required,
+      Validators.pattern(".{2,50}")
+    ])
+  })
 
-  constructor(private streamService: StreamService, private store: Store) { }
+  streams$: Observable<Stream[]> = this.store.select(selectStreams);
+  hasLoadFailed = false;
+  isLoading = false;
+  isLoaded = false;
+  error: Error | null = null;
+
+  constructor(private streamService: StreamService,
+     private store: Store,
+     private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.store.dispatch(loadStreams());
   }
+
+  get streamName(): FormControl {
+    return this.streamForm.get('streamName') as FormControl;
+  }
+
+  submitForm(){}
+
 }
