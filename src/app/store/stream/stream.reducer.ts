@@ -1,5 +1,6 @@
 import { createEntityAdapter, EntityState } from '@ngrx/entity';
 import { createReducer, on } from '@ngrx/store';
+import { CustomError } from 'src/app/shared/customError';
 import { Stream } from 'src/app/shared/stream';
 import {
   addStream, addStreamFailure, addStreamSuccess,
@@ -14,7 +15,7 @@ export interface StreamState extends EntityState<Stream> {
   loaded: boolean;
   hasLoadFailed: boolean;
   hasStreamAddFailed: boolean;
-  error: Error | null;
+  error: CustomError | null;
 }
 export const adapter = createEntityAdapter<Stream>();
 

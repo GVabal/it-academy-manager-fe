@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { CustomError } from 'src/app/shared/customError';
 import { StreamService } from '../../service/stream.service';
 import { Stream } from '../../shared/stream';
 import {addStream, deleteStream} from '../../store/stream/stream.actions';
@@ -15,7 +16,7 @@ import {getIsStreamLoading, getStreamError, selectStreams} from '../../store/str
 })
 export class StreamListComponent implements OnInit {
   isLoading$!: Observable<boolean>;
-  error$!: Observable<Error | null>;
+  error$!: Observable<CustomError | null>;
   streams$!: Observable<Stream[]>;
   streamForm!: FormGroup;
 

@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { CustomError } from 'src/app/shared/customError';
 import { Stream } from 'src/app/shared/stream';
 
 export const loadStreams = createAction(
@@ -12,7 +13,7 @@ export const loadStreamSuccess = createAction(
 
 export const loadStreamFailure = createAction(
   '[Stream] Load Streams Failure',
-  props<{error: Error}>()
+  props<{error: CustomError}>()
 );
 
 export const addStream = createAction(
@@ -27,7 +28,7 @@ export const addStreamSuccess = createAction(
 
 export const addStreamFailure = createAction(
   '[Stream] Add Stream Failure',
-  props<{error: Error}>()
+  props<{error: CustomError}>()
 );
 
 export const deleteStream = createAction(
@@ -42,5 +43,5 @@ export const deleteStreamSuccess = createAction(
 
 export const deleteStreamFailure = createAction(
   '[Stream] Delete Stream Failure',
-  props<{error: Error}>()
+  props<{error: CustomError}>()
 );

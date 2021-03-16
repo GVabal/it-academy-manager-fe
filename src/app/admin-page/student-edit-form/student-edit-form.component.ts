@@ -14,6 +14,7 @@ import {
   getStudentsError,
 } from '../../store/students/students.selectors';
 import { Observable } from 'rxjs';
+import { CustomError } from 'src/app/shared/customError';
 
 @Component({
   selector: 'app-student-edit-form',
@@ -25,7 +26,7 @@ export class StudentEditFormComponent implements OnInit {
   hasEditFailed$: Observable<boolean> = this.store.select(getHasStudentEditFailed);
   isLoading$: Observable<boolean> = this.store.select(getIsStudentsLoading);
   isLoaded$: Observable<boolean> = this.store.select(getIsStudentsLoaded);
-  error$: Observable<Error | null> = this.store.select(getStudentsError);
+  error$: Observable<CustomError | null> = this.store.select(getStudentsError);
   studentId$: Observable<number> = this.store.select(getStudentEditId);
 
   studentForm!: FormGroup;

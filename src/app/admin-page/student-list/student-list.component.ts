@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { deleteStudent } from 'src/app/store/students/students.actions';
 import { getHasStudentLoadFailed, getIsStudentsLoaded, getIsStudentsLoading, selectStudents, getStudentsError } from '../../store/students/students.selectors';
 import { loadStudentCreate, loadStudentEdit } from 'src/app/store/students/students.actions';
+import { CustomError } from 'src/app/shared/customError';
 
 @Component({
   selector: 'app-student-list',
@@ -16,7 +17,7 @@ export class StudentListComponent implements OnInit {
   isStudentsLoading$: Observable<boolean> | undefined;
   isStudentsLoaded$: Observable<boolean> | undefined ;
   hasLoadFailed$: Observable<boolean> | undefined ;
-  error$: Observable<Error | null> | undefined;
+  error$: Observable<CustomError | null> | undefined;
 
   constructor(private store: Store) { }
 

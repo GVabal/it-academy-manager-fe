@@ -1,6 +1,7 @@
 import { Student } from '../../shared/student';
 import { Update } from '@ngrx/entity';
 import { createAction, props } from '@ngrx/store';
+import { CustomError } from 'src/app/shared/customError';
 
 export const addStudent = createAction(
   '[Students] Add Student',
@@ -14,7 +15,7 @@ export const addStudentSuccess = createAction(
 
 export const addStudentFailure = createAction(
   '[Students] Add Student Failure',
-  props<{ error: Error }>()
+  props<{ error: CustomError}>()
 );
 
 export const loadStudentEdit = createAction(
@@ -38,7 +39,7 @@ export const editStudentSuccess = createAction(
 
 export const editStudentFailure = createAction(
   '[Students] Edit Student Failure',
-  props<{ error: Error }>()
+  props<{ error: CustomError}>()
 );
 
 export const loadStudents = createAction(
@@ -52,7 +53,7 @@ export const loadStudentsSuccess = createAction(
 
 export const loadStudentsFailure = createAction(
   '[Students] Load Students Failure',
-  props<{error: Error}>()
+  props<{error: CustomError}>()
 );
 
 export const deleteStudent = createAction(
@@ -67,5 +68,5 @@ export const deleteStudentSuccess = createAction(
 
 export const deleteStudentFailure = createAction(
   '[Students] Delete Student Failure',
-  props<{error: Error}>()
+  props<{error: CustomError}>()
 );
