@@ -22,10 +22,10 @@ const noMultipleSpacesPattern = '(?:(?![ ]{2}).)+';
   styleUrls: ['./student-add-form.component.scss']
 })
 export class StudentAddFormComponent implements OnInit {
-  hasAddFailed$: Observable<boolean> = this.store.select(getHasStudentAddFailed);
-  isLoading$: Observable<boolean> = this.store.select(getIsStudentsLoading);
-  isLoaded$: Observable<boolean> = this.store.select(getIsStudentsLoaded);
-  error$: Observable<CustomError | null> = this.store.select(getStudentsError);
+  hasAddFailed$!: Observable<boolean>;
+  isLoading$!: Observable<boolean>;
+  isLoaded$!: Observable<boolean>;
+  error$!: Observable<CustomError | null>;
   studentForm!: FormGroup;
 
   constructor(private store: Store,
@@ -33,6 +33,10 @@ export class StudentAddFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.studentForm = this.initStudentForm();
+    this.hasAddFailed$ = this.store.select(getHasStudentAddFailed);
+    this.isLoading$ = this.store.select(getIsStudentsLoading);
+    this.isLoaded$ = this.store.select(getIsStudentsLoaded);
+    this.error$ = this.store.select(getStudentsError);
   }
 
   private initStudentForm(): FormGroup {
