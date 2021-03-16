@@ -4,7 +4,7 @@
     <div class="card-body">
       <div class="row">
         <label for="firstname" class="form-label">
-          First name
+          <span class = "required-after">First name</span>
           <ng-container *ngIf="firstName.dirty || firstName.touched">
             <span class="error-message" *ngIf="firstName.errors?.required">First name is required</span>
             <span class="error-message" *ngIf="firstName.errors?.maxlength">First name is too long</span>
@@ -17,7 +17,7 @@
       </div>
       <div class="row">
         <label for="lastname" class="form-label">
-          Last name
+          <span class = "required-after">Last name</span>
           <ng-container *ngIf="lastName.dirty || lastName.touched">
             <span class="error-message" *ngIf="lastName.errors?.required">Last name is required</span>
             <span class="error-message" *ngIf="lastName.errors?.maxlength">Last name is too long</span>
@@ -77,9 +77,10 @@
         </div>
       </div>
       <div class="row">
-        <div class="col center-content">
+        <div class="col center-content d-flex w-100 justify-content-between">
           <span class="success-message" *ngIf="(hasAddFailed$ | async) === false && (isLoaded$ |async)">Success!</span>
           <span class="error-message" *ngIf="error$ | async as error">{{ error.error.message  }}</span>
+          <span class = "required-before required-text">Indicates required field</span>
         </div>
       </div>
     </div>
