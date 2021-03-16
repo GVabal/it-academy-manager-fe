@@ -71,14 +71,20 @@ export const studentsReducer = createReducer(
     return {
       ...state,
       studentEditId: action.id,
-      editOrCreateForm: true
+      editOrCreateForm: true,
+      hasStudentAddFailed: true,
+      hasStudentEditFailed: true,
+      error: null
     };
   }),
 
   on(loadStudentCreate, (state) => {
     return {
       ...state,
-      editOrCreateForm: false
+      editOrCreateForm: false,
+      hasStudentAddFailed: true,
+      hasStudentEditFailed: true,
+      error: null
     };
   }),
 
