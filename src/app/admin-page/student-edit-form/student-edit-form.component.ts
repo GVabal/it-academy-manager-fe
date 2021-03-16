@@ -23,11 +23,11 @@ import { CustomError } from 'src/app/shared/customError';
 })
 export class StudentEditFormComponent implements OnInit {
 
-  hasEditFailed$: Observable<boolean> = this.store.select(getHasStudentEditFailed);
-  isLoading$: Observable<boolean> = this.store.select(getIsStudentsLoading);
-  isLoaded$: Observable<boolean> = this.store.select(getIsStudentsLoaded);
-  error$: Observable<CustomError | null> = this.store.select(getStudentsError);
-  studentId$: Observable<number> = this.store.select(getStudentEditId);
+  hasEditFailed$!: Observable<boolean>;
+  isLoading$!: Observable<boolean>;
+  isLoaded$!: Observable<boolean>;
+  error$!: Observable<CustomError | null>;
+  studentId$!: Observable<number>;
 
   studentForm!: FormGroup;
   studentId = 0;
@@ -35,6 +35,11 @@ export class StudentEditFormComponent implements OnInit {
   constructor(private store: Store, private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.hasEditFailed$ = this.store.select(getHasStudentEditFailed);
+    this.isLoading$ = this.store.select(getIsStudentsLoading);
+    this.isLoaded$ = this.store.select(getIsStudentsLoaded);
+    this.error$ = this.store.select(getStudentsError);
+    this.studentId$ = this.store.select(getStudentEditId);
     this.studentForm = this.initStudentForm();
     this.studentId$.pipe(
       switchMap(studentId => (this.store.select(getStudentById(studentId)) as Observable<Student>))
