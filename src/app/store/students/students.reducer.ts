@@ -10,7 +10,6 @@ import { addStudent, addStudentFailure, addStudentSuccess, deleteStudent, delete
 export const studentsFeatureKey = 'students';
 
 export interface StudentsState extends EntityState<Student> {
-
   loading: boolean;
   loaded: boolean;
   hasStudentAddFailed: boolean;
@@ -27,8 +26,8 @@ export const studentsAdapter = createEntityAdapter<Student>();
 export const initialState: StudentsState = studentsAdapter.getInitialState({
   loading: false,
   loaded: false,
-  hasStudentAddFailed: false,
-  hasStudentEditFailed: false,
+  hasStudentAddFailed: true,
+  hasStudentEditFailed: true,
   error: null,
   studentEditId: -1,
   hasStudentLoadFailed: false,
@@ -53,8 +52,7 @@ export const studentsReducer = createReducer(
       ...state,
       loading: false,
       loaded: true,
-      hasStudentAddFailed: false,
-      error: null
+      hasStudentAddFailed: false
     });
   }),
 
@@ -67,6 +65,7 @@ export const studentsReducer = createReducer(
       error: action.error
     };
   }),
+
   on(loadStudentEdit, (state, action) => {
     return {
       ...state,
@@ -74,12 +73,14 @@ export const studentsReducer = createReducer(
       editOrCreateForm: true
     };
   }),
-  on(loadStudentCreate, (state, action) => {
+
+  on(loadStudentCreate, (state) => {
     return {
       ...state,
       editOrCreateForm: false
     };
   }),
+
   on(editStudent, (state) => {
     return {
       ...state,
@@ -89,15 +90,16 @@ export const studentsReducer = createReducer(
       error: null
     };
   }),
+
   on(editStudentSuccess, (state, action) => {
     return studentsAdapter.updateOne(action.update, {
       ...state,
       loading: false,
       loaded: true,
-      hasStudentEditFailed: false,
-      error: null
+      hasStudentEditFailed: false
     });
   }),
+
   on(editStudentFailure, (state, action) => {
     return {
       ...state,
@@ -107,7 +109,8 @@ export const studentsReducer = createReducer(
       error: action.error
     };
   }),
-on(loadStudents, (state) => {
+
+  on(loadStudents, (state) => {
     return {
       ...state,
       loading: true,
@@ -115,6 +118,7 @@ on(loadStudents, (state) => {
       error: null
     };
   }),
+
   on(loadStudentsSuccess, (state, action) => {
     return studentsAdapter.addMany(action.students, {
       ...state,
@@ -123,6 +127,7 @@ on(loadStudents, (state) => {
       error: null
     });
   }),
+
   on(loadStudentsFailure, (state, action) => {
     return{
       ...state,
@@ -132,22 +137,23 @@ on(loadStudents, (state) => {
       error: action.error
     };
   }),
+
   on(deleteStudent, (state) => {
     return {
       ...state,
       loading: true,
-      loaded: false,
-      error: null
+      loaded: false
     };
   }),
+
   on(deleteStudentSuccess, (state, action) => {
     return studentsAdapter.removeOne(action.id, {
       ...state,
       loading: false,
-      loaded: true,
-      error: null
+      loaded: true
     });
   }),
+
   on(deleteStudentFailure, (state, action) => {
     return{
       ...state,

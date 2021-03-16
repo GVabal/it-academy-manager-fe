@@ -1,17 +1,17 @@
-import { editStudent } from './../../store/students/students.actions';
+import { editStudent } from '../../store/students/students.actions';
 import { switchMap } from 'rxjs/operators';
-import { Student } from './../../shared/student';
+import { Student } from '../../shared/student';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { imageUrlValidator } from '../../shared/validators/image-url.validator';
 import {
-  selectStudentEditId,
-  selectHasStudentEditFailed,
+  getStudentEditId,
+  getHasStudentEditFailed,
   getStudentById,
-  selectIsStudentsLoaded,
-  selectIsStudentsLoading,
-  selectStudentsError,
+  getIsStudentsLoaded,
+  getIsStudentsLoading,
+  getStudentsError,
 } from '../../store/students/students.selectors';
 import { Observable } from 'rxjs';
 
@@ -22,11 +22,11 @@ import { Observable } from 'rxjs';
 })
 export class StudentEditFormComponent implements OnInit {
 
-  hasEditFailed$: Observable<boolean> = this.store.select(selectHasStudentEditFailed);
-  isLoading$: Observable<boolean> = this.store.select(selectIsStudentsLoading);
-  isLoaded$: Observable<boolean> = this.store.select(selectIsStudentsLoaded);
-  error$: Observable<Error | null> = this.store.select(selectStudentsError);
-  studentId$: Observable<number> = this.store.select(selectStudentEditId);
+  hasEditFailed$: Observable<boolean> = this.store.select(getHasStudentEditFailed);
+  isLoading$: Observable<boolean> = this.store.select(getIsStudentsLoading);
+  isLoaded$: Observable<boolean> = this.store.select(getIsStudentsLoaded);
+  error$: Observable<Error | null> = this.store.select(getStudentsError);
+  studentId$: Observable<number> = this.store.select(getStudentEditId);
 
   studentForm!: FormGroup;
   studentId = 0;
@@ -55,22 +55,22 @@ export class StudentEditFormComponent implements OnInit {
     return this.fb.group({
       firstName: ['', [
         Validators.required,
-        Validators.maxLength(255)
+        Validators.maxLength(25)
       ]],
       lastName: ['', [
         Validators.required,
-        Validators.maxLength(255)
+        Validators.maxLength(25)
       ]],
       pictureUrl: ['', [
         imageUrlValidator
       ]],
       occupation: ['', [
         Validators.required,
-        Validators.maxLength(255)
+        Validators.maxLength(50)
       ]],
       direction: ['', [
         Validators.required,
-        Validators.maxLength(255)
+        Validators.maxLength(50)
       ]]
     });
   }

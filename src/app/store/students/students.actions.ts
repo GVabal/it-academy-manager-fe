@@ -1,4 +1,4 @@
-import { Student } from './../../shared/student';
+import { Student } from '../../shared/student';
 import { Update } from '@ngrx/entity';
 import { createAction, props } from '@ngrx/store';
 
@@ -18,7 +18,7 @@ export const addStudentFailure = createAction(
 );
 
 export const loadStudentEdit = createAction(
-  '[Students] Load Student Edit From',
+  '[Students] Load Student Edit Form',
   props<{ id: number }>()
 );
 
@@ -51,21 +51,21 @@ export const loadStudentsSuccess = createAction(
 );
 
 export const loadStudentsFailure = createAction(
-  '[Students] Load Student Failure',
+  '[Students] Load Students Failure',
   props<{error: Error}>()
 );
 
 export const deleteStudent = createAction(
-  '[Student] Delete Student',
+  '[Students] Delete Student',
   props<{id: number}>()
 );
 
 export const deleteStudentSuccess = createAction(
-  '[Student] Delete Student Success',
+  '[Students] Delete Student Success',
   props<{id: number}>()
 );
 
 export const deleteStudentFailure = createAction(
-  '[Student] Delete Student Failure',
+  '[Students] Delete Student Failure',
   props<{error: Error}>()
 );

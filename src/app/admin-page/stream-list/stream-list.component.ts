@@ -27,19 +27,21 @@ export class StreamListComponent implements OnInit {
     this.streams$ = this.store.select(selectStreams);
 
     this.streamForm = this.fb.group({
-      name: new FormControl('', [
+      name: ['', [
         Validators.required,
-        Validators.pattern('.{2,50}')
-      ])
+        Validators.pattern('.{2,30}')
+      ]]
     });
-  }
-
-  deleteStream(id: number): void {
-    this.store.dispatch(deleteStream({id}));
   }
 
   get streamName(): FormControl {
     return this.streamForm.get('name') as FormControl;
+  }
+
+  deleteStream(id: number): void {
+    if (confirm('Are you sure you want to remove this stream?')) {
+      this.store.dispatch(deleteStream({id}));
+    }
   }
 
   submitForm(): void {

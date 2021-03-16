@@ -4,10 +4,10 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {addStudent} from '../../store/students/students.actions';
 import {imageUrlValidator} from '../../shared/validators/image-url.validator';
 import {
-  selectHasStudentAddFailed,
-  selectIsStudentsLoaded,
-  selectIsStudentsLoading,
-  selectStudentsError
+  getHasStudentAddFailed,
+  getIsStudentsLoaded,
+  getIsStudentsLoading,
+  getStudentsError
 } from '../../store/students/students.selectors';
 import {Observable} from 'rxjs';
 
@@ -17,10 +17,10 @@ import {Observable} from 'rxjs';
   styleUrls: ['./student-add-form.component.scss']
 })
 export class StudentAddFormComponent implements OnInit {
-  hasAddFailed$: Observable<boolean> = this.store.select(selectHasStudentAddFailed);
-  isLoading$: Observable<boolean> = this.store.select(selectIsStudentsLoading);
-  isLoaded$: Observable<boolean> = this.store.select(selectIsStudentsLoaded);
-  error$: Observable<Error | null> = this.store.select(selectStudentsError);
+  hasAddFailed$: Observable<boolean> = this.store.select(getHasStudentAddFailed);
+  isLoading$: Observable<boolean> = this.store.select(getIsStudentsLoading);
+  isLoaded$: Observable<boolean> = this.store.select(getIsStudentsLoaded);
+  error$: Observable<Error | null> = this.store.select(getStudentsError);
   studentForm!: FormGroup;
 
   constructor(private store: Store,
@@ -34,22 +34,22 @@ export class StudentAddFormComponent implements OnInit {
     return this.fb.group({
       firstName: ['', [
         Validators.required,
-        Validators.maxLength(255)
+        Validators.maxLength(25)
       ]],
       lastName: ['', [
         Validators.required,
-        Validators.maxLength(255)
+        Validators.maxLength(25)
       ]],
       pictureUrl: ['', [
         imageUrlValidator
       ]],
       occupation: ['', [
         Validators.required,
-        Validators.maxLength(255)
+        Validators.maxLength(50)
       ]],
       direction: ['', [
         Validators.required,
-        Validators.maxLength(255)
+        Validators.maxLength(50)
       ]]
     });
   }
