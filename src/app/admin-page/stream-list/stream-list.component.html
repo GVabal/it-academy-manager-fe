@@ -8,7 +8,7 @@
     <span class="error-message" *ngIf="streamName.errors?.pattern">
       Stream name must be between 2 and 30 characters
     </span>
-    <span class="error-message" *ngIf="error$ | async as error">{{ error.message }}</span>
+    <span class="error-message" *ngIf="error$ | async as error">{{ error.error! }}</span>
   </ng-container>
 </form>
 <br>
