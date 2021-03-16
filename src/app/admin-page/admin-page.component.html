@@ -4,11 +4,19 @@
       <app-student-list></app-student-list>
     </div>
     <div class="col-5">
-      <app-student-add-form *ngIf="(editOrCreateForm$ | async) === false"></app-student-add-form>
-      <app-student-edit-form *ngIf="editOrCreateForm$ | async"></app-student-edit-form>
+      <ng-container *ngIf="(editOrCreateForm$ | async); then showStudentEditForm; else showStudentAddForm">
+      </ng-container>
     </div>
     <div class="col-3">
       <app-stream-list></app-stream-list>
     </div>
   </div>
 </div>
+
+<ng-template #showStudentAddForm>
+  <app-student-add-form></app-student-add-form>
+</ng-template>
+
+<ng-template #showStudentEditForm>
+  <app-student-edit-form></app-student-edit-form>
+</ng-template>
