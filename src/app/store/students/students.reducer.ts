@@ -26,8 +26,8 @@ export const studentsAdapter = createEntityAdapter<Student>();
 export const initialState: StudentsState = studentsAdapter.getInitialState({
   loading: false,
   loaded: false,
-  hasStudentAddFailed: false,
-  hasStudentEditFailed: false,
+  hasStudentAddFailed: true,
+  hasStudentEditFailed: true,
   error: null,
   studentEditId: -1,
   hasStudentLoadFailed: false,
