@@ -1,0 +1,30 @@
+.card {
+  width: 40vw;
+}
+
+.center-content {
+  display: flex;
+  justify-content: left;
+}
+
+.form-label {
+  padding-top: 8px;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+}
+
+.success-message {
+  color: green;
+  font-size: 12px;
+}
+
+h1 {
+  text-align: center;
+}
+
+input {
+  margin-bottom: 10px;
+}

@@ -1,0 +1,87 @@
+<form class="center-content" [formGroup]="studentForm" (ngSubmit)="submitForm()">
+  <div class="card">
+    <h1>New Student Form</h1>
+    <div class="card-body">
+      <div class="row">
+        <label for="firstname" class="form-label">
+          First name
+          <ng-container *ngIf="firstName.dirty || firstName.touched">
+            <span class="error-message" *ngIf="firstName.errors?.required">First name is required</span>
+            <span class="error-message" *ngIf="firstName.errors?.maxlength">First name is too long</span>
+            <span class="error-message" *ngIf="firstName.errors?.pattern">First name must contain only letters</span>           
+          </ng-container>
+        </label>
+        <div class="col">
+          <input id="firstname" class="form-control" type="text" formControlName="firstName">
+        </div>
+      </div>
+      <div class="row">
+        <label for="lastname" class="form-label">
+          Last name
+          <ng-container *ngIf="lastName.dirty || lastName.touched">
+            <span class="error-message" *ngIf="lastName.errors?.required">Last name is required</span>
+            <span class="error-message" *ngIf="lastName.errors?.maxlength">Last name is too long</span>
+            <span class="error-message" *ngIf="lastName.errors?.pattern">Last name must contain only letters</span>
+          </ng-container>
+        </label>
+        <div class="col">
+          <input id="lastname" class="form-control" type="text" formControlName="lastName">
+        </div>
+      </div>
+      <div class="row">
+        <label for="pictureurl" class="form-label">
+          Picture URL
+          <ng-container *ngIf="pictureUrl.dirty || pictureUrl.touched">
+            <span class="error-message" *ngIf="pictureUrl.errors?.imageUrl">Invalid picture url</span>
+          </ng-container>
+        </label>
+        <div class="col">
+          <input id="pictureurl" class="form-control" type="url" formControlName="pictureUrl">
+        </div>
+      </div>
+      <div class="row">
+        <label for="occupation" class="form-label">
+          Occupation
+          <ng-container *ngIf="occupation.dirty || occupation.touched">
+            <span class="error-message" *ngIf="occupation.errors?.required">Occupation is required</span>
+            <span class="error-message" *ngIf="occupation.errors?.maxlength">Occupation is too long</span>
+            <span class="error-message" *ngIf="occupation.errors?.pattern">Occupation can only contain letters and symbols:- _ (No multiple spaces allowed) </span>
+          </ng-container>
+        </label>
+        <div class="col">
+          <input id="occupation" class="form-control" type="text" formControlName="occupation">
+        </div>
+      </div>
+      <div class="row">
+        <label for="direction" class="form-label">
+          Direction
+          <ng-container *ngIf="direction.dirty || direction.touched">
+            <span class="error-message" *ngIf="direction.errors?.required">Direction is required</span>
+            <span class="error-message" *ngIf="direction.errors?.maxlength">Direction is too long</span>
+            <span class="error-message" *ngIf="direction.errors?.pattern">Direction can only contain letters and symbols:- _ (No multiple spaces allowed) </span>
+          </ng-container>
+        </label>
+        <div class="col">
+          <input id="direction" class="form-control" type="text" formControlName="direction">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <button *ngIf="(isLoading$ | async) === false"
+                  class="btn btn-primary"
+                  [disabled]="studentForm.invalid"
+          >Add</button>
+          <div *ngIf="(isLoading$ | async)" class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col center-content">
+          <span class="success-message" *ngIf="(hasAddFailed$ | async) === false && (isLoaded$ |async)">Success!</span>
+          <span class="error-message" *ngIf="error$ | async as error">{{ error.error.message  }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

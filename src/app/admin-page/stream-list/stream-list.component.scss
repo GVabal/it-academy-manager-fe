@@ -1,0 +1,16 @@
+.spacer {
+  flex-grow: 1;
+}
+
+li {
+  display: flex;
+}
+
+h1 {
+  text-align: center;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+}

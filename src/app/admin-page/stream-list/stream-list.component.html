@@ -1,0 +1,24 @@
+<h1>Stream List</h1>
+<form [formGroup]="streamForm" (ngSubmit)="submitForm()">
+  <div class="input-group">
+    <input class="form-control" type="text" formControlName="name">
+    <button class="btn btn-sm btn-outline-primary" [disabled]="!streamForm.valid">Add stream</button>
+  </div>
+  <ng-container *ngIf="streamName.dirty || streamName.touched">
+    <span class="error-message" *ngIf="streamName.errors?.pattern">
+      Stream name must be between 2 and 30 characters, and contain only letters and symbols:" _-"
+    </span>
+    <span class="error-message" *ngIf="error$ | async as error">{{ error.error.message }}</span>
+  </ng-container>
+</form>
+<br>
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let stream of streams$ | async">
+    {{ stream.name }}
+    <span class="spacer"></span>
+    <button class="btn btn-sm btn-outline-danger"
+            (click)="deleteStream(stream.id)"
+            [disabled]="isLoading$ | async"
+    >Remove</button>
+  </li>
+</ul>
