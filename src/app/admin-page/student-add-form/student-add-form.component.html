@@ -79,7 +79,7 @@
       <div class="row">
         <div class="col center-content">
           <span class="success-message" *ngIf="(hasAddFailed$ | async) === false && (isLoaded$ |async)">Success!</span>
-          <span class="error-message" *ngIf="error$ | async as error">{{ error.message }}</span>
+          <span class="error-message" *ngIf="error$ | async as error">{{ error.error.message  }}</span>
         </div>
       </div>
     </div>

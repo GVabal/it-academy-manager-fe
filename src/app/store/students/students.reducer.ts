@@ -4,6 +4,7 @@ import { Student } from '../../shared/student';
 import { addStudent, addStudentFailure, addStudentSuccess, deleteStudent, deleteStudentFailure,
    deleteStudentSuccess, editStudent, editStudentFailure, editStudentSuccess, loadStudentCreate,
    loadStudentEdit, loadStudents, loadStudentsFailure, loadStudentsSuccess } from './students.actions';
+import { CustomError } from 'src/app/shared/customError';
 
 
 
@@ -16,7 +17,7 @@ export interface StudentsState extends EntityState<Student> {
   hasStudentEditFailed: boolean;
   hasStudentLoadFailed: boolean;
   hasStudentDeleteFailed: boolean;
-  error: Error | null;
+  error: CustomError | null;
   studentEditId: number;
   editOrCreateForm: boolean;
 }
