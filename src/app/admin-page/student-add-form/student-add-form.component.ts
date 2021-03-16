@@ -11,6 +11,10 @@ import {
 } from '../../store/students/students.selectors';
 import {Observable} from 'rxjs';
 
+const namePattern = '^[a-zA-ZĄąČčĘęĖėĮįŠšŲŲūŪŽž]*$';
+const occupationPattern = '^[a-zA-ZĄąČčĘęĖėĮįŠšŲųūŪŽž_-\\s]*$';
+const noMultipleSpacesPattern = '(?:(?![ ]{2}).)+';
+
 @Component({
   selector: 'app-student-add-form',
   templateUrl: './student-add-form.component.html',
@@ -34,22 +38,28 @@ export class StudentAddFormComponent implements OnInit {
     return this.fb.group({
       firstName: ['', [
         Validators.required,
-        Validators.maxLength(25)
+        Validators.maxLength(25),
+        Validators.pattern(namePattern)
       ]],
       lastName: ['', [
         Validators.required,
-        Validators.maxLength(25)
+        Validators.maxLength(25),
+        Validators.pattern(namePattern)
       ]],
       pictureUrl: ['', [
         imageUrlValidator
       ]],
       occupation: ['', [
         Validators.required,
-        Validators.maxLength(50)
+        Validators.maxLength(50),
+        Validators.pattern(occupationPattern),
+        Validators.pattern(noMultipleSpacesPattern)
       ]],
       direction: ['', [
         Validators.required,
-        Validators.maxLength(50)
+        Validators.maxLength(50),
+        Validators.pattern(occupationPattern),
+        Validators.pattern(noMultipleSpacesPattern)
       ]]
     });
   }

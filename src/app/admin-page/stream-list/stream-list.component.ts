@@ -7,6 +7,8 @@ import { Stream } from '../../shared/stream';
 import {addStream, deleteStream} from '../../store/stream/stream.actions';
 import {getIsStreamLoading, getStreamError, selectStreams} from '../../store/stream/stream.selectors';
 
+const streamNamePattern = '^[a-zA-ZĄąČčĘęĖėĮįŠšŲųūŪŽž_-\\s]*$';
+const noMultipleSpacesPattern = '(?:(?![ ]{2}).)+';
 
 @Component({
   selector: 'app-stream-list',
@@ -29,7 +31,8 @@ export class StreamListComponent implements OnInit {
     this.streamForm = this.fb.group({
       name: ['', [
         Validators.required,
-        Validators.pattern('.{2,30}')
+        Validators.pattern(streamNamePattern),
+        Validators.pattern(noMultipleSpacesPattern),
       ]]
     });
   }

@@ -8,6 +8,7 @@
           <ng-container *ngIf="firstName.dirty || firstName.touched">
             <span class="error-message" *ngIf="firstName.errors?.required">First name is required</span>
             <span class="error-message" *ngIf="firstName.errors?.maxlength">First name is too long</span>
+            <span class="error-message" *ngIf="firstName.errors?.pattern">First name must contain only letters</span>           
           </ng-container>
         </label>
         <div class="col">
@@ -20,6 +21,7 @@
           <ng-container *ngIf="lastName.dirty || lastName.touched">
             <span class="error-message" *ngIf="lastName.errors?.required">Last name is required</span>
             <span class="error-message" *ngIf="lastName.errors?.maxlength">Last name is too long</span>
+            <span class="error-message" *ngIf="lastName.errors?.pattern">Last name must contain only letters</span>
           </ng-container>
         </label>
         <div class="col">
@@ -43,6 +45,7 @@
           <ng-container *ngIf="occupation.dirty || occupation.touched">
             <span class="error-message" *ngIf="occupation.errors?.required">Occupation is required</span>
             <span class="error-message" *ngIf="occupation.errors?.maxlength">Occupation is too long</span>
+            <span class="error-message" *ngIf="occupation.errors?.pattern">Occupation can only contain letters and symbols:- _ (No multiple spaces allowed) </span>
           </ng-container>
         </label>
         <div class="col">
@@ -55,6 +58,7 @@
           <ng-container *ngIf="direction.dirty || direction.touched">
             <span class="error-message" *ngIf="direction.errors?.required">Direction is required</span>
             <span class="error-message" *ngIf="direction.errors?.maxlength">Direction is too long</span>
+            <span class="error-message" *ngIf="direction.errors?.pattern">Direction can only contain letters and symbols:- _ (No multiple spaces allowed) </span>
           </ng-container>
         </label>
         <div class="col">
