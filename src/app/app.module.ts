@@ -1,3 +1,4 @@
+import { ReviewsEffects } from './store/review/review.effects';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -17,6 +18,7 @@ import { streamFeatureKey, streamReducer } from './store/stream/stream.reducer';
 import { StudentEditFormComponent } from './admin-page/student-edit-form/student-edit-form.component';
 import { StudentListComponent } from './shared-components/student-list/student-list.component';
 import { ManagerPageComponent } from './manager-page/manager-page.component';
+import { reviewsFeatureKey, reviewsReducer } from './store/review/review.reducer';
 
 
 @NgModule({
@@ -36,11 +38,13 @@ import { ManagerPageComponent } from './manager-page/manager-page.component';
     ReactiveFormsModule,
     EffectsModule.forRoot([
       StudentsEffects,
-      StreamEffects
+      StreamEffects,
+      ReviewsEffects
     ]),
     StoreModule.forRoot({
       [studentsFeatureKey]: studentsReducer,
-      [streamFeatureKey]: streamReducer
+      [streamFeatureKey]: streamReducer,
+      [reviewsFeatureKey]: reviewsReducer
     }),
     StoreDevtoolsModule.instrument(),
   ],
