@@ -75,7 +75,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col center-content d-flex w-100 justify-content-between">
+        <div class="col center-content">
           <span class="success-message" *ngIf="(hasAddFailed$ | async) === false && (isLoaded$ |async)">Success!</span>
           <span class="error-message" *ngIf="error$ | async as error">{{ error.error.message  }}</span>
           <span class = "required-before required-text">Required fields</span>
