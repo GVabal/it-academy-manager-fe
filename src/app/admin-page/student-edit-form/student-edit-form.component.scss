@@ -28,3 +28,20 @@ h1 {
 input {
   margin-bottom: 10px;
 }
+
+.required-before:before {
+  content:" *";
+  color: red;
+}
+
+.required-after:after {
+  content:" *";
+  color: red;
+}
+
+.required-text{
+  text-align: right;
+  display:block;
+  width: 100%;
+  color: rgb(151, 151, 151);
+}
