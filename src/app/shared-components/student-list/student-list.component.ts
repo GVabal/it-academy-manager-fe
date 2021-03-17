@@ -1,5 +1,5 @@
 import { Student } from '../../shared/student';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { deleteStudent } from 'src/app/store/students/students.actions';
@@ -18,6 +18,7 @@ export class StudentListComponent implements OnInit {
   isStudentsLoaded$: Observable<boolean> | undefined ;
   hasLoadFailed$: Observable<boolean> | undefined ;
   error$: Observable<CustomError | null> | undefined;
+  @Input() isInAdminOrManger: boolean | undefined;
 
   constructor(private store: Store) { }
 
@@ -38,6 +39,12 @@ export class StudentListComponent implements OnInit {
 
   onCreate(): void{
     this.store.dispatch(loadStudentCreate());
+  }
+
+  onChoose(id: number): void {
+    if(!this.isInAdminOrManger){
+      console.log(id);
+    }
   }
 
   deleteStudent(id: number): void {
