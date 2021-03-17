@@ -43,7 +43,6 @@
         <label for="occupation" class="form-label">
           Occupation
           <ng-container *ngIf="occupation.dirty || occupation.touched">
-            <span class="error-message" *ngIf="occupation.errors?.required">Occupation is required</span>
             <span class="error-message" *ngIf="occupation.errors?.maxlength">Occupation is too long</span>
             <span class="error-message" *ngIf="occupation.errors?.pattern">Occupation can only contain letters and symbols:- _ (No multiple spaces allowed) </span>
           </ng-container>
@@ -56,7 +55,6 @@
         <label for="direction" class="form-label">
           Direction
           <ng-container *ngIf="direction.dirty || direction.touched">
-            <span class="error-message" *ngIf="direction.errors?.required">Direction is required</span>
             <span class="error-message" *ngIf="direction.errors?.maxlength">Direction is too long</span>
             <span class="error-message" *ngIf="direction.errors?.pattern">Direction can only contain letters and symbols:- _ (No multiple spaces allowed) </span>
           </ng-container>
@@ -80,7 +78,7 @@
         <div class="col center-content d-flex w-100 justify-content-between">
           <span class="success-message" *ngIf="(hasAddFailed$ | async) === false && (isLoaded$ |async)">Success!</span>
           <span class="error-message" *ngIf="error$ | async as error">{{ error.error.message  }}</span>
-          <span class = "required-before required-text">Indicates required field</span>
+          <span class = "required-before required-text">Required fields</span>
         </div>
       </div>
     </div>

@@ -71,11 +71,9 @@ export class StudentEditFormComponent implements OnInit {
         imageUrlValidator
       ]],
       occupation: ['', [
-        Validators.required,
         Validators.maxLength(50)
       ]],
       direction: ['', [
-        Validators.required,
         Validators.maxLength(50)
       ]]
     });

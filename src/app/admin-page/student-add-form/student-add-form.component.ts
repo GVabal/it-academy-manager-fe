@@ -54,14 +54,12 @@ export class StudentAddFormComponent implements OnInit {
       pictureUrl: ['', [
         imageUrlValidator
       ]],
-      occupation: ['', [
-        Validators.required,
+      occupation: ['', [,
         Validators.maxLength(50),
         Validators.pattern(occupationPattern),
         Validators.pattern(noMultipleSpacesPattern)
       ]],
       direction: ['', [
-        Validators.required,
         Validators.maxLength(50),
         Validators.pattern(occupationPattern),
         Validators.pattern(noMultipleSpacesPattern)
