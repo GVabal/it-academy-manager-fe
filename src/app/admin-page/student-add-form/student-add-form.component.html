@@ -8,7 +8,7 @@
           <ng-container *ngIf="firstName.dirty || firstName.touched">
             <span class="error-message" *ngIf="firstName.errors?.required">First name is required</span>
             <span class="error-message" *ngIf="firstName.errors?.maxlength">First name is too long</span>
-            <span class="error-message" *ngIf="firstName.errors?.pattern">First name must contain only letters</span>           
+            <span class="error-message" *ngIf="firstName.errors?.pattern">First name must contain only letters</span>
           </ng-container>
         </label>
         <div class="col">
@@ -29,14 +29,14 @@
         </div>
       </div>
       <div class="row">
-        <label for="pictureurl" class="form-label">
-          Picture URL
-          <ng-container *ngIf="pictureUrl.dirty || pictureUrl.touched">
-            <span class="error-message" *ngIf="pictureUrl.errors?.imageUrl">Invalid picture url</span>
-          </ng-container>
+        <label for="picture" class="form-label">
+          Profile picture
         </label>
         <div class="col">
-          <input id="pictureurl" class="form-control" type="url" formControlName="pictureUrl">
+          <input id="picture" class="form-control" type="file" accept="image/*" (change)="onPictureChange($event)">
+        </div>
+        <div *ngIf="imagePreviewUrl && imagePreviewUrl !== ''">
+          <img [src]="imagePreviewUrl" alt="profile picture" width="200px">
         </div>
       </div>
       <div class="row">

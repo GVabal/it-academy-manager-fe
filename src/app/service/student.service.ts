@@ -13,8 +13,18 @@ export class StudentService {
 
   constructor(private http: HttpClient) { }
 
-  addStudent(student: Student): Observable<Student> {
-    return this.http.post<Student>(apiUrl, student);
+  addStudent(student: Student, picture: File): Observable<Student> {
+    const formData = new FormData();
+    if (picture !== null) {
+      formData.append('picture', new Blob([picture], {
+        type: 'image/jpeg'
+      }));
+    }
+    formData.append('request', new Blob([JSON.stringify(student)], {
+        type: 'application/json'
+      }
+    ));
+    return this.http.post<Student>(apiUrl, formData, {headers: {enctype: 'multipart/form-data'}});
   }
 
   updateStudent(student: Student, id: number): Observable<Student> {

@@ -27,6 +27,8 @@ export class StudentAddFormComponent implements OnInit {
   isLoaded$!: Observable<boolean>;
   error$!: Observable<CustomError | null>;
   studentForm!: FormGroup;
+  imagePreviewUrl = '';
+  selectedFile!: File;
 
   constructor(private store: Store,
               private fb: FormBuilder) { }
@@ -51,10 +53,7 @@ export class StudentAddFormComponent implements OnInit {
         Validators.maxLength(25),
         Validators.pattern(namePattern)
       ]],
-      pictureUrl: ['', [
-        imageUrlValidator
-      ]],
-      occupation: ['', [,
+      occupation: ['', [
         Validators.maxLength(50),
         Validators.pattern(occupationPattern),
         Validators.pattern(noMultipleSpacesPattern)
@@ -75,10 +74,6 @@ export class StudentAddFormComponent implements OnInit {
     return this.studentForm.get('lastName') as FormControl;
   }
 
-  get pictureUrl(): FormControl {
-    return this.studentForm.get('pictureUrl') as FormControl;
-  }
-
   get occupation(): FormControl {
     return this.studentForm.get('occupation') as FormControl;
   }
@@ -88,6 +83,17 @@ export class StudentAddFormComponent implements OnInit {
   }
 
   submitForm(): void {
-    this.store.dispatch(addStudent({student: this.studentForm.value}));
+    this.store.dispatch(addStudent({student: this.studentForm.value, picture: this.selectedFile}));
+  }
+
+  onPictureChange(event: any): void {
+    const reader = new FileReader();
+    if (event.target.files && event.target.files.length) {
+      this.selectedFile = event.target.files[0];
+      reader.readAsDataURL(this.selectedFile);
+      reader.onload = () => {
+        this.imagePreviewUrl = reader.result as string;
+      };
+    }
   }
 }
