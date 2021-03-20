@@ -1,3 +1,4 @@
+import { of, Observable } from 'rxjs';
 import { Component, Input, OnInit } from '@angular/core';
 import { ChartType } from 'chart.js';
 
@@ -19,9 +20,14 @@ export class RadarChartComponent implements OnInit{
   constructor() { }
 
   radarChartLabels = ['Overall', 'Ability to learn', 'Motivation', 'Extra mile' , 'Communication'];
-  @Input() radarChartData = [
+
+  @Input() set data(val: number[]){
+    this.radarChartData[0].data = val;
+  }
+
+  radarChartData = [
     {
-      data: [9, 9, 9, 9, 9]
+      data: [0, 0, 0, 0, 0]
     }
   ];
   radarChartColors = [

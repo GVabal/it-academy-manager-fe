@@ -18,7 +18,7 @@ export class StudentCardComponent implements OnInit {
   student!: Student;
   reviewsData$!: Observable<ReviewData>;
   reviewData = {} as ReviewData;
-  averages = [{data: [0, 0, 0, 0, 0]}];
+  averages = [0, 0, 0, 0, 0];
 
   constructor(private store: Store) { }
 
@@ -34,8 +34,8 @@ export class StudentCardComponent implements OnInit {
     this.reviewsData$ = this.store.select(getReviewData);
     this.reviewsData$.subscribe(data => {
       this.reviewData = data;
-      this.averages = [{data: [this.average(data.overallGrade), this.average(data.abilityToLearnGrade),
-        this.average(data.motivationGrade), this.average(data.extraMileGrade), this.average(data.communicationGrade)]}];
+      this.averages =  [this.average(data.overallGrade), this.average(data.abilityToLearnGrade), this.average(data.motivationGrade),
+         this.average(data.extraMileGrade), this.average(data.communicationGrade)];
     });
   }
 
