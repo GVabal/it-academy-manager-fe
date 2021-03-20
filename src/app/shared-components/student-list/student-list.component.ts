@@ -2,7 +2,7 @@ import { Student } from '../../shared/student';
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { deleteStudent } from 'src/app/store/students/students.actions';
+import { changeSelectedStudent, deleteStudent } from 'src/app/store/students/students.actions';
 import { getHasStudentLoadFailed, getIsStudentsLoaded, getIsStudentsLoading, selectStudents, getStudentsError } from '../../store/students/students.selectors';
 import { loadStudentCreate, loadStudentEdit } from 'src/app/store/students/students.actions';
 import { CustomError } from 'src/app/shared/customError';
@@ -42,8 +42,8 @@ export class StudentListComponent implements OnInit {
   }
 
   onChoose(id: number): void {
-    if(!this.isInAdminOrManger){
-      console.log(id);
+    if (!this.isInAdminOrManger){
+      this.store.dispatch(changeSelectedStudent({id}));
     }
   }
 

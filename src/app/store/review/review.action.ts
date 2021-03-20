@@ -3,7 +3,8 @@ import { createAction, props } from '@ngrx/store';
 import { CustomError } from 'src/app/shared/customError';
 
 export const loadReviews = createAction(
-  '[Reviews] Load Reviews'
+  '[Reviews] Load Reviews',
+  props<{id: number}>()
 );
 
 export const loadReviewsSuccess = createAction(

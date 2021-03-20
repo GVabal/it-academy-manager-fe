@@ -19,6 +19,9 @@ import { StudentEditFormComponent } from './admin-page/student-edit-form/student
 import { StudentListComponent } from './shared-components/student-list/student-list.component';
 import { ManagerPageComponent } from './manager-page/manager-page.component';
 import { reviewsFeatureKey, reviewsReducer } from './store/review/review.reducer';
+import { StudentCardComponent } from './manager-page/student-card/student-card.component';
+import { ChartsModule } from 'ng2-charts';
+import { RadarChartComponent } from './shared-components/radar-chart/radar-chart.component';
 
 
 @NgModule({
@@ -30,8 +33,11 @@ import { reviewsFeatureKey, reviewsReducer } from './store/review/review.reducer
     StreamListComponent,
     StudentListComponent,
     ManagerPageComponent,
+    StudentCardComponent,
+    RadarChartComponent
   ],
   imports: [
+    ChartsModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,

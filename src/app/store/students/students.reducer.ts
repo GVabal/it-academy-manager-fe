@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { createEntityAdapter, EntityState } from '@ngrx/entity';
 import { Student } from '../../shared/student';
-import { addStudent, addStudentFailure, addStudentSuccess, deleteStudent, deleteStudentFailure,
+import { addStudent, addStudentFailure, addStudentSuccess, changeSelectedStudent, deleteStudent, deleteStudentFailure,
    deleteStudentSuccess, editStudent, editStudentFailure, editStudentSuccess, loadStudentCreate,
    loadStudentEdit, loadStudents, loadStudentsFailure, loadStudentsSuccess } from './students.actions';
 import { CustomError } from 'src/app/shared/customError';
@@ -19,6 +19,7 @@ export interface StudentsState extends EntityState<Student> {
   hasStudentDeleteFailed: boolean;
   error: CustomError | null;
   studentEditId: number;
+  selectedStudentId: number;
   editOrCreateForm: boolean;
 }
 
@@ -34,6 +35,7 @@ export const initialState: StudentsState = studentsAdapter.getInitialState({
   hasStudentLoadFailed: false,
   editOrCreateForm: false,
   hasStudentDeleteFailed: false,
+  selectedStudentId: -1,
 });
 
 export const studentsReducer = createReducer(
@@ -127,11 +129,16 @@ export const studentsReducer = createReducer(
   }),
 
   on(loadStudentsSuccess, (state, action) => {
+    let selectedStudentId = -1;
+    if (action.students[0]){
+      selectedStudentId = action.students[0].id;
+    }
     return studentsAdapter.addMany(action.students, {
       ...state,
       loading: false,
       loaded: true,
-      error: null
+      error: null,
+      selectedStudentId
     });
   }),
 
@@ -168,6 +175,12 @@ export const studentsReducer = createReducer(
       loaded: false,
       hasStudentDeleteFailed: true,
       error: action.error
+    };
+  }),
+  on(changeSelectedStudent, (state, action) => {
+    return{
+      ...state,
+      selectedStudentId: action.id
     };
   })
 );
