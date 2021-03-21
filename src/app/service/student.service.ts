@@ -13,7 +13,7 @@ export class StudentService {
 
   constructor(private http: HttpClient) { }
 
-  addStudent(student: Student, picture: File): Observable<Student> {
+  addStudent(student: Student, picture: File | null): Observable<Student> {
     const formData = new FormData();
     if (picture !== null) {
       formData.append('picture', new Blob([picture], {

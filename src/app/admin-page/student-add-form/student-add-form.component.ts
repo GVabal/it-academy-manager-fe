@@ -28,7 +28,7 @@ export class StudentAddFormComponent implements OnInit {
   error$!: Observable<CustomError | null>;
   studentForm!: FormGroup;
   imagePreviewUrl = '';
-  selectedFile!: File;
+  selectedFile!: File | null;
 
   constructor(private store: Store,
               private fb: FormBuilder) { }
@@ -90,10 +90,15 @@ export class StudentAddFormComponent implements OnInit {
     const reader = new FileReader();
     if (event.target.files && event.target.files.length) {
       this.selectedFile = event.target.files[0];
-      reader.readAsDataURL(this.selectedFile);
+      reader.readAsDataURL(this.selectedFile as File);
       reader.onload = () => {
         this.imagePreviewUrl = reader.result as string;
       };
     }
+  }
+
+  clearSelectedImage(): void {
+    this.imagePreviewUrl = '';
+    this.selectedFile = null;
   }
 }

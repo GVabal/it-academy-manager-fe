@@ -5,7 +5,7 @@ import { CustomError } from 'src/app/shared/customError';
 
 export const addStudent = createAction(
   '[Students] Add Student',
-  props<{ student: Student, picture: File }>()
+  props<{ student: Student, picture: File | null}>()
 );
 
 export const addStudentSuccess = createAction(

@@ -29,14 +29,21 @@
         </div>
       </div>
       <div class="row">
-        <label for="picture" class="form-label">
+        <label class="form-label">
           Profile picture
         </label>
         <div class="col">
-          <input id="picture" class="form-control" type="file" accept="image/*" (change)="onPictureChange($event)">
-        </div>
-        <div *ngIf="imagePreviewUrl && imagePreviewUrl !== ''">
-          <img [src]="imagePreviewUrl" alt="profile picture" width="200px">
+          <div *ngIf="imagePreviewUrl && imagePreviewUrl !== ''">
+            <img [src]="imagePreviewUrl" alt="profile picture" width="150px">
+            <br>
+            <input type="file" accept="image/*" (change)="onPictureChange($event)">
+            <button type="button" (click)="clearSelectedImage()">Delete</button>
+          </div>
+          <div *ngIf="!imagePreviewUrl || imagePreviewUrl === ''">
+            <img src="./assets/no-profile-picture.png" alt="no profile picture" width="150px">
+            <br>
+            <input type="file" accept="image/*" (change)="onPictureChange($event)">
+          </div>
         </div>
       </div>
       <div class="row">
