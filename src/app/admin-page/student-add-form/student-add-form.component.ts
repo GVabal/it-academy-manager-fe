@@ -87,8 +87,8 @@ export class StudentAddFormComponent implements OnInit {
   }
 
   onPictureChange(event: any): void {
-    const reader = new FileReader();
     if (event.target.files && event.target.files.length) {
+      const reader = new FileReader();
       this.selectedFile = event.target.files[0];
       reader.readAsDataURL(this.selectedFile as File);
       reader.onload = () => {
