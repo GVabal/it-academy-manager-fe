@@ -28,7 +28,7 @@ export class StudentsEffects {
   editStudent$ = createEffect(() =>
     this.actions$.pipe(
       ofType(editStudent),
-      switchMap((action) => this.studentService.updateStudent(action.student, action.id).pipe(
+      switchMap((action) => this.studentService.updateStudent(action.student, action.id, action.picture).pipe(
         map((student) => {
           const updatedStudent: Update<Student> = {
             id: action.id,

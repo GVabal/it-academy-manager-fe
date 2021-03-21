@@ -29,7 +29,7 @@ export const loadStudentCreate = createAction(
 
 export const editStudent = createAction(
   '[Students] Edit Student',
-  props<{ student: Student, id: number }>()
+  props<{ student: Student, id: number, picture: File | null }>()
 );
 
 export const editStudentSuccess = createAction(

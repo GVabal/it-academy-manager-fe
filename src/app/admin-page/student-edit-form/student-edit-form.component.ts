@@ -28,7 +28,8 @@ export class StudentEditFormComponent implements OnInit {
   isLoaded$!: Observable<boolean>;
   error$!: Observable<CustomError | null>;
   studentId$!: Observable<number>;
-
+  imagePreviewUrl = '';
+  selectedFile!: File | null;
   studentForm!: FormGroup;
   studentId = 0;
 
@@ -49,10 +50,10 @@ export class StudentEditFormComponent implements OnInit {
         this.studentForm.patchValue({
           firstName: student.firstName,
           lastName: student.lastName,
-          pictureUrl: student.pictureUrl,
           occupation: student.occupation,
           direction: student.direction
         });
+        this.imagePreviewUrl = student.pictureUrl as string;
       }
     });
   }
@@ -66,9 +67,6 @@ export class StudentEditFormComponent implements OnInit {
       lastName: ['', [
         Validators.required,
         Validators.maxLength(25)
-      ]],
-      pictureUrl: ['', [
-        imageUrlValidator
       ]],
       occupation: ['', [
         Validators.maxLength(50)
@@ -87,10 +85,6 @@ export class StudentEditFormComponent implements OnInit {
     return this.studentForm.get('lastName') as FormControl;
   }
 
-  get pictureUrl(): FormControl {
-    return this.studentForm.get('pictureUrl') as FormControl;
-  }
-
   get occupation(): FormControl {
     return this.studentForm.get('occupation') as FormControl;
   }
@@ -100,6 +94,26 @@ export class StudentEditFormComponent implements OnInit {
   }
 
   submitForm(): void {
-    this.store.dispatch(editStudent({ id: this.studentId, student: this.studentForm.value }));
+    this.store.dispatch(editStudent({
+      id: this.studentId,
+      student: this.studentForm.value,
+      picture: this.selectedFile
+    }));
+  }
+
+  onPictureChange(event: any): void {
+    const reader = new FileReader();
+    if (event.target.files && event.target.files.length) {
+      this.selectedFile = event.target.files[0];
+      reader.readAsDataURL(this.selectedFile as File);
+      reader.onload = () => {
+        this.imagePreviewUrl = reader.result as string;
+      };
+    }
+  }
+
+  clearSelectedImage(): void {
+    this.imagePreviewUrl = '';
+    this.selectedFile = null;
   }
 }

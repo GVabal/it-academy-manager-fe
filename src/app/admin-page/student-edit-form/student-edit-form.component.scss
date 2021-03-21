@@ -29,6 +29,10 @@ input {
   margin-bottom: 10px;
 }
 
+input[type="file"] {
+  width: 100px;
+}
+
 .required-before:before {
   content:" *";
   color: red;
