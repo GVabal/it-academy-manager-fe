@@ -16,6 +16,9 @@ import { StreamEffects } from './store/stream/stream.effects';
 import { streamFeatureKey, streamReducer } from './store/stream/stream.reducer';
 import { StudentEditFormComponent } from './admin-page/student-edit-form/student-edit-form.component';
 import { StudentListComponent } from './admin-page/student-list/student-list.component';
+import { LecturerPageComponent } from './lecturer-page/lecturer-page.component';
+import { StudentReviewFormComponent } from './lecturer-page/student-review-form/student-review-form.component';
+
 
 
 @NgModule({
@@ -26,6 +29,8 @@ import { StudentListComponent } from './admin-page/student-list/student-list.com
     StudentEditFormComponent,
     StreamListComponent,
     StudentListComponent,
+    LecturerPageComponent,
+    StudentReviewFormComponent,
   ],
   imports: [
     BrowserModule,
