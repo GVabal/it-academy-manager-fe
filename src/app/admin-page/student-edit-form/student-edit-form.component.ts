@@ -4,7 +4,6 @@ import { Student } from '../../shared/student';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { imageUrlValidator } from '../../shared/validators/image-url.validator';
 import {
   getStudentEditId,
   getHasStudentEditFailed,
@@ -29,7 +28,7 @@ export class StudentEditFormComponent implements OnInit {
   error$!: Observable<CustomError | null>;
   studentId$!: Observable<number>;
   imagePreviewUrl = '';
-  selectedFile!: File | null;
+  selectedFile: File | null = null;
   studentForm!: FormGroup;
   studentId = 0;
 
@@ -54,6 +53,7 @@ export class StudentEditFormComponent implements OnInit {
           direction: student.direction
         });
         this.imagePreviewUrl = student.pictureUrl as string;
+        // + set selectedFile to picture from pictureUrl
       }
     });
   }

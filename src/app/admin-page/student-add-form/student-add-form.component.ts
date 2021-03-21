@@ -28,7 +28,7 @@ export class StudentAddFormComponent implements OnInit {
   error$!: Observable<CustomError | null>;
   studentForm!: FormGroup;
   imagePreviewUrl = '';
-  selectedFile!: File | null;
+  selectedFile: File | null = null;
 
   constructor(private store: Store,
               private fb: FormBuilder) { }
