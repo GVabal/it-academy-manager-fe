@@ -70,3 +70,8 @@ export const deleteStudentFailure = createAction(
   '[Students] Delete Student Failure',
   props<{error: CustomError}>()
 );
+
+export const changeSelectedStudent = createAction(
+  '[Students] Select Student',
+  props<{id: number }>()
+);

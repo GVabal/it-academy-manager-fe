@@ -1,3 +1,4 @@
+import { ReviewsEffects } from './store/review/review.effects';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -13,7 +14,12 @@ import {ReactiveFormsModule} from '@angular/forms';
 import { StreamListComponent } from './admin-page/stream-list/stream-list.component';
 import { StreamEffects } from './store/stream/stream.effects';
 import { streamFeatureKey, streamReducer } from './store/stream/stream.reducer';
-import { StudentListComponent } from './admin-page/student-list/student-list.component';
+import { StudentListComponent } from './shared-components/student-list/student-list.component';
+import { ManagerPageComponent } from './manager-page/manager-page.component';
+import { reviewsFeatureKey, reviewsReducer } from './store/review/review.reducer';
+import { StudentCardComponent } from './manager-page/student-card/student-card.component';
+import { ChartsModule } from 'ng2-charts';
+import { RadarChartComponent } from './shared-components/radar-chart/radar-chart.component';
 import { StudentFormComponent } from './admin-page/student-form/student-form.component';
 
 
@@ -23,20 +29,26 @@ import { StudentFormComponent } from './admin-page/student-form/student-form.com
     AdminPageComponent,
     StreamListComponent,
     StudentListComponent,
+    ManagerPageComponent,
+    StudentCardComponent,
+    RadarChartComponent,
     StudentFormComponent
   ],
   imports: [
+    ChartsModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
     EffectsModule.forRoot([
       StudentsEffects,
-      StreamEffects
+      StreamEffects,
+      ReviewsEffects
     ]),
     StoreModule.forRoot({
       [studentsFeatureKey]: studentsReducer,
-      [streamFeatureKey]: streamReducer
+      [streamFeatureKey]: streamReducer,
+      [reviewsFeatureKey]: reviewsReducer
     }),
     StoreDevtoolsModule.instrument(),
   ],
