@@ -2,7 +2,6 @@ import {getIsEditOrCreateForm} from '../store/students/students.selectors';
 import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
-import {StudentFormType} from './student-form/StudentFormType';
 
 @Component({
   selector: 'app-admin-page',
@@ -10,8 +9,6 @@ import {StudentFormType} from './student-form/StudentFormType';
   styleUrls: ['./admin-page.component.scss']
 })
 export class AdminPageComponent implements OnInit {
-  addForm: StudentFormType = StudentFormType.ADD;
-  editForm: StudentFormType = StudentFormType.EDIT;
   editOrCreateForm$!: Observable<boolean>;
 
   constructor(private store: Store) { }

@@ -1,7 +1,7 @@
 <form class="center-content" [formGroup]="studentForm" (ngSubmit)="submitForm()">
   <div class="card">
-    <h1 *ngIf="add">New Student Form</h1>
-    <h1 *ngIf="edit">Student Edit Form</h1>
+    <h1 *ngIf="!isEditView">New Student Form</h1>
+    <h1 *ngIf="isEditView">Student Edit Form</h1>
     <div class="card-body">
       <div class="row">
         <label for="firstname" class="form-label">
@@ -35,7 +35,7 @@
         </label>
         <div class="col">
           <div *ngIf="imagePreviewUrl && imagePreviewUrl !== ''">
-            <img id="current-picture" [src]="imagePreviewUrl" alt="profile picture" width="150px">
+            <img [src]="imagePreviewUrl" alt="profile picture" width="150px">
             <br>
             <input type="file" accept="image/*" (change)="onFileSelect($event)">
             <button type="button" (click)="clearSelectedImage()">Delete</button>
@@ -73,11 +73,11 @@
       </div>
       <div class="row">
         <div class="col">
-          <button *ngIf="add && (isLoading$ | async) === false"
+          <button *ngIf="!isEditView && (isLoading$ | async) === false"
                   class="btn btn-primary"
                   [disabled]="studentForm.invalid"
           >Add Student</button>
-          <button *ngIf="edit && (isLoading$ | async) === false"
+          <button *ngIf="isEditView && (isLoading$ | async) === false"
                   class="btn btn-primary"
                   [disabled]="studentForm.invalid"
           >Save Changes</button>
@@ -88,9 +88,9 @@
       </div>
       <div class="row">
         <div class="col center-content">
-          <span class="success-message" *ngIf="add && (hasAddFailed$ | async) === false && (isLoaded$ |async)">Success!</span>
-          <span class="success-message" *ngIf="edit && (hasEditFailed$ | async) === false && (isLoaded$ |async)">Success!</span>
-          <span class="error-message" *ngIf="error$ | async as error">{{ error.error.message  }}</span>
+          <span class="success-message" *ngIf="!isEditView && (hasAddFailed$ | async) === false && (isLoaded$ |async)">Success!</span>
+          <span class="success-message" *ngIf="isEditView && (hasEditFailed$ | async) === false && (isLoaded$ |async)">Success!</span>
+          <span class="error-message" *ngIf="error$ | async as error">{{ error.error.message }}</span>
           <span class = "required-before required-text">Required fields</span>
         </div>
       </div>

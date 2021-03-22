@@ -14,9 +14,9 @@
 </div>
 
 <ng-template #showStudentAddForm>
-  <app-student-form [type]="addForm"></app-student-form>
+  <app-student-form [isEditView]="false"></app-student-form>
 </ng-template>
 
 <ng-template #showStudentEditForm>
-  <app-student-form [type]="editForm"></app-student-form>
+  <app-student-form [isEditView]="true"></app-student-form>
 </ng-template>

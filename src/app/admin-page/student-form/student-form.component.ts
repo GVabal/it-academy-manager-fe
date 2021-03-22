@@ -15,7 +15,6 @@ import {
 import {addStudent, editStudent} from '../../store/students/students.actions';
 import {switchMap} from 'rxjs/operators';
 import {Student} from '../../shared/student';
-import {StudentFormType} from './StudentFormType';
 import {ProfilePictureService} from '../../service/profile-picture.service';
 
 const namePattern = '^[a-zA-ZĄąČčĘęĖėĮįŠšŲŲūŪŽž]*$';
@@ -28,9 +27,7 @@ const noMultipleSpacesPattern = '(?:(?![ ]{2}).)+';
   styleUrls: ['./student-form.component.scss']
 })
 export class StudentFormComponent implements OnInit {
-  @Input() type!: StudentFormType;
-  add = false;
-  edit = false;
+  @Input() isEditView!: boolean;
   hasAddFailed$!: Observable<boolean>;
   hasEditFailed$!: Observable<boolean>;
   isLoading$!: Observable<boolean>;
@@ -45,13 +42,6 @@ export class StudentFormComponent implements OnInit {
   constructor(private store: Store, private fb: FormBuilder, private profilePictureService: ProfilePictureService) { }
 
   ngOnInit(): void {
-    if (this.type === StudentFormType.ADD) {
-      this.add = true;
-    }
-    if (this.type === StudentFormType.EDIT) {
-      this.edit = true;
-    }
-
     this.studentForm = this.initStudentForm();
     this.hasAddFailed$ = this.store.select(getHasStudentAddFailed);
     this.hasEditFailed$ = this.store.select(getHasStudentEditFailed);
@@ -60,7 +50,7 @@ export class StudentFormComponent implements OnInit {
     this.error$ = this.store.select(getStudentsError);
     this.studentId$ = this.store.select(getStudentEditId);
 
-    if (this.edit) {
+    if (this.isEditView) {
       this.studentId$.pipe(
         switchMap(studentId => (this.store.select(getStudentById(studentId)) as Observable<Student>))
       ).subscribe((student) => {
@@ -74,7 +64,7 @@ export class StudentFormComponent implements OnInit {
           });
           this.imagePreviewUrl = student.pictureUrl as string;
           if (this.imagePreviewUrl) {
-            this.profilePictureService.getProfilePictureFileA(this.imagePreviewUrl)
+            this.profilePictureService.getProfilePictureFile(this.imagePreviewUrl)
               .subscribe(file => this.selectedFile = file);
           } else {
             this.selectedFile = null;
@@ -126,11 +116,10 @@ export class StudentFormComponent implements OnInit {
   }
 
   submitForm(): void {
-    if (this.add) {
-      this.store.dispatch(addStudent({student: this.studentForm.value, picture: this.selectedFile}));
-    }
-    if (this.edit) {
+    if (this.isEditView) {
       this.store.dispatch(editStudent({id: this.studentId, student: this.studentForm.value, picture: this.selectedFile}));
+    } else {
+      this.store.dispatch(addStudent({student: this.studentForm.value, picture: this.selectedFile}));
     }
   }
 
