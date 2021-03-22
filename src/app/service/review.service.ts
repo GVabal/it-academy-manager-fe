@@ -5,7 +5,7 @@ import {environment} from '../../environments/environment';
 import { Review } from '../shared/review';
 
 const reviewsUrl = `${environment.baseUrl}/reviews`;
-const studentsUrl = `${environment.baseUrl}/students`
+const studentsUrl = `${environment.baseUrl}/students`;
 
 @Injectable({
   providedIn: 'root'
