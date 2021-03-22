@@ -1,5 +1,7 @@
 export interface Review {
     id: number;
+    studentId: number;
+    streamId: number;
     overallGrade: number;
     overallComment: string;
     abilityToLearnGrade: number;
@@ -10,6 +12,4 @@ export interface Review {
     extraMileComment: string;
     communicationGrade: number;
     communicationComment: string;
-    studentId: number;
-    streamId: number;
   }

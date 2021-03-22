@@ -1,7 +1,7 @@
 <div class="spaced-sides">
   <div class="row">
     <div class="col-4">
-      <app-student-list></app-student-list>
+      <app-student-list [isAdminView] = "true"></app-student-list>
     </div>
     <div class="col-5">
       <ng-container *ngIf="(editOrCreateForm$ | async); then showStudentEditForm; else showStudentAddForm">
@@ -14,9 +14,9 @@
 </div>
 
 <ng-template #showStudentAddForm>
-  <app-student-add-form></app-student-add-form>
+  <app-student-form [isEditView]="false"></app-student-form>
 </ng-template>
 
 <ng-template #showStudentEditForm>
-  <app-student-edit-form></app-student-edit-form>
+  <app-student-form [isEditView]="true"></app-student-form>
 </ng-template>

@@ -4,7 +4,8 @@ import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import { Review } from '../shared/review';
 
-const apiUrl = `${environment.baseUrl}/reviews`;
+const reviewsUrl = `${environment.baseUrl}/reviews`;
+const studentsUrl = `${environment.baseUrl}/students`
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,10 @@ export class ReviewService {
   constructor(private http: HttpClient) { }
 
   addReview(review: Review): Observable<Review> {
-    return this.http.post<Review>(apiUrl, review);
+    return this.http.post<Review>(reviewsUrl, review);
+  }
+
+  getReviewsByStudentId(id: number): Observable<Review[]>{
+    return this.http.get<Review[]>(studentsUrl + `/${id}/reviews`);
   }
 }

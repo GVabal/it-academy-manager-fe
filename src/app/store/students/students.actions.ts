@@ -5,7 +5,7 @@ import { CustomError } from 'src/app/shared/customError';
 
 export const addStudent = createAction(
   '[Students] Add Student',
-  props<{ student: Student }>()
+  props<{ student: Student, picture: File | null}>()
 );
 
 export const addStudentSuccess = createAction(
@@ -29,7 +29,7 @@ export const loadStudentCreate = createAction(
 
 export const editStudent = createAction(
   '[Students] Edit Student',
-  props<{ student: Student, id: number }>()
+  props<{ student: Student, id: number, picture: File | null }>()
 );
 
 export const editStudentSuccess = createAction(
@@ -69,4 +69,9 @@ export const deleteStudentSuccess = createAction(
 export const deleteStudentFailure = createAction(
   '[Students] Delete Student Failure',
   props<{error: CustomError}>()
+);
+
+export const changeSelectedStudent = createAction(
+  '[Students] Select Student',
+  props<{id: number }>()
 );
