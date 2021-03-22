@@ -18,7 +18,7 @@ export class StudentsEffects {
   addStudent$ = createEffect(() =>
     this.actions$.pipe(
       ofType(addStudent),
-      switchMap((action) => this.studentService.addStudent(action.student).pipe(
+      switchMap((action) => this.studentService.addStudent(action.student, action.picture).pipe(
         map(student => addStudentSuccess({ student })),
         catchError(error => of(addStudentFailure({ error })))
       )
@@ -29,7 +29,7 @@ export class StudentsEffects {
   editStudent$ = createEffect(() =>
     this.actions$.pipe(
       ofType(editStudent),
-      switchMap((action) => this.studentService.updateStudent(action.student, action.id).pipe(
+      switchMap((action) => this.studentService.updateStudent(action.student, action.id, action.picture).pipe(
         map((student) => {
           const updatedStudent: Update<Student> = {
             id: action.id,

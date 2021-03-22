@@ -1,6 +1,7 @@
 <form class="center-content" [formGroup]="studentForm" (ngSubmit)="submitForm()">
   <div class="card">
-    <h1>Student Edit Form</h1>
+    <h1 *ngIf="!isEditView">New Student Form</h1>
+    <h1 *ngIf="isEditView">Student Edit Form</h1>
     <div class="card-body">
       <div class="row">
         <label for="firstname" class="form-label">
@@ -8,6 +9,7 @@
           <ng-container *ngIf="firstName.dirty || firstName.touched">
             <span class="error-message" *ngIf="firstName.errors?.required">First name is required</span>
             <span class="error-message" *ngIf="firstName.errors?.maxlength">First name is too long</span>
+            <span class="error-message" *ngIf="firstName.errors?.pattern">First name must contain only letters</span>
           </ng-container>
         </label>
         <div class="col">
@@ -20,6 +22,7 @@
           <ng-container *ngIf="lastName.dirty || lastName.touched">
             <span class="error-message" *ngIf="lastName.errors?.required">Last name is required</span>
             <span class="error-message" *ngIf="lastName.errors?.maxlength">Last name is too long</span>
+            <span class="error-message" *ngIf="lastName.errors?.pattern">Last name must contain only letters</span>
           </ng-container>
         </label>
         <div class="col">
@@ -27,14 +30,21 @@
         </div>
       </div>
       <div class="row">
-        <label for="pictureurl" class="form-label">
-          Picture URL
-          <ng-container *ngIf="pictureUrl.dirty || pictureUrl.touched">
-            <span class="error-message" *ngIf="pictureUrl.errors?.imageUrl">Invalid picture url</span>
-          </ng-container>
+        <label class="form-label">
+          Profile picture
         </label>
         <div class="col">
-          <input id="pictureurl" class="form-control" type="url" formControlName="pictureUrl">
+          <div *ngIf="imagePreviewUrl && imagePreviewUrl !== ''">
+            <img [src]="imagePreviewUrl" alt="profile picture" width="150px">
+            <br>
+            <input type="file" accept="image/*" (change)="onFileSelect($event)">
+            <button type="button" (click)="clearSelectedImage()">Delete</button>
+          </div>
+          <div *ngIf="!imagePreviewUrl || imagePreviewUrl === ''">
+            <img src="./assets/no-profile-picture.png" alt="no profile picture" width="150px">
+            <br>
+            <input type="file" accept="image/*" (change)="onFileSelect($event)">
+          </div>
         </div>
       </div>
       <div class="row">
@@ -42,6 +52,7 @@
           Occupation
           <ng-container *ngIf="occupation.dirty || occupation.touched">
             <span class="error-message" *ngIf="occupation.errors?.maxlength">Occupation is too long</span>
+            <span class="error-message" *ngIf="occupation.errors?.pattern">Occupation can only contain letters and symbols:- _ (No multiple spaces allowed) </span>
           </ng-container>
         </label>
         <div class="col">
@@ -53,6 +64,7 @@
           Direction
           <ng-container *ngIf="direction.dirty || direction.touched">
             <span class="error-message" *ngIf="direction.errors?.maxlength">Direction is too long</span>
+            <span class="error-message" *ngIf="direction.errors?.pattern">Direction can only contain letters and symbols:- _ (No multiple spaces allowed) </span>
           </ng-container>
         </label>
         <div class="col">
@@ -60,10 +72,15 @@
         </div>
       </div>
       <div class="row">
-        <div class="col center-content">
-          <button *ngIf="(isLoading$ | async) === false" class="btn btn-primary" [disabled]="studentForm.invalid">
-            Save
-          </button>
+        <div class="col">
+          <button *ngIf="!isEditView && (isLoading$ | async) === false"
+                  class="btn btn-primary"
+                  [disabled]="studentForm.invalid"
+          >Add Student</button>
+          <button *ngIf="isEditView && (isLoading$ | async) === false"
+                  class="btn btn-primary"
+                  [disabled]="studentForm.invalid"
+          >Save Changes</button>
           <div *ngIf="isLoading$ | async" class="spinner-border text-primary" role="status">
             <span class="visually-hidden">Loading...</span>
           </div>
@@ -71,7 +88,8 @@
       </div>
       <div class="row">
         <div class="col center-content">
-          <span class="success-message" *ngIf="(hasEditFailed$ | async) === false && (isLoaded$ |async)">Success!</span>
+          <span class="success-message" *ngIf="!isEditView && (hasAddFailed$ | async) === false && (isLoaded$ |async)">Success!</span>
+          <span class="success-message" *ngIf="isEditView && (hasEditFailed$ | async) === false && (isLoaded$ |async)">Success!</span>
           <span class="error-message" *ngIf="error$ | async as error">{{ error.error.message }}</span>
           <span class = "required-before required-text">Required fields</span>
         </div>
