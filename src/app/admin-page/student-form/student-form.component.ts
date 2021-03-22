@@ -1,44 +1,81 @@
-import { Component, OnInit } from '@angular/core';
-import {Store} from '@ngrx/store';
+import {Component, Input, OnInit} from '@angular/core';
+import {Observable} from 'rxjs';
+import {CustomError} from '../../shared/customError';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {addStudent} from '../../store/students/students.actions';
-import {imageUrlValidator} from '../../shared/validators/image-url.validator';
+import {Store} from '@ngrx/store';
 import {
   getHasStudentAddFailed,
+  getHasStudentEditFailed,
   getIsStudentsLoaded,
   getIsStudentsLoading,
+  getStudentById,
+  getStudentEditId,
   getStudentsError
 } from '../../store/students/students.selectors';
-import {Observable} from 'rxjs';
-import { CustomError } from 'src/app/shared/customError';
+import {addStudent, editStudent} from '../../store/students/students.actions';
+import {switchMap} from 'rxjs/operators';
+import {Student} from '../../shared/student';
+import {StudentFormType} from './StudentFormType';
 
 const namePattern = '^[a-zA-ZĄąČčĘęĖėĮįŠšŲŲūŪŽž]*$';
 const occupationPattern = '^[a-zA-ZĄąČčĘęĖėĮįŠšŲųūŪŽž_-\\s]*$';
 const noMultipleSpacesPattern = '(?:(?![ ]{2}).)+';
 
 @Component({
-  selector: 'app-student-add-form',
-  templateUrl: './student-add-form.component.html',
-  styleUrls: ['./student-add-form.component.scss']
+  selector: 'app-student-form',
+  templateUrl: './student-form.component.html',
+  styleUrls: ['./student-form.component.scss']
 })
-export class StudentAddFormComponent implements OnInit {
+export class StudentFormComponent implements OnInit {
+  @Input() type!: StudentFormType;
+  add = false;
+  edit = false;
   hasAddFailed$!: Observable<boolean>;
+  hasEditFailed$!: Observable<boolean>;
   isLoading$!: Observable<boolean>;
   isLoaded$!: Observable<boolean>;
   error$!: Observable<CustomError | null>;
   studentForm!: FormGroup;
   imagePreviewUrl = '';
   selectedFile: File | null = null;
+  studentId$!: Observable<number>;
+  studentId = 0;
 
-  constructor(private store: Store,
-              private fb: FormBuilder) { }
+  constructor(private store: Store, private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    if (this.type === StudentFormType.ADD) {
+      this.add = true;
+    }
+    if (this.type === StudentFormType.EDIT) {
+      this.edit = true;
+    }
+
     this.studentForm = this.initStudentForm();
     this.hasAddFailed$ = this.store.select(getHasStudentAddFailed);
+    this.hasEditFailed$ = this.store.select(getHasStudentEditFailed);
     this.isLoading$ = this.store.select(getIsStudentsLoading);
     this.isLoaded$ = this.store.select(getIsStudentsLoaded);
     this.error$ = this.store.select(getStudentsError);
+    this.studentId$ = this.store.select(getStudentEditId);
+
+    if (this.edit) {
+      this.studentId$.pipe(
+        switchMap(studentId => (this.store.select(getStudentById(studentId)) as Observable<Student>))
+      ).subscribe((student) => {
+        if (student) {
+          this.studentId = student.id || 0;
+          this.studentForm.patchValue({
+            firstName: student.firstName,
+            lastName: student.lastName,
+            occupation: student.occupation,
+            direction: student.direction
+          });
+          this.imagePreviewUrl = student.pictureUrl as string;
+          // + set selectedFile to picture from pictureUrl
+        }
+      });
+    }
   }
 
   private initStudentForm(): FormGroup {
@@ -83,10 +120,15 @@ export class StudentAddFormComponent implements OnInit {
   }
 
   submitForm(): void {
-    this.store.dispatch(addStudent({student: this.studentForm.value, picture: this.selectedFile}));
+    if (this.add) {
+      this.store.dispatch(addStudent({student: this.studentForm.value, picture: this.selectedFile}));
+    }
+    if (this.edit) {
+      this.store.dispatch(editStudent({id: this.studentId, student: this.studentForm.value, picture: this.selectedFile}));
+    }
   }
 
-  onPictureChange(event: any): void {
+  onFileSelect(event: any): void {
     if (event.target.files && event.target.files.length) {
       const reader = new FileReader();
       this.selectedFile = event.target.files[0];
