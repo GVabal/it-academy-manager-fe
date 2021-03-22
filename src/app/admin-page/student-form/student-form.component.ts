@@ -16,6 +16,7 @@ import {addStudent, editStudent} from '../../store/students/students.actions';
 import {switchMap} from 'rxjs/operators';
 import {Student} from '../../shared/student';
 import {StudentFormType} from './StudentFormType';
+import {ProfilePictureService} from '../../service/profile-picture.service';
 
 const namePattern = '^[a-zA-ZĄąČčĘęĖėĮįŠšŲŲūŪŽž]*$';
 const occupationPattern = '^[a-zA-ZĄąČčĘęĖėĮįŠšŲųūŪŽž_-\\s]*$';
@@ -41,7 +42,7 @@ export class StudentFormComponent implements OnInit {
   studentId$!: Observable<number>;
   studentId = 0;
 
-  constructor(private store: Store, private fb: FormBuilder) { }
+  constructor(private store: Store, private fb: FormBuilder, private profilePictureService: ProfilePictureService) { }
 
   ngOnInit(): void {
     if (this.type === StudentFormType.ADD) {
@@ -72,7 +73,12 @@ export class StudentFormComponent implements OnInit {
             direction: student.direction
           });
           this.imagePreviewUrl = student.pictureUrl as string;
-          // + set selectedFile to picture from pictureUrl
+          if (this.imagePreviewUrl) {
+            this.profilePictureService.getProfilePictureFileA(this.imagePreviewUrl)
+              .subscribe(file => this.selectedFile = file);
+          } else {
+            this.selectedFile = null;
+          }
         }
       });
     }
