@@ -18,8 +18,8 @@ export interface StudentsState extends EntityState<Student> {
   hasStudentLoadFailed: boolean;
   hasStudentDeleteFailed: boolean;
   error: CustomError | null;
-  studentEditId: number;
-  selectedStudentId: number;
+  studentEditId?: number;
+  selectedStudentId?: number;
   editOrCreateForm: boolean;
 }
 
@@ -31,11 +31,9 @@ export const initialState: StudentsState = studentsAdapter.getInitialState({
   hasStudentAddFailed: true,
   hasStudentEditFailed: true,
   error: null,
-  studentEditId: -1,
   hasStudentLoadFailed: false,
   editOrCreateForm: false,
   hasStudentDeleteFailed: false,
-  selectedStudentId: -1,
 });
 
 export const studentsReducer = createReducer(
@@ -129,7 +127,7 @@ export const studentsReducer = createReducer(
   }),
 
   on(loadStudentsSuccess, (state, action) => {
-    let selectedStudentId = -1;
+    let selectedStudentId = 0;
     if (action.students[0]){
       selectedStudentId = action.students[0].id;
     }

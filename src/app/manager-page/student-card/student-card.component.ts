@@ -1,8 +1,8 @@
+import { Student } from './../../shared/student';
 import { getReviewData } from '../../store/review/review.selectors';
 import { ReviewData } from '../../shared/reviewData';
-import { Store } from '@ngrx/store';
-import { Student } from '../../shared/student';
-import { Observable, of } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
 import { getSelectedStudentId, getStudentById } from 'src/app/store/students/students.selectors';
@@ -14,37 +14,15 @@ import { getSelectedStudentId, getStudentById } from 'src/app/store/students/stu
 })
 export class StudentCardComponent implements OnInit {
 
-  studentId$!: Observable<number>;
-  student!: Student;
+  student$!: Observable<Student>;
   reviewsData$!: Observable<ReviewData>;
-  reviewData = {} as ReviewData;
-  averages = [0, 0, 0, 0, 0];
 
   constructor(private store: Store) { }
 
   ngOnInit(): void {
-    this.studentId$ = this.store.select(getSelectedStudentId);
-    this.studentId$.pipe(
-      switchMap(studentId => (this.store.select(getStudentById(studentId)) as Observable<Student>))
-    ).subscribe((student) => {
-      if (student) {
-        this.student = student;
-    }});
-
+    this.student$ = this.store.pipe(
+      select(getSelectedStudentId),
+      switchMap(studentId => (this.store.select(getStudentById(studentId)) as Observable<Student>)));
     this.reviewsData$ = this.store.select(getReviewData);
-    this.reviewsData$.subscribe(data => {
-      this.reviewData = data;
-      this.averages =  [this.average(data.overallGrade), this.average(data.abilityToLearnGrade), this.average(data.motivationGrade),
-         this.average(data.extraMileGrade), this.average(data.communicationGrade)];
-    });
-  }
-
-  average(list: number[]): number{
-    let sum = 0;
-    for (const item of list ){
-      sum += item;
-    }
-    const avg = sum / list.length;
-    return Number(avg.toFixed(2));
   }
 }

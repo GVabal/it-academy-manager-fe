@@ -18,7 +18,7 @@ export class StudentListComponent implements OnInit {
   isStudentsLoaded$: Observable<boolean> | undefined ;
   hasLoadFailed$: Observable<boolean> | undefined ;
   error$: Observable<CustomError | null> | undefined;
-  @Input() isInAdminOrManger: boolean | undefined;
+  @Input() isAdminView: boolean | undefined;
 
   constructor(private store: Store) { }
 
@@ -42,7 +42,7 @@ export class StudentListComponent implements OnInit {
   }
 
   onChoose(id: number): void {
-    if (!this.isInAdminOrManger){
+    if (!this.isAdminView){
       this.store.dispatch(changeSelectedStudent({id}));
     }
   }

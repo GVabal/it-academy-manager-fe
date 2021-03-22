@@ -14,6 +14,6 @@ export class ReviewService {
   constructor(private http: HttpClient) { }
 
   getReviewsByStudentId(id: number): Observable<Review[]>{
-    return this.http.get<Review[]>(apiUrl + '/' + id + '/reviews');
+    return this.http.get<Review[]>(apiUrl + `/${id}/reviews`);
   }
 }

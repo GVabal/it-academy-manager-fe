@@ -15,7 +15,7 @@ import { ChartType } from 'chart.js';
                 ></canvas>
               </div>`,
 })
-export class RadarChartComponent implements OnInit{
+export class RadarChartComponent{
 
   constructor() { }
 
@@ -51,7 +51,4 @@ export class RadarChartComponent implements OnInit{
     display: false
   }
   };
-
-  ngOnInit(): void {
-  }
 }

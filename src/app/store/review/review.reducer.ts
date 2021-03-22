@@ -37,7 +37,7 @@ export const reviewsReducer = createReducer(
   }),
 
   on(loadReviewsSuccess, (state, action) => {
-    return reviewsAdapter.setAll(action.reviews, {
+    return reviewsAdapter.upsertMany(action.reviews, {
       ...state,
       loading: false,
       loaded: true,
