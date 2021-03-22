@@ -1,4 +1,4 @@
-<div class="spaced-sides">
+<div class="spaced-sides" id="content-desktop">
   <div class="row">
     <div class="col-4">
       <app-student-list [isAdminView] = "true"></app-student-list>
@@ -20,3 +20,20 @@
 <ng-template #showStudentEditForm>
   <app-student-form [isEditView]="true"></app-student-form>
 </ng-template>
+<div class="spaced-sides" id="content-mobile">
+  <div class="row">
+    <div>
+      <div class="btn-group">
+        <button id="btn-student" type="button" class="btn btn-primary" (click) ="toggleToStudents()">Students</button>
+        <div class="divider"></div>
+        <button id="btn-streams" type="button" class="btn btn-primary" (click) ="toggleToStreams()">Streams</button>
+      </div>
+      <div *ngIf="showStudents">
+        <app-student-list [isAdminView] = "true"></app-student-list>
+      </div>
+    </div>
+    <div *ngIf="showStreams">
+      <app-stream-list ></app-stream-list>
+    </div>
+  </div>
+</div>
