@@ -18,6 +18,8 @@ import { StudentEditFormComponent } from './admin-page/student-edit-form/student
 import { StudentListComponent } from './admin-page/student-list/student-list.component';
 import { LecturerPageComponent } from './lecturer-page/lecturer-page.component';
 import { StudentReviewFormComponent } from './lecturer-page/student-review-form/student-review-form.component';
+import { ReviewsEffects } from './store/reviews/reviews.effects';
+import { reviewsFeatureKey, reviewsReducer } from './store/reviews/reviews.reducer';
 
 
 
@@ -39,11 +41,13 @@ import { StudentReviewFormComponent } from './lecturer-page/student-review-form/
     ReactiveFormsModule,
     EffectsModule.forRoot([
       StudentsEffects,
-      StreamEffects
+      StreamEffects,
+      ReviewsEffects
     ]),
     StoreModule.forRoot({
       [studentsFeatureKey]: studentsReducer,
-      [streamFeatureKey]: streamReducer
+      [streamFeatureKey]: streamReducer,
+      [reviewsFeatureKey]: reviewsReducer,
     }),
     StoreDevtoolsModule.instrument(),
   ],

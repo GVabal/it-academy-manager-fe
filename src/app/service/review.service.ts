@@ -13,7 +13,7 @@ export class ReviewService {
 
   constructor(private http: HttpClient) { }
 
-  addReview(review: Review): Observable<void> {
-    return this.http.post<void>(apiUrl, review);
+  addReview(review: Review): Observable<Review> {
+    return this.http.post<Review>(apiUrl, review);
   }
 }

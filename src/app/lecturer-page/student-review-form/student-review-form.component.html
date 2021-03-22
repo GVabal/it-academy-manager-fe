@@ -189,16 +189,23 @@
         </div>
         </div>
       </div>
+
       <div class="row">
         <div class="col">
-          <button type="submit" class="btn btn-primary top-margin">Submit review</button>
+          <button *ngIf="(isLoading$ | async) === false"
+                  class="btn btn-primary top-margin"
+                  type="submit" >Submit review</button>
+
+          <div *ngIf="(isLoading$ | async)" class="spinner-border text-primary top-margin" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          
           <div *ngIf="reviewForm.invalid && showErrors">
             <div class="error-message" *ngIf="studentId.errors?.required">Please select student.</div> 
             <div class="error-message" *ngIf="streamId.errors?.required">Please select stream.</div> 
             <div class="error-message" *ngIf="overallComment.errors?.required">Overall comment is required.</div>          
           </div>
-          
-            <div class="success-message" *ngIf="reviewForm.valid && showSuccess">Success!</div>         
+            <div class="success-message" *ngIf="reviewForm.valid && showSuccess">Success!</div>   
         </div>
       </div>
   </div>

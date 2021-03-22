@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { concat, Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import { ReviewService } from 'src/app/service/review.service';
+import { map } from 'rxjs/operators';
+import { CustomError } from 'src/app/shared/customError';
 import { Stream } from 'src/app/shared/stream';
 import { Student } from 'src/app/shared/student';
+import { addReview } from 'src/app/store/reviews/reviews.actions';
+import { getHasReviewAddFailed, getIsReviewsLoaded, getIsReviewsLoading } from 'src/app/store/reviews/reviews.selectors';
 import { selectStreams } from 'src/app/store/stream/stream.selectors';
 import { selectStudents } from 'src/app/store/students/students.selectors';
 
@@ -20,11 +22,14 @@ export class StudentReviewFormComponent implements OnInit {
   public readonly maxChars = 255;
 
   reviewForm!: FormGroup;
-
+  hasAddReviewFailed$!: Observable<boolean>;
+  isLoading$!: Observable<boolean>;
+  isLoaded$!: Observable<boolean>;
+  error$!: Observable<CustomError | null>;
   students$!: Observable<Student[]>;
   streams$!: Observable<Stream[]>;
 
-  studentId$!: Observable<Student>;
+  studentId$!: Observable<number>;
   streamId$!: Observable<number>;
 
   public communicationCharsRemaining$: Observable<number> | undefined;
@@ -37,14 +42,18 @@ export class StudentReviewFormComponent implements OnInit {
   showErrors = false;
   showSuccess = false;
 
-  constructor(private reviewService: ReviewService,
-              private fb: FormBuilder,
+  constructor(private fb: FormBuilder,
               private store: Store) { }
 
   ngOnInit(): void {
     this.reviewForm = this.initReviewForm();
     this.students$ = this.store.select(selectStudents);
     this.streams$ = this.store.select(selectStreams);
+
+    this.hasAddReviewFailed$ = this.store.select(getHasReviewAddFailed);
+    this.isLoading$ = this.store.select(getIsReviewsLoading);
+    this.isLoaded$ = this.store.select(getIsReviewsLoaded);
+
     this.initRemainingChars();
   }
 
@@ -138,7 +147,7 @@ export class StudentReviewFormComponent implements OnInit {
 
   submitForm(): void{
     if (this.reviewForm.valid){
-      this.reviewService.addReview(this.reviewForm.value).subscribe();
+      this.store.dispatch(addReview({review: this.reviewForm.value}));
       this.showSuccess = true;
       this.showErrors = false;
     }
