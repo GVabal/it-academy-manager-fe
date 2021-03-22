@@ -13,11 +13,9 @@ import {ReactiveFormsModule} from '@angular/forms';
 import { StreamListComponent } from './admin-page/stream-list/stream-list.component';
 import { StreamEffects } from './store/stream/stream.effects';
 import { streamFeatureKey, streamReducer } from './store/stream/stream.reducer';
-import { StudentEditFormComponent } from './admin-page/student-edit-form/student-edit-form.component';
 import { LecturerPageComponent } from './lecturer-page/lecturer-page.component';
 import { StudentReviewFormComponent } from './lecturer-page/student-review-form/student-review-form.component';
 import { ReviewsEffects } from './store/reviews/reviews.effects';
-
 import { StudentListComponent } from './shared-components/student-list/student-list.component';
 import { ManagerPageComponent } from './manager-page/manager-page.component';
 import { reviewsFeatureKey, reviewsReducer } from './store/review/review.reducer';
