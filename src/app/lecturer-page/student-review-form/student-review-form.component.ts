@@ -15,6 +15,10 @@ import { selectStudents } from 'src/app/store/students/students.selectors';
   styleUrls: ['./student-review-form.component.scss']
 })
 export class StudentReviewFormComponent implements OnInit {
+
+  public readonly defaultSliderValue = 5;
+  public readonly maxChars = 255;
+
   reviewForm!: FormGroup;
 
   students$!: Observable<Student[]>;
@@ -30,8 +34,6 @@ export class StudentReviewFormComponent implements OnInit {
   public directionCharsRemaining$: Observable<number> | undefined;
   public overallCharsRemaining$: Observable<number> | undefined;
 
-  defaultSliderValue = 5;
-  maxChars = 255;
   showErrors = false;
   showSuccess = false;
 

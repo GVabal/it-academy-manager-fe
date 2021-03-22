@@ -8,9 +8,6 @@ import { FormControl } from '@angular/forms';
 })
 export class LecturerPageComponent implements OnInit {
 
-  reviewForm = new FormControl('');
-  constructor() { }
-
   ngOnInit(): void {
   }
 
