@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType} from '@ngrx/effects';
 import { catchError, filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { of} from 'rxjs';
 import { ReviewService } from 'src/app/service/review.service';
-import { loadReviews, loadReviewsFailure, loadReviewsSuccess } from './review.action';
+import { addReview, addReviewFailure, addReviewSuccess, loadReviews, loadReviewsFailure, loadReviewsSuccess } from './review.action';
 import { loadStudentsSuccess } from '../students/students.actions';
 import { isReviewDataInStore } from './review.selectors';
 import { Store } from '@ngrx/store';
@@ -33,6 +33,17 @@ export class ReviewsEffects {
     this.actions$.pipe(
       ofType(loadStudentsSuccess),
       map(({students}) => loadReviews({id: students[0].id}))
+    )
+  );
+
+  addReview$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(addReview),
+      switchMap((action) => this.reviewService.addReview(action.review).pipe(
+        map((review) => addReviewSuccess( { review })),
+        catchError(error => of(addReviewFailure({ error })))
+      )
+      )
     )
   );
 }

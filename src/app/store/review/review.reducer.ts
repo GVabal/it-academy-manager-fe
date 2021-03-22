@@ -1,4 +1,4 @@
-import { loadReviews, loadReviewsFailure, loadReviewsSuccess } from './review.action';
+import { addReview, addReviewFailure, addReviewSuccess, loadReviews, loadReviewsFailure, loadReviewsSuccess } from './review.action';
 import { Review } from './../../shared/review';
 import { createEntityAdapter, EntityState } from '@ngrx/entity';
 import { createReducer, on } from '@ngrx/store';
@@ -11,6 +11,7 @@ export interface ReviewsState extends EntityState<Review> {
     loading: boolean;
     loaded: boolean;
     hasReviewsLoadFailed: boolean;
+    hasReviewAddFailed: boolean;
     error: CustomError | null;
   }
 
@@ -21,6 +22,7 @@ export const initialState: ReviewsState = reviewsAdapter.getInitialState({
   loaded: false,
   error: null,
   hasReviewsLoadFailed: false,
+  hasReviewAddFailed: false,
 });
 
 export const reviewsReducer = createReducer(
@@ -53,5 +55,33 @@ export const reviewsReducer = createReducer(
       hasReviewsLoadFailed: true,
       error: action.error
     };
-  })
+  }),
+
+  on(addReview, (state) => {
+    return {
+      ...state,
+      loading: true,
+      loaded: false,
+      hasReviewAddFailed: false,
+      error: null
+    };
+  }),
+
+  on(addReviewSuccess, (state, action) => {
+    return reviewsAdapter.addOne(action.review, {
+      ...state,
+      loading: false,
+      loaded: true,
+    });
+  }),
+
+  on(addReviewFailure, (state, action) => {
+    return {
+      ...state,
+      loading: false,
+      loaded: false,
+      hasReviewAddFailed: true,
+      error: action.error
+    };
+  }),
 );

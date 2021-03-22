@@ -6,8 +6,8 @@ import { map } from 'rxjs/operators';
 import { CustomError } from 'src/app/shared/customError';
 import { Stream } from 'src/app/shared/stream';
 import { Student } from 'src/app/shared/student';
-import { addReview } from 'src/app/store/reviews/reviews.actions';
-import { getHasReviewAddFailed, getIsReviewsLoaded, getIsReviewsLoading } from 'src/app/store/reviews/reviews.selectors';
+import { addReview } from 'src/app/store/review/review.action';
+import { getHasReviewAddFailed, getIsReviewsLoaded, getIsReviewsLoading } from 'src/app/store/review/review.selectors';
 import { selectStreams } from 'src/app/store/stream/stream.selectors';
 import { selectStudents } from 'src/app/store/students/students.selectors';
 

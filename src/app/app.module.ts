@@ -15,7 +15,6 @@ import { StreamEffects } from './store/stream/stream.effects';
 import { streamFeatureKey, streamReducer } from './store/stream/stream.reducer';
 import { LecturerPageComponent } from './lecturer-page/lecturer-page.component';
 import { StudentReviewFormComponent } from './lecturer-page/student-review-form/student-review-form.component';
-import { ReviewsEffects } from './store/reviews/reviews.effects';
 import { StudentListComponent } from './shared-components/student-list/student-list.component';
 import { ManagerPageComponent } from './manager-page/manager-page.component';
 import { reviewsFeatureKey, reviewsReducer } from './store/review/review.reducer';
@@ -23,6 +22,7 @@ import { StudentCardComponent } from './manager-page/student-card/student-card.c
 import { ChartsModule } from 'ng2-charts';
 import { RadarChartComponent } from './shared-components/radar-chart/radar-chart.component';
 import { StudentFormComponent } from './admin-page/student-form/student-form.component';
+import { ReviewsEffects } from './store/review/review.effects';
 
 
 @NgModule({
