@@ -1,0 +1,19 @@
+<div *ngIf="this.student$ | async as student" class="mt-5 shadow bg-white rounded">
+  <div class="d-flex justify-content-between">
+    <img class="profile-picture m-4"src="{{student.pictureUrl}}">
+    <div>
+      <div class="mt-4">            
+        <h1>{{student.firstName}}</h1>
+        <h1>{{student.lastName}}</h1>
+      </div>
+      <div class="pt-5">
+          <h2>Occupation: {{student.occupation}}</h2>
+          <h2 class="pt-3">Direction: {{student.direction}}</h2>
+      </div>
+    </div>  
+    <div class="m-4">
+      <app-radar-chart *ngIf="(reviewsData$ | async) as reviewsData" [data]="reviewsData.averages"></app-radar-chart>
+    </div>
+  </div>
+</div>
+

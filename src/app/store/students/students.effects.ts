@@ -4,10 +4,11 @@ import { Injectable } from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {StudentService} from '../../service/student.service';
 import {catchError, map, mergeMap, switchMap} from 'rxjs/operators';
-import {of} from 'rxjs';
-import { addStudent, addStudentFailure, addStudentSuccess, deleteStudent, deleteStudentFailure,
+import { of, Observable } from 'rxjs';
+import { addStudent, addStudentFailure, addStudentSuccess, changeSelectedStudent, deleteStudent, deleteStudentFailure,
   deleteStudentSuccess, editStudent, editStudentFailure, editStudentSuccess, loadStudents,
   loadStudentsFailure, loadStudentsSuccess } from './students.actions';
+import { loadReviews } from '../review/review.action';
 
 
 @Injectable()
@@ -61,9 +62,16 @@ export class StudentsEffects {
       ofType(deleteStudent),
       switchMap((action) => this.studentService.deleteStudent(action.id).pipe(
           map(() => deleteStudentSuccess({id: action.id})),
-          catchError(error => of(deleteStudentFailure({error})))
+          catchError(error => of(deleteStudentFailure({error}))),
         )
       )
     )
   );
+
+  selectStudentChange$: Observable<{}> = createEffect(() =>
+  this.actions$.pipe(
+    ofType(changeSelectedStudent),
+    map(({id}) => loadReviews({id}))
+  )
+);
 }
