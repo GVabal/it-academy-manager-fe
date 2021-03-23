@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { concat, Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { CustomError } from 'src/app/shared/customError';
 import { Stream } from 'src/app/shared/stream';
 import { Student } from 'src/app/shared/student';
 import { addReview } from 'src/app/store/review/review.action';
 import { getHasReviewAddFailed, getIsReviewsLoaded, getIsReviewsLoading } from 'src/app/store/review/review.selectors';
 import { selectStreams } from 'src/app/store/stream/stream.selectors';
-import { selectStudents } from 'src/app/store/students/students.selectors';
+import { getStudentById, selectStudents } from 'src/app/store/students/students.selectors';
 
 @Component({
   selector: 'app-student-review-form',
@@ -28,9 +28,7 @@ export class StudentReviewFormComponent implements OnInit {
   error$!: Observable<CustomError | null>;
   students$!: Observable<Student[]>;
   streams$!: Observable<Stream[]>;
-
-  studentId$!: Observable<number>;
-  streamId$!: Observable<number>;
+  selectedStudentImg: string = './assets/no-profile-picture.png';
 
   public communicationCharsRemaining$: Observable<number> | undefined;
   public abilityToLearnCharsRemaining$: Observable<number> | undefined;
@@ -54,6 +52,12 @@ export class StudentReviewFormComponent implements OnInit {
     this.isLoading$ = this.store.select(getIsReviewsLoading);
     this.isLoaded$ = this.store.select(getIsReviewsLoaded);
 
+    this.studentId.valueChanges.pipe(
+      switchMap(id => (this.store.select(getStudentById(id)) as Observable<Student>))
+    ).subscribe((student) => {
+        this.selectedStudentImg = student.pictureUrl as string;
+    });
+    
     this.initRemainingChars();
   }
 
