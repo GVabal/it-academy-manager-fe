@@ -35,6 +35,7 @@
     display: none;
   }
   #content-desktop {
-    display: inline-block
+    display: block;
+    max-width: 1300px;
   }
 }
