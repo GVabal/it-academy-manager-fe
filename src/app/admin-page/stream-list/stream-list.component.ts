@@ -4,7 +4,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { CustomError } from 'src/app/shared/customError';
-import { StreamService } from '../../service/stream.service';
 import { Stream } from '../../shared/stream';
 import { addStream, deleteStream } from '../../store/stream/stream.actions';
 import { getIsStreamLoading, getStreamError, selectStreams } from '../../store/stream/stream.selectors';
@@ -23,8 +22,7 @@ export class StreamListComponent implements OnInit {
   streams$!: Observable<Stream[]>;
   streamForm!: FormGroup;
 
-  constructor(private streamService: StreamService,
-              private store: Store,
+  constructor(private store: Store,
               private fb: FormBuilder,
               public dialog: MatDialog) {
     this.dialog.closeAll();

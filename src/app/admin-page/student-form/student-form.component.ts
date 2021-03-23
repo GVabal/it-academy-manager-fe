@@ -122,14 +122,6 @@ export class StudentFormComponent implements OnInit {
     return this.studentForm.get('direction') as FormControl;
   }
 
-  submitForm(): void {
-    if (this.isEditView) {
-      this.store.dispatch(editStudent({ id: this.studentId, student: this.studentForm.value, picture: this.selectedFile }));
-    } else {
-      this.store.dispatch(addStudent({ student: this.studentForm.value, picture: this.selectedFile }));
-    }
-  }
-
   onFileSelect(event: any): void {
     if (event.target.files && event.target.files.length) {
       const reader = new FileReader();
@@ -146,14 +138,13 @@ export class StudentFormComponent implements OnInit {
     this.selectedFile = null;
   }
 
-
   save(): void {
     if (this.isEditView) {
       this.store.dispatch(editStudent({ id: this.studentId, student: this.studentForm.value, picture: this.selectedFile }));
     } else {
       this.store.dispatch(addStudent({ student: this.studentForm.value, picture: this.selectedFile }));
     }
-    this.dialogRef.close(this.studentForm.value);
+    this.dialogRef.close();
   }
   close(): void {
     this.dialogRef.close();
