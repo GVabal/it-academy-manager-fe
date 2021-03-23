@@ -24,8 +24,8 @@ import { RadarChartComponent } from './shared-components/radar-chart/radar-chart
 import { StudentFormComponent } from './admin-page/student-form/student-form.component';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SkillChartComponent } from './manager-page/skill-chart/skill-chart.component';
 import { ReviewsEffects } from './store/review/review.effects';
-
 
 @NgModule({
   declarations: [
@@ -38,7 +38,8 @@ import { ReviewsEffects } from './store/review/review.effects';
     ManagerPageComponent,
     StudentCardComponent,
     RadarChartComponent,
-    StudentFormComponent
+    StudentFormComponent,
+    SkillChartComponent
   ],
   imports: [
     ChartsModule,
