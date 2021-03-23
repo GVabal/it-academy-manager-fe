@@ -2,3 +2,40 @@
   margin-left: 2rem;
   margin-right: 2rem;
 }
+
+.btn-group {
+  background-color: white;
+  margin-top: 20px;
+    display: flex;
+}
+
+.divider{
+  width:15px;
+  height:auto;
+  display:inline-block;
+}
+
+@media (max-width: 770px) {
+  #content-mobile {
+    background-color: #f5f5f5;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 20px;
+    width: 400px;
+    max-width: 400px;
+    display: block;
+  }
+  #content-desktop {
+    display: none;
+  }
+}
+
+@media (min-width: 771px) {
+  #content-mobile {
+    display: none;
+  }
+  #content-desktop {
+    display: block;
+    max-width: 1300px;
+  }
+}

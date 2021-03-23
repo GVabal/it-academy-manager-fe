@@ -1,8 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
-import {CustomError} from '../../shared/customError';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Store} from '@ngrx/store';
+import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { CustomError } from '../../shared/customError';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import {
   getHasStudentAddFailed,
   getHasStudentEditFailed,
@@ -12,10 +12,11 @@ import {
   getStudentEditId,
   getStudentsError
 } from '../../store/students/students.selectors';
-import {addStudent, editStudent} from '../../store/students/students.actions';
-import {switchMap} from 'rxjs/operators';
-import {Student} from '../../shared/student';
-import {ProfilePictureService} from '../../service/profile-picture.service';
+import { addStudent, editStudent } from '../../store/students/students.actions';
+import { switchMap } from 'rxjs/operators';
+import { Student } from '../../shared/student';
+import { ProfilePictureService } from '../../service/profile-picture.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 const namePattern = '^[a-zA-ZĄąČčĘęĖėĮįŠšŲŲūŪŽž]*$';
 const occupationPattern = '^[a-zA-ZĄąČčĘęĖėĮįŠšŲųūŪŽž_-\\s]*$';
@@ -39,7 +40,13 @@ export class StudentFormComponent implements OnInit {
   studentId$!: Observable<number>;
   studentId = 0;
 
-  constructor(private store: Store, private fb: FormBuilder, private profilePictureService: ProfilePictureService) { }
+  constructor(private store: Store,
+              private fb: FormBuilder,
+              private profilePictureService: ProfilePictureService,
+              private dialogRef: MatDialogRef<StudentFormComponent>,
+              @Inject(MAT_DIALOG_DATA) data: any) {
+    this.isEditView = data.isEditView;
+  }
 
   ngOnInit(): void {
     this.studentForm = this.initStudentForm();
@@ -115,14 +122,6 @@ export class StudentFormComponent implements OnInit {
     return this.studentForm.get('direction') as FormControl;
   }
 
-  submitForm(): void {
-    if (this.isEditView) {
-      this.store.dispatch(editStudent({id: this.studentId, student: this.studentForm.value, picture: this.selectedFile}));
-    } else {
-      this.store.dispatch(addStudent({student: this.studentForm.value, picture: this.selectedFile}));
-    }
-  }
-
   onFileSelect(event: any): void {
     if (event.target.files && event.target.files.length) {
       const reader = new FileReader();
@@ -137,5 +136,16 @@ export class StudentFormComponent implements OnInit {
   clearSelectedImage(): void {
     this.imagePreviewUrl = '';
     this.selectedFile = null;
+  }
+
+  submitForm(): void {
+    if (this.isEditView) {
+      this.store.dispatch(editStudent({ id: this.studentId, student: this.studentForm.value, picture: this.selectedFile }));
+    } else {
+      this.store.dispatch(addStudent({ student: this.studentForm.value, picture: this.selectedFile }));
+    }
+  }
+  close(): void {
+    this.dialogRef.close();
   }
 }

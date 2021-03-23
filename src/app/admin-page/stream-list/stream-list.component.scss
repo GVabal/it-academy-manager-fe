@@ -1,9 +1,14 @@
-.spacer {
-  flex-grow: 1;
+ .spacer {
+   flex-grow: 1;
 }
 
 li {
   display: flex;
+}
+
+#form-group {
+  max-width: 400px;
+  display: inline-block
 }
 
 h1 {
