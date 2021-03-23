@@ -1,9 +1,12 @@
 <form [formGroup]="reviewForm" (ngSubmit)="submitForm()">
   <div class="container">
     <div class="row">
-      <div class="col-3">
+      <div class="col-7">
+        <div *ngIf="selectedStudentImg && selectedStudentImg !== ''">
+          <img [src]="selectedStudentImg" alt="profile picture" width="200px">
         </div>
-        <div class="col-9">
+      </div>
+        <div class="col-5">
       <div class=" row">
         <label for="studentId" class="form-label">Choose student</label>
       <select type="number" formControlName="studentId"  class="form-control select-margin" id="studentId">
@@ -173,7 +176,7 @@
             </div>
           </div>
         <div class="row">
-        <textarea maxlength="{{maxChars}}" class="form-control" formControlName="overallComment" id="overallComment" rows="3" placeholder="Add comment (required)"></textarea>
+        <textarea maxlength="{{maxChars}}" class="form-control" required formControlName="overallComment" id="overallComment" rows="3" placeholder="Add comment (required)"></textarea>
         <div class="d-flex justify-content-between">
           <div>
             <div [hidden]="overallComment.valid || overallComment.untouched">
