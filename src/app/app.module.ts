@@ -1,4 +1,3 @@
-import { ReviewsEffects } from './store/review/review.effects';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -14,6 +13,8 @@ import {ReactiveFormsModule} from '@angular/forms';
 import { StreamListComponent } from './admin-page/stream-list/stream-list.component';
 import { StreamEffects } from './store/stream/stream.effects';
 import { streamFeatureKey, streamReducer } from './store/stream/stream.reducer';
+import { LecturerPageComponent } from './lecturer-page/lecturer-page.component';
+import { StudentReviewFormComponent } from './lecturer-page/student-review-form/student-review-form.component';
 import { StudentListComponent } from './shared-components/student-list/student-list.component';
 import { ManagerPageComponent } from './manager-page/manager-page.component';
 import { reviewsFeatureKey, reviewsReducer } from './store/review/review.reducer';
@@ -22,6 +23,7 @@ import { ChartsModule } from 'ng2-charts';
 import { RadarChartComponent } from './shared-components/radar-chart/radar-chart.component';
 import { StudentFormComponent } from './admin-page/student-form/student-form.component';
 import { SkillChartComponent } from './manager-page/skill-chart/skill-chart.component';
+import { ReviewsEffects } from './store/review/review.effects';
 
 
 @NgModule({
@@ -30,6 +32,8 @@ import { SkillChartComponent } from './manager-page/skill-chart/skill-chart.comp
     AdminPageComponent,
     StreamListComponent,
     StudentListComponent,
+    LecturerPageComponent,
+    StudentReviewFormComponent,
     ManagerPageComponent,
     StudentCardComponent,
     RadarChartComponent,
