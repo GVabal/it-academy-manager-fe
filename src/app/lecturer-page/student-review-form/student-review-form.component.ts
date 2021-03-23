@@ -28,7 +28,7 @@ export class StudentReviewFormComponent implements OnInit {
   error$!: Observable<CustomError | null>;
   students$!: Observable<Student[]>;
   streams$!: Observable<Stream[]>;
-  selectedStudentImg: string = './assets/no-profile-picture.png';
+  selectedStudentImg = './assets/no-profile-picture.png';
 
   public communicationCharsRemaining$: Observable<number> | undefined;
   public abilityToLearnCharsRemaining$: Observable<number> | undefined;
@@ -52,13 +52,13 @@ export class StudentReviewFormComponent implements OnInit {
     this.isLoading$ = this.store.select(getIsReviewsLoading);
     this.isLoaded$ = this.store.select(getIsReviewsLoaded);
 
+    this.initRemainingChars();
+
     this.studentId.valueChanges.pipe(
       switchMap(id => (this.store.select(getStudentById(id)) as Observable<Student>))
     ).subscribe((student) => {
         this.selectedStudentImg = student.pictureUrl as string;
     });
-    
-    this.initRemainingChars();
   }
 
   private initReviewForm(): FormGroup {
