@@ -138,13 +138,12 @@ export class StudentFormComponent implements OnInit {
     this.selectedFile = null;
   }
 
-  save(): void {
+  submitForm(): void {
     if (this.isEditView) {
       this.store.dispatch(editStudent({ id: this.studentId, student: this.studentForm.value, picture: this.selectedFile }));
     } else {
       this.store.dispatch(addStudent({ student: this.studentForm.value, picture: this.selectedFile }));
     }
-    this.dialogRef.close();
   }
   close(): void {
     this.dialogRef.close();
