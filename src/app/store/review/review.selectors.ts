@@ -6,10 +6,13 @@ import { getSelectedStudentId } from '../students/students.selectors';
 
 
 export const getReviewsFeatureState =  createFeatureSelector<ReviewsState>(reviewsFeatureKey);
+
 export const getIsReviewsLoading = createSelector(getReviewsFeatureState, reviewsState => reviewsState.loading);
 export const getIsReviewsLoaded = createSelector(getReviewsFeatureState, reviewsState => reviewsState.loaded);
+export const getHasReviewAddFailed = createSelector(getReviewsFeatureState, reviewsState => reviewsState.hasReviewAddFailed);
 export const getReviewsError = createSelector(getReviewsFeatureState, reviewsState => reviewsState.error);
 export const {selectAll: selectReviews} = reviewsAdapter.getSelectors(getReviewsFeatureState);
+
 export const getReviewData =  createSelector(selectReviews, getSelectedStudentId, (reviews, id) =>
    mapToReviewData(reviews.filter(review => review.studentId === id)));
 export const isReviewDataInStore = createSelector(selectReviews, getSelectedStudentId, (reviews, id) =>

@@ -1,4 +1,3 @@
-import { ReviewsEffects } from './store/review/review.effects';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -14,6 +13,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { StreamListComponent } from './admin-page/stream-list/stream-list.component';
 import { StreamEffects } from './store/stream/stream.effects';
 import { streamFeatureKey, streamReducer } from './store/stream/stream.reducer';
+import { LecturerPageComponent } from './lecturer-page/lecturer-page.component';
+import { StudentReviewFormComponent } from './lecturer-page/student-review-form/student-review-form.component';
 import { StudentListComponent } from './shared-components/student-list/student-list.component';
 import { ManagerPageComponent } from './manager-page/manager-page.component';
 import { reviewsFeatureKey, reviewsReducer } from './store/review/review.reducer';
@@ -23,6 +24,8 @@ import { RadarChartComponent } from './shared-components/radar-chart/radar-chart
 import { StudentFormComponent } from './admin-page/student-form/student-form.component';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReviewsEffects } from './store/review/review.effects';
+
 
 @NgModule({
   declarations: [
@@ -30,6 +33,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AdminPageComponent,
     StreamListComponent,
     StudentListComponent,
+    LecturerPageComponent,
+    StudentReviewFormComponent,
     ManagerPageComponent,
     StudentCardComponent,
     RadarChartComponent,
