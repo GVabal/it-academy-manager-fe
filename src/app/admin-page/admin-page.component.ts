@@ -10,9 +10,9 @@ import {Observable} from 'rxjs';
 })
 export class AdminPageComponent implements OnInit {
   editOrCreateForm$!: Observable<boolean>;
-  showStudents: boolean = true;
-  showStreams: boolean = false;
-  isMobile: boolean = false;
+  showStudents = true;
+  showStreams = false;
+  isMobile = false;
 
 
   constructor(private store: Store) { }
@@ -22,7 +22,7 @@ export class AdminPageComponent implements OnInit {
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
+  onResize(event: any): void {
     this.isMobile = window.innerWidth < 770;
   }
 
