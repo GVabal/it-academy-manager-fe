@@ -21,6 +21,7 @@ import { StudentCardComponent } from './manager-page/student-card/student-card.c
 import { ChartsModule } from 'ng2-charts';
 import { RadarChartComponent } from './shared-components/radar-chart/radar-chart.component';
 import { StudentFormComponent } from './admin-page/student-form/student-form.component';
+import { SkillChartComponent } from './manager-page/skill-chart/skill-chart.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { StudentFormComponent } from './admin-page/student-form/student-form.com
     ManagerPageComponent,
     StudentCardComponent,
     RadarChartComponent,
-    StudentFormComponent
+    StudentFormComponent,
+    SkillChartComponent
   ],
   imports: [
     ChartsModule,

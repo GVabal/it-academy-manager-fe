@@ -1,0 +1,23 @@
+<div class="mt-3 shadow bg-white rounded">
+  <h1>{{title}}</h1>
+  <div>
+    <canvas baseChart width="400" height="100"
+      [datasets]="chartData"
+      [labels]="chartLabels"
+      [options]="chartOptions"
+      [colors]="chartColors"
+      [chartType]="chartType">
+    </canvas>
+  </div>
+  <div class="comment-button">
+    <button class="btn btn-lg" (click)="onCommentsShow()" [disabled]="comments.length === 0">{{this.comments.length}}
+      <i class="bi bi-chat" [ngClass]="{'bi bi-chat': !showComments, 'bi bi-chat-fill': showComments}"></i>
+    </button>
+  </div>
+  <div class="comment-container" *ngIf="showComments">
+    <div *ngFor="let comment of comments" class="comment-text">
+      "{{comment}}" 
+    </div>
+  </div>
+</div>
+
