@@ -28,17 +28,13 @@ export class StudentReviewFormComponent implements OnInit {
   error$!: Observable<CustomError | null>;
   students$!: Observable<Student[]>;
   streams$!: Observable<Stream[]>;
-  selectedStudentImg = './assets/no-profile-picture.png';
+  selectedStudentImg = '';
 
-  public communicationCharsRemaining$: Observable<number> | undefined;
-  public abilityToLearnCharsRemaining$: Observable<number> | undefined;
-  public extraMileCharsRemaining$: Observable<number> | undefined;
-  public motivationCharsRemaining$: Observable<number> | undefined;
-  public directionCharsRemaining$: Observable<number> | undefined;
-  public overallCharsRemaining$: Observable<number> | undefined;
-
-  showErrors = false;
-  showSuccess = false;
+  communicationCharsRemaining$: Observable<number> | undefined;
+  abilityToLearnCharsRemaining$: Observable<number> | undefined;
+  extraMileCharsRemaining$: Observable<number> | undefined;
+  motivationCharsRemaining$: Observable<number> | undefined;
+  overallCharsRemaining$: Observable<number> | undefined;
 
   constructor(private fb: FormBuilder,
               private store: Store) { }
@@ -47,7 +43,6 @@ export class StudentReviewFormComponent implements OnInit {
     this.reviewForm = this.initReviewForm();
     this.students$ = this.store.select(selectStudents);
     this.streams$ = this.store.select(selectStreams);
-
     this.hasAddReviewFailed$ = this.store.select(getHasReviewAddFailed);
     this.isLoading$ = this.store.select(getIsReviewsLoading);
     this.isLoaded$ = this.store.select(getIsReviewsLoaded);
@@ -81,10 +76,6 @@ export class StudentReviewFormComponent implements OnInit {
         Validators.maxLength(this.maxChars),
       ]],
       motivationGrade: this.defaultSliderValue,
-      directionComment: ['', [
-        Validators.maxLength(this.maxChars),
-      ]],
-      directionGrade: this.defaultSliderValue,
       overallComment: ['', [
         Validators.maxLength(this.maxChars),
         Validators.required,
@@ -105,101 +96,54 @@ export class StudentReviewFormComponent implements OnInit {
     return this.reviewForm.get('communicationComment') as FormControl;
   }
 
-  get communicationGrade(): FormControl {
-    return this.reviewForm.get('communicationGrade') as FormControl;
-  }
-
   get abilityToLearnComment(): FormControl {
     return this.reviewForm.get('abilityToLearnComment') as FormControl;
-  }
-
-  get abilityToLearnGrade(): FormControl {
-    return this.reviewForm.get('abilityToLearnGrade') as FormControl;
   }
 
   get extraMileComment(): FormControl {
     return this.reviewForm.get('extraMileComment') as FormControl;
   }
 
-  get extraMileGrade(): FormControl {
-    return this.reviewForm.get('extraMileGrade') as FormControl;
-  }
-
   get motivationComment(): FormControl {
     return this.reviewForm.get('motivationComment') as FormControl;
-  }
-
-  get motivationGrade(): FormControl {
-    return this.reviewForm.get('motivationGrade') as FormControl;
-  }
-
-  get directionComment(): FormControl {
-    return this.reviewForm.get('directionComment') as FormControl;
-  }
-
-  get directionGrade(): FormControl {
-    return this.reviewForm.get('directionGrade') as FormControl;
   }
 
   get overallComment(): FormControl {
     return this.reviewForm.get('overallComment') as FormControl;
   }
 
-  get overallGrade(): FormControl {
-    return this.reviewForm.get('overallGrade') as FormControl;
-  }
-
   submitForm(): void{
-    if (this.reviewForm.valid){
-      this.store.dispatch(addReview({review: this.reviewForm.value}));
-      this.showSuccess = true;
-      this.showErrors = false;
-    }
-    else{
-      this.showErrors = true;
-      this.showSuccess = false;
-    }
+    this.store.dispatch(addReview({review: this.reviewForm.value}));
   }
 
   private initRemainingChars(): void{
     this.communicationCharsRemaining$ = concat(of(''), this.communicationComment.valueChanges).pipe(
       map((communicationComment) => {
-        this.showSuccess = false;
         return communicationComment?.length || 0;
       })
     );
 
     this.abilityToLearnCharsRemaining$ = concat(of(''), this.abilityToLearnComment.valueChanges).pipe(
       map((abilityToLearnComment) => {
-        this.showSuccess = false;
         return abilityToLearnComment?.length || 0;
       })
     );
 
     this.extraMileCharsRemaining$ = concat(of(''), this.extraMileComment.valueChanges).pipe(
       map((extraMileComment) => {
-        this.showSuccess = false;
         return extraMileComment?.length || 0;
       })
     );
 
     this.motivationCharsRemaining$ = concat(of(''), this.motivationComment.valueChanges).pipe(
       map((motivationComment) => {
-        this.showSuccess = false;
         return motivationComment?.length || 0;
       })
     );
 
     this.overallCharsRemaining$ = concat(of(''), this.overallComment.valueChanges).pipe(
       map((overallComment) => {
-        this.showSuccess = false;
         return overallComment?.length || 0;
-      })
-    );
-    this.directionCharsRemaining$ = concat(of(''), this.directionComment.valueChanges).pipe(
-      map((directionComment) => {
-        this.showSuccess = false;
-        return directionComment?.length || 0;
       })
     );
   }

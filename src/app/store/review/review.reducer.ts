@@ -22,7 +22,7 @@ export const initialState: ReviewsState = reviewsAdapter.getInitialState({
   loaded: false,
   error: null,
   hasReviewsLoadFailed: false,
-  hasReviewAddFailed: false,
+  hasReviewAddFailed: true,
 });
 
 export const reviewsReducer = createReducer(
@@ -62,7 +62,6 @@ export const reviewsReducer = createReducer(
       ...state,
       loading: true,
       loaded: false,
-      hasReviewAddFailed: false,
       error: null
     };
   }),
@@ -72,6 +71,7 @@ export const reviewsReducer = createReducer(
       ...state,
       loading: false,
       loaded: true,
+      hasReviewAddFailed: false
     });
   }),
 
