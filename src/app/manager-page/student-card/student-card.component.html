@@ -1,0 +1,57 @@
+<div *ngIf="this.student$ | async as student" class="mt-5 shadow bg-white rounded d-flex justify-content-between">
+    <div class="d-flex">
+      <img class="profile-picture m-4"src="{{student.pictureUrl}}">
+      <div>
+        <div class="mt-5">            
+          <h1>{{student.firstName}}</h1>
+          <h1>{{student.lastName}}</h1>
+        </div>
+        <div class="pt-3">
+            <h2>Occupation: {{student.occupation}}</h2>
+            <h2 class="pt-3">Direction: {{student.direction}}</h2>
+        </div>
+      </div>  
+    </div>
+    <div class="align-self-stretch radar-chart">
+      <app-radar-chart *ngIf="(reviewsData$ | async) as reviewsData" [data]="reviewsData.averages"></app-radar-chart>
+    </div>
+</div>
+<div *ngIf="(reviewsData$ | async) as reviewsData" >
+  <app-skill-chart
+  [title]="'Overall Grade'"
+  [borderColor]="'rgba(42, 157, 143, 1)'"
+  [backgroundColor]="'rgba(42, 157, 143, 0.3)'"
+  [data]="reviewsData.data.overallGrade"
+  [comments]="reviewsData.data.overallComment">
+</app-skill-chart>
+<app-skill-chart
+  [title]="'Ability To Learn'"
+  [borderColor]="'rgba(231, 111, 81, 1)'"
+  [backgroundColor]="'rgba(231, 111, 81, 0.3)'"
+  [data]="reviewsData.data.abilityToLearnGrade"
+  [comments]="reviewsData.data.abilityToLearnComment">
+</app-skill-chart>
+<app-skill-chart
+  [title]="'Motivation'"
+  [borderColor]="'rgba(38, 70, 83, 1)'"
+  [backgroundColor]="'rgba(38, 70, 83, 0.3)'"
+  [data]="reviewsData.data.motivationGrade"
+  [comments]="reviewsData.data.motivationComment">
+</app-skill-chart>
+<app-skill-chart
+  [title]="'Extra Mile'"
+  [borderColor]="'rgba(233, 196, 106, 1)'"
+  [backgroundColor]="'rgba(233, 196, 106, 0.3)'"
+  [data]="reviewsData.data.extraMileGrade"
+  [comments]="reviewsData.data.extraMileComment">
+</app-skill-chart>
+<app-skill-chart
+  [title]="'Communication'"
+  [borderColor]="'rgba(244, 162, 97, 1)'"
+  [backgroundColor]="'rgba(244, 162, 97, 0.3)'"
+  [data]="reviewsData.data.communicationGrade"
+  [comments]="reviewsData.data.communicationComment">
+</app-skill-chart>
+</div>
+
+

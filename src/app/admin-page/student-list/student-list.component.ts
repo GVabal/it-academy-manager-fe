@@ -18,7 +18,7 @@ export class StudentListComponent implements OnInit {
   isStudentsLoaded$: Observable<boolean> | undefined ;
   hasLoadFailed$: Observable<boolean> | undefined ;
   error$: Observable<CustomError | null> | undefined;
-
+  showAddStudentForm: boolean = false;
   constructor(private store: Store) { }
 
   ngOnInit(): void {
@@ -28,6 +28,7 @@ export class StudentListComponent implements OnInit {
     this.hasLoadFailed$ = this.store.select(getHasStudentLoadFailed);
     this.error$ = this.store.select(getStudentsError);
     this.students$ = this.store.select(selectStudents);
+    this.showAddStudentForm = false;
   }
 
   onEdit(student: Student): void{
@@ -37,6 +38,10 @@ export class StudentListComponent implements OnInit {
   }
 
   onCreate(): void{
+    if (window.innerWidth < 770) {
+      this.showAddStudentForm = true;
+      console.log(this.showAddStudentForm)
+    }
     this.store.dispatch(loadStudentCreate());
   }
 
@@ -44,5 +49,9 @@ export class StudentListComponent implements OnInit {
     if (confirm('Are you sure you want to remove this student?')) {
       this.store.dispatch(deleteStudent({id}));
     }
+  }
+
+  cancelForm(): void {
+    this.showAddStudentForm = false;
   }
 }

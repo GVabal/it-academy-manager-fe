@@ -13,12 +13,14 @@ export class StudentService {
 
   constructor(private http: HttpClient) { }
 
-  addStudent(student: Student): Observable<Student> {
-    return this.http.post<Student>(apiUrl, student);
+  addStudent(student: Student, picture: File | null): Observable<Student> {
+    const request = this.prepareStudentRequest(student, picture);
+    return this.http.post<Student>(apiUrl, request, {headers: {enctype: 'multipart/form-data'}});
   }
 
-  updateStudent(student: Student, id: number): Observable<Student> {
-    return this.http.put<Student>(`${apiUrl}/${id}`, student);
+  updateStudent(student: Student, id: number, picture: File | null): Observable<Student> {
+    const formData = this.prepareStudentRequest(student, picture);
+    return this.http.put<Student>(`${apiUrl}/${id}`, formData, {headers: {enctype: 'multipart/form-data'}});
   }
 
   getStudentById(id: number): Observable<Student> {
@@ -28,7 +30,22 @@ export class StudentService {
   loadStudents(): Observable<Student[]> {
     return this.http.get<Student[]>(apiUrl);
   }
+
   deleteStudent(id: number): Observable<void> {
     return this.http.delete<void>(`${apiUrl}/${id}`);
+  }
+
+  private prepareStudentRequest(student: Student, picture: File | null): FormData {
+    const formData = new FormData();
+    if (picture !== null) {
+      formData.append('picture', new Blob([picture], {
+        type: 'image/jpeg'
+      }));
+    }
+    formData.append('request', new Blob([JSON.stringify(student)], {
+        type: 'application/json'
+      }
+    ));
+    return formData;
   }
 }

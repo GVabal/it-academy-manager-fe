@@ -1,22 +1,28 @@
-<div class="spaced-sides">
+<div class="spaced-sides" id="content-desktop">
   <div class="row">
+    <div class="col-6">
+      <app-student-list [isAdminView] = "true"></app-student-list>
+    </div>
+    <div class="col-1"></div>
     <div class="col-4">
-      <app-student-list></app-student-list>
-    </div>
-    <div class="col-5">
-      <ng-container *ngIf="(editOrCreateForm$ | async); then showStudentEditForm; else showStudentAddForm">
-      </ng-container>
-    </div>
-    <div class="col-3">
       <app-stream-list></app-stream-list>
     </div>
   </div>
 </div>
-
-<ng-template #showStudentAddForm>
-  <app-student-add-form></app-student-add-form>
-</ng-template>
-
-<ng-template #showStudentEditForm>
-  <app-student-edit-form></app-student-edit-form>
-</ng-template>
+<div class="spaced-sides" id="content-mobile">
+  <div class="row">
+    <div>
+      <div class="btn-group">
+        <button id="btn-student" type="button" class="btn btn-primary" (click) ="toggleToStudents()">Students</button>
+        <div class="divider"></div>
+        <button id="btn-streams" type="button"  class="btn btn-primary" (click) ="toggleToStreams()">Streams</button>
+      </div>
+      <div *ngIf="showStudents">
+        <app-student-list [isAdminView] = "true"></app-student-list>
+      </div>
+    </div>
+    <div *ngIf="showStreams">
+      <app-stream-list ></app-stream-list>
+    </div>
+  </div>
+</div>

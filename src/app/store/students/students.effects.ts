@@ -4,10 +4,11 @@ import { Injectable } from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {StudentService} from '../../service/student.service';
 import {catchError, map, mergeMap, switchMap} from 'rxjs/operators';
-import {of} from 'rxjs';
-import { addStudent, addStudentFailure, addStudentSuccess, deleteStudent, deleteStudentFailure,
+import { of, Observable } from 'rxjs';
+import { addStudent, addStudentFailure, addStudentSuccess, changeSelectedStudent, deleteStudent, deleteStudentFailure,
   deleteStudentSuccess, editStudent, editStudentFailure, editStudentSuccess, loadStudents,
   loadStudentsFailure, loadStudentsSuccess } from './students.actions';
+import { loadReviews } from '../review/review.action';
 
 
 @Injectable()
@@ -17,7 +18,7 @@ export class StudentsEffects {
   addStudent$ = createEffect(() =>
     this.actions$.pipe(
       ofType(addStudent),
-      switchMap((action) => this.studentService.addStudent(action.student).pipe(
+      switchMap((action) => this.studentService.addStudent(action.student, action.picture).pipe(
         map(student => addStudentSuccess({ student })),
         catchError(error => of(addStudentFailure({ error })))
       )
@@ -28,7 +29,7 @@ export class StudentsEffects {
   editStudent$ = createEffect(() =>
     this.actions$.pipe(
       ofType(editStudent),
-      switchMap((action) => this.studentService.updateStudent(action.student, action.id).pipe(
+      switchMap((action) => this.studentService.updateStudent(action.student, action.id, action.picture).pipe(
         map((student) => {
           const updatedStudent: Update<Student> = {
             id: action.id,
@@ -61,9 +62,16 @@ export class StudentsEffects {
       ofType(deleteStudent),
       switchMap((action) => this.studentService.deleteStudent(action.id).pipe(
           map(() => deleteStudentSuccess({id: action.id})),
-          catchError(error => of(deleteStudentFailure({error})))
+          catchError(error => of(deleteStudentFailure({error}))),
         )
       )
     )
   );
+
+  selectStudentChange$: Observable<{}> = createEffect(() =>
+  this.actions$.pipe(
+    ofType(changeSelectedStudent),
+    map(({id}) => loadReviews({id}))
+  )
+);
 }
