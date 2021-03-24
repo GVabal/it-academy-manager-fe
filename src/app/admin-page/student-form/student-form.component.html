@@ -7,9 +7,8 @@
     <div class="card-body">
       <div class="row">
         <label for="firstname" class="form-label">
-          <span class = "required-after">First name</span>
+          <span class = "required-after">First name (required) </span>
           <ng-container *ngIf="firstName.dirty || firstName.touched">
-            <span class="error-message" *ngIf="firstName.errors?.required">First name is required</span>
             <span class="error-message" *ngIf="firstName.errors?.maxlength">First name is too long</span>
             <span class="error-message" *ngIf="firstName.errors?.pattern">First name must contain only letters</span>
           </ng-container>
@@ -20,9 +19,8 @@
       </div>
       <div class="row">
         <label for="lastname" class="form-label">
-          <span class = "required-after">Last name</span>
+          <span class = "required-after">Last name (required)</span>
           <ng-container *ngIf="lastName.dirty || lastName.touched">
-            <span class="error-message" *ngIf="lastName.errors?.required">Last name is required</span>
             <span class="error-message" *ngIf="lastName.errors?.maxlength">Last name is too long</span>
             <span class="error-message" *ngIf="lastName.errors?.pattern">Last name must contain only letters</span>
           </ng-container>
@@ -93,7 +91,6 @@
           <span class="success-message" *ngIf="!isEditView && (hasAddFailed$ | async) === false && (isLoaded$ |async)">Success!</span>
           <span class="success-message" *ngIf="isEditView && (hasEditFailed$ | async) === false && (isLoaded$ |async)">Success!</span>
           <span class="error-message" *ngIf="error$ | async as error">{{ error.error.message }}</span>
-          <span class = "required-before required-text">Required fields</span>
         </div>
       </div>
     </div>

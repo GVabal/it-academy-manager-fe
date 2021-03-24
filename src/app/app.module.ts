@@ -25,7 +25,7 @@ import { StudentFormComponent } from './admin-page/student-form/student-form.com
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReviewsEffects } from './store/review/review.effects';
-
+import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 
 @NgModule({
   declarations: [

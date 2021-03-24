@@ -1,22 +1,26 @@
-<div class="spaced-sides" id="content-desktop">
-  <div class="row">
-    <div class="col-6">
-      <app-student-list [isAdminView] = "true"></app-student-list>
-    </div>
-    <div class="col-1"></div>
-    <div class="col-4">
-      <app-stream-list></app-stream-list>
-    </div>
+<html>
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+	<h3 class="navbar-brand">{{tabName}}</h3>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngClass]="{ 'show': isCollapsed }">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+		    <a id="btn-student" class="btn btn-link" (click) ="toggleToStudents()">Students</a>      
+      </li>
+      <li class="nav-item">
+        <a id="btn-streams" class="btn btn-link" (click) ="toggleToStreams()">Streams</a>
+      </li>
+      <li class="nav-item">
+        <a id="btn-streams" class="btn btn-link" (click) ="toggleToUsers()">Users</a>
+      </li>
+    </ul>
   </div>
-</div>
-<div class="spaced-sides" id="content-mobile">
+</nav>
+<div class="spaced-sides" id="content-main">
   <div class="row">
     <div>
-      <div class="btn-group">
-        <button id="btn-student" type="button" class="btn btn-primary" (click) ="toggleToStudents()">Students</button>
-        <div class="divider"></div>
-        <button id="btn-streams" type="button"  class="btn btn-primary" (click) ="toggleToStreams()">Streams</button>
-      </div>
       <div *ngIf="showStudents">
         <app-student-list [isAdminView] = "true"></app-student-list>
       </div>
@@ -26,3 +30,4 @@
     </div>
   </div>
 </div>
+</html>

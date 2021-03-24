@@ -13,7 +13,8 @@ export class AdminPageComponent implements OnInit {
   showStudents = true;
   showStreams = false;
   isMobile = false;
-
+  isCollapsed = false;
+  tabName = 'Students';
 
   constructor(private store: Store) { }
 
@@ -29,10 +30,25 @@ export class AdminPageComponent implements OnInit {
   public toggleToStudents(): void {
     this.showStudents = true;
     this.showStreams = false;
+    this.toggleNavbar();
+    this.tabName = 'Students';
   }
 
   public toggleToStreams(): void {
     this.showStudents = false;
     this.showStreams = true;
+    this.toggleNavbar();
+    this.tabName = 'Streams';
+  }
+
+  public toggleToUsers(): void {
+    this.showStudents = false;
+    this.showStreams = false;
+    this.toggleNavbar();
+    this.tabName = 'Users';
+  }
+
+  toggleNavbar(): void {
+    this.isCollapsed = !this.isCollapsed;
   }
 }

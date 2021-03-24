@@ -1,18 +1,21 @@
  .spacer {
    flex-grow: 1;
 }
+.input-group {
+  padding-top: 40px;
+}
 
-li {
+.list-group-item {
   display: flex;
+  align-items: center;
+}
+
+ul :hover {
+  background : rgb(245, 245, 245);
 }
 
 #form-group {
-  max-width: 400px;
-  display: inline-block
-}
-
-h1 {
-  text-align: center;
+  display: block
 }
 
 .error-message {

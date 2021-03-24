@@ -1,6 +1,5 @@
-<h1>Student list</h1>
 <div class="list-group">
-  <button *ngIf="isAdminView" class="btn btn-sm btn-outline-primary mb-4" (click)="onCreate()" (click)="openDialog(false)">Create new Student</button>
+  <button *ngIf="isAdminView" class="btn btn-sm btn-primary mb-4" (click)="onCreate()" (click)="openDialog(false)">Create new Student</button>
 </div>
 <div class="list-group" *ngFor="let student of students$ | async">
   <a class="list-group-item list-group-item-action" aria-current="true" (click)="onChoose(student.id)">

@@ -8,6 +8,7 @@ import { loadStudentCreate, loadStudentEdit } from 'src/app/store/students/stude
 import { CustomError } from 'src/app/shared/customError';
 import { MatDialog } from '@angular/material/dialog';
 import { StudentFormComponent } from 'src/app/admin-page/student-form/student-form.component';
+import { count, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-student-list',
@@ -26,7 +27,6 @@ export class StudentListComponent implements OnInit {
   constructor(private store: Store, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-
     this.isStudentsLoading$ = this.store.select(getIsStudentsLoading);
     this.isStudentsLoaded$ = this.store.select(getIsStudentsLoaded);
     this.hasLoadFailed$ = this.store.select(getHasStudentLoadFailed);
