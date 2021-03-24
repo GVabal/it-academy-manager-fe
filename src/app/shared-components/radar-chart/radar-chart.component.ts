@@ -1,12 +1,11 @@
-import { of, Observable } from 'rxjs';
-import { Component, Input, OnInit } from '@angular/core';
-import { ChartType } from 'chart.js';
+import { Component, Input} from '@angular/core';
+import { ChartType, ChartOptions } from 'chart.js';
 
 @Component({
   selector: 'app-radar-chart',
-  template: `<div>
+  template: `<div >
                 <canvas baseChart
-                width="300" height="300"
+                width="350" height="350"
                 [datasets]="radarChartData"
                 [labels]="radarChartLabels"
                 [chartType]="radarChartType"
@@ -32,14 +31,15 @@ export class RadarChartComponent{
   ];
   radarChartColors = [
     {
-      backgroundColor: 'rgba(244, 162, 97, 0.2)',
+      backgroundColor: 'rgba(244, 162, 97, 0.3)',
       borderColor: 'rgba(244, 162, 97, 1)',
       pointBackgroundColor: 'rgba(244, 162, 97, 1)'
     }
   ];
 
   radarChartType: ChartType = 'radar';
-  options = {
+  options: ChartOptions = {
+    responsive: true,
     scale: {
       ticks: {
           max: 10,
