@@ -26,6 +26,7 @@ import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/materia
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SkillChartComponent } from './manager-page/skill-chart/skill-chart.component';
 import { ReviewsEffects } from './store/review/review.effects';
+import { UserRegistrationFormComponent } from './admin-page/user-registration-form/user-registration-form.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ReviewsEffects } from './store/review/review.effects';
     StudentCardComponent,
     RadarChartComponent,
     StudentFormComponent,
-    SkillChartComponent
+    SkillChartComponent,
+    UserRegistrationFormComponent
   ],
   imports: [
     ChartsModule,
