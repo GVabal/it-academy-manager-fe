@@ -1,4 +1,4 @@
-import { ReviewData } from './../../shared/reviewData';
+import { ReviewData } from '../../shared/reviewData';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { reviewsAdapter, reviewsFeatureKey, ReviewsState } from './review.reducer';
 import { Review } from 'src/app/shared/review';
@@ -11,6 +11,7 @@ export const getIsReviewsLoading = createSelector(getReviewsFeatureState, review
 export const getIsReviewsLoaded = createSelector(getReviewsFeatureState, reviewsState => reviewsState.loaded);
 export const getHasReviewAddFailed = createSelector(getReviewsFeatureState, reviewsState => reviewsState.hasReviewAddFailed);
 export const getReviewsError = createSelector(getReviewsFeatureState, reviewsState => reviewsState.error);
+export const getClearForm = createSelector(getReviewsFeatureState, reviewsState => reviewsState.clearForm);
 export const {selectAll: selectReviews} = reviewsAdapter.getSelectors(getReviewsFeatureState);
 
 export const getReviewData =  createSelector(selectReviews, getSelectedStudentId, (reviews, id) =>

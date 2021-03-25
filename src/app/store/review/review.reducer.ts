@@ -12,6 +12,7 @@ export interface ReviewsState extends EntityState<Review> {
     loaded: boolean;
     hasReviewsLoadFailed: boolean;
     hasReviewAddFailed: boolean;
+    clearForm: boolean;
     error: CustomError | null;
   }
 
@@ -23,6 +24,7 @@ export const initialState: ReviewsState = reviewsAdapter.getInitialState({
   error: null,
   hasReviewsLoadFailed: false,
   hasReviewAddFailed: true,
+  clearForm: false
 });
 
 export const reviewsReducer = createReducer(
@@ -62,7 +64,8 @@ export const reviewsReducer = createReducer(
       ...state,
       loading: true,
       loaded: false,
-      error: null
+      error: null,
+      clearForm: false
     };
   }),
 
@@ -71,7 +74,8 @@ export const reviewsReducer = createReducer(
       ...state,
       loading: false,
       loaded: true,
-      hasReviewAddFailed: false
+      hasReviewAddFailed: false,
+      clearForm: true
     });
   }),
 
