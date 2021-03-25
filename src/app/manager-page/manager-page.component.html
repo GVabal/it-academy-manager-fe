@@ -1,10 +1,13 @@
-<div class="spaced-sides ">
-    <div class="row">
-        <div class="col-3">
-            <app-student-list [isAdminView] = "false"></app-student-list>
-        </div>        
-        <div class="col-9">
-            <app-student-card></app-student-card>
-        </div>
+<nav class="navbar sticky-top navbar-dark bg-dark">
+    <button *ngIf="!isInListView " class="btn btn" (click)="onBack()" >
+        <i class="bi bi-caret-left-fill">Back</i>
+    </button>
+</nav>
+<div class="manager-page">
+    <div *ngIf="isInListView; else studentStatistics">
+        <app-student-list [isAdminView] = "false"></app-student-list>
     </div>
 </div>
+<ng-template #studentStatistics>
+    <app-student-card></app-student-card>
+</ng-template>

@@ -75,3 +75,7 @@ export const changeSelectedStudent = createAction(
   '[Students] Select Student',
   props<{id: number }>()
 );
+
+export const resetSelectedStudent = createAction(
+  '[Students] reset Student'
+);

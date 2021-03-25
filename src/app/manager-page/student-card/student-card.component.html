@@ -1,20 +1,27 @@
-<div *ngIf="this.student$ | async as student" class="mt-5 shadow bg-white rounded d-flex justify-content-between">
-    <div class="d-flex">
-      <img class="profile-picture m-4"src="{{student.pictureUrl}}">
-      <div>
-        <div class="mt-5">            
-          <h1>{{student.firstName}}</h1>
-          <h1>{{student.lastName}}</h1>
+
+<div *ngIf="this.student$ | async as student" class="shadow rounded">
+  <div class="                 
+  d-flex 
+  align-items-center 
+  justify-content-center
+  justify-content-sm-between
+  flex-sm-row
+  flex-column">
+    <div class="d-flex flex-row align-items-center student-card">
+        <div>
+          <img class="profile-picture"src="{{student.pictureUrl}}">
         </div>
-        <div class="pt-3">
-            <h2>Occupation: {{student.occupation}}</h2>
-            <h2 class="pt-3">Direction: {{student.direction}}</h2>
+        <div>          
+            <h1>{{student.firstName}}</h1>
+            <h1>{{student.lastName}}</h1>
+            <h2>{{student.occupation}}</h2>
+            <h2 >{{student.direction}}</h2>
         </div>
-      </div>  
     </div>
-    <div class="align-self-stretch radar-chart">
+    <div class="radar-chart">
       <app-radar-chart *ngIf="(reviewsData$ | async) as reviewsData" [data]="reviewsData.averages"></app-radar-chart>
     </div>
+  </div>
 </div>
 <div *ngIf="(reviewsData$ | async) as reviewsData" >
   <app-skill-chart
