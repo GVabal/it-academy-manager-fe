@@ -7,7 +7,13 @@ import { CustomError } from 'src/app/shared/customError';
 import { Stream } from 'src/app/shared/stream';
 import { Student } from 'src/app/shared/student';
 import { addReview } from 'src/app/store/review/review.action';
-import { getHasReviewAddFailed, getIsReviewsLoaded, getIsReviewsLoading } from 'src/app/store/review/review.selectors';
+import {
+  getClearForm,
+  getHasReviewAddFailed,
+  getIsReviewsLoaded,
+  getIsReviewsLoading,
+  getReviewsError
+} from 'src/app/store/review/review.selectors';
 import { selectStreams } from 'src/app/store/stream/stream.selectors';
 import { getStudentById, selectStudents } from 'src/app/store/students/students.selectors';
 
@@ -28,6 +34,7 @@ export class StudentReviewFormComponent implements OnInit {
   error$!: Observable<CustomError | null>;
   students$!: Observable<Student[]>;
   streams$!: Observable<Stream[]>;
+  clearForm$!: Observable<boolean>;
   selectedStudentImg = '';
 
   communicationCharsRemaining$: Observable<number> | undefined;
@@ -43,16 +50,29 @@ export class StudentReviewFormComponent implements OnInit {
     this.reviewForm = this.initReviewForm();
     this.students$ = this.store.select(selectStudents);
     this.streams$ = this.store.select(selectStreams);
+    this.error$ = this.store.select(getReviewsError);
     this.hasAddReviewFailed$ = this.store.select(getHasReviewAddFailed);
     this.isLoading$ = this.store.select(getIsReviewsLoading);
     this.isLoaded$ = this.store.select(getIsReviewsLoaded);
+    this.clearForm$ = this.store.select(getClearForm);
 
     this.initRemainingChars();
 
     this.studentId.valueChanges.pipe(
       switchMap(id => (this.store.select(getStudentById(id)) as Observable<Student>))
     ).subscribe((student) => {
+      if (student) {
         this.selectedStudentImg = student.pictureUrl as string;
+      } else {
+        this.selectedStudentImg = '';
+      }
+    });
+
+    this.clearForm$.subscribe((clearForm) => {
+      if (clearForm) {
+        this.reviewForm.reset();
+        this.setAllGrades(this.defaultSliderValue);
+      }
     });
   }
 
@@ -84,6 +104,14 @@ export class StudentReviewFormComponent implements OnInit {
     });
   }
 
+  private setAllGrades(grade: number): void {
+    this.communicationGrade.setValue(grade);
+    this.abilityToLearnGrade.setValue(grade);
+    this.extraMileGrade.setValue(grade);
+    this.motivationGrade.setValue(grade);
+    this.overallGrade.setValue(grade);
+  }
+
   get studentId(): FormControl {
     return  this.reviewForm.get('studentId') as FormControl;
   }
@@ -96,20 +124,40 @@ export class StudentReviewFormComponent implements OnInit {
     return this.reviewForm.get('communicationComment') as FormControl;
   }
 
+  get communicationGrade(): FormControl {
+    return this.reviewForm.get('communicationGrade') as FormControl;
+  }
+
   get abilityToLearnComment(): FormControl {
     return this.reviewForm.get('abilityToLearnComment') as FormControl;
+  }
+
+  get abilityToLearnGrade(): FormControl {
+    return this.reviewForm.get('abilityToLearnGrade') as FormControl;
   }
 
   get extraMileComment(): FormControl {
     return this.reviewForm.get('extraMileComment') as FormControl;
   }
 
+  get extraMileGrade(): FormControl {
+    return this.reviewForm.get('extraMileGrade') as FormControl;
+  }
+
   get motivationComment(): FormControl {
     return this.reviewForm.get('motivationComment') as FormControl;
   }
 
+  get motivationGrade(): FormControl {
+    return this.reviewForm.get('motivationGrade') as FormControl;
+  }
+
   get overallComment(): FormControl {
     return this.reviewForm.get('overallComment') as FormControl;
+  }
+
+  get overallGrade(): FormControl {
+    return this.reviewForm.get('overallGrade') as FormControl;
   }
 
   submitForm(): void{
