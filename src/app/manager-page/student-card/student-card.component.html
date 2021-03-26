@@ -8,9 +8,12 @@
   flex-sm-row
   flex-column">
     <div class="d-flex flex-row align-items-center student-card">
-        <div>
-          <img class="profile-picture"src="{{student.pictureUrl}}">
+        <div *ngIf="student.pictureUrl; else noProfilePicture ">
+          <img class="profile-picture" src={{student.pictureUrl}}>
         </div>
+        <ng-template #noProfilePicture>
+          <img class="profile-picture" src="./assets/no-profile-picture.png">
+        </ng-template>
         <div>          
             <h1>{{student.firstName}}</h1>
             <h1>{{student.lastName}}</h1>

@@ -127,16 +127,11 @@ export const studentsReducer = createReducer(
   }),
 
   on(loadStudentsSuccess, (state, action) => {
-    let selectedStudentId = 0;
-    if (action.students[0]){
-      selectedStudentId = action.students[0].id;
-    }
     return studentsAdapter.addMany(action.students, {
       ...state,
       loading: false,
       loaded: true,
       error: null,
-      selectedStudentId
     });
   }),
 

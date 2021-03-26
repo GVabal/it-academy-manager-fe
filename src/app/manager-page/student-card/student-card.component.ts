@@ -13,7 +13,6 @@ import { getSelectedStudentId, getStudentById } from 'src/app/store/students/stu
   styleUrls: ['./student-card.component.scss']
 })
 export class StudentCardComponent implements OnInit {
-
   student$!: Observable<Student>;
   reviewsData$!: Observable<ReviewData>;
 
