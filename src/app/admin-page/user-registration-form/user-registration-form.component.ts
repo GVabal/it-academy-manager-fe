@@ -4,6 +4,8 @@ import {Observable} from 'rxjs';
 import {CustomError} from '../../shared/customError';
 import {UserRole} from '../../shared/userRole';
 import {Store} from '@ngrx/store';
+import {registerUser} from '../../store/users/users.actions';
+import {getHasUserRegistrationFailed, getIsUsersLoaded, getIsUsersLoading, getUsersError} from '../../store/users/users.selectors';
 
 const namePattern = /^[a-zA-ZĄąČčĘęĖėĮįŠšŲųŪūŽžÄäÅåÖö \-.']*$/;
 
@@ -26,10 +28,10 @@ export class UserRegistrationFormComponent implements OnInit {
   ngOnInit(): void {
     this.registrationForm = this.initRegistrationForm();
 
-    this.hasRegistrationFailed$;
-    this.isLoading$;
-    this.isLoaded$;
-    this.error$;
+    this.hasRegistrationFailed$ = this.store.select(getHasUserRegistrationFailed);
+    this.isLoading$ = this.store.select(getIsUsersLoading);
+    this.isLoaded$ = this.store.select(getIsUsersLoaded);
+    this.error$ = this.store.select(getUsersError);
   }
 
   private initRegistrationForm(): FormGroup {
@@ -75,7 +77,7 @@ export class UserRegistrationFormComponent implements OnInit {
   }
 
   submitForm(): void {
-    console.log(this.registrationForm.value);
+    this.store.dispatch(registerUser({request: this.registrationForm.value}));
   }
 
   onPasswordChange(): void {

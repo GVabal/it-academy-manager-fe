@@ -12,7 +12,7 @@ const routes: Routes = [
   {path: 'manager-page', component: ManagerPageComponent, canActivate: [LoadStudentsGuard]},
   {path: 'lecturer-page', component: LecturerPageComponent, canActivate: [LoadStreamsGuard, LoadStudentsGuard]},
   {path: 'register', component: UserRegistrationFormComponent},
-  {path: '', redirectTo: '/register', pathMatch: 'full'}
+  {path: '', redirectTo: '/admin-page', pathMatch: 'full'}
 ];
 
 @NgModule({

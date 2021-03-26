@@ -12,7 +12,7 @@
           </ng-container>
         </label>
         <div class="col">
-          <input id="fullname" class="form-control" type="text" formControlName="fullName">
+          <input id="fullname" class="form-control" type="text" formControlName="fullName" placeholder="(Required)">
         </div>
       </div>
 
@@ -26,7 +26,7 @@
           </ng-container>
         </label>
         <div class="col">
-          <input id="email" class="form-control" type="text" formControlName="email">
+          <input id="email" class="form-control" type="text" formControlName="email" placeholder="(Required)">
         </div>
       </div>
 
@@ -41,7 +41,7 @@
         </label>
         <div class="col">
           <input id="password" class="form-control" type="password"
-                 formControlName="password" (change)="onPasswordChange()">
+                 formControlName="password" (change)="onPasswordChange()"  placeholder="(Required)">
         </div>
       </div>
 
@@ -65,16 +65,17 @@
         </ng-container>
       </label>
       <select id="role" class="form-control" formControlName="role">
-        <option value=null selected disabled hidden>Please select</option>
+        <option value=null selected disabled hidden>Select (Required)</option>
         <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
       </select>
 
       <div class="row">
         <div class="col">
-          <button class="btn btn-primary" [disabled]="registrationForm.invalid">Register User</button>
+          <button class="btn btn-primary" *ngIf="(isLoading$ | async) === false" [disabled]="registrationForm.invalid">Register User</button>
           <div *ngIf="isLoading$ | async" class="spinner-border text-primary" role="status">
             <span class="visually-hidden">Loading...</span>
           </div>
+          <br>
           <span class="success-message"
                 *ngIf="(hasRegistrationFailed$ | async) === false && (isLoaded$ | async)">Success!</span>
           <span class="error-message" *ngIf="error$ | async as error">{{ error.error.message }}</span>

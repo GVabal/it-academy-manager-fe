@@ -27,6 +27,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SkillChartComponent } from './manager-page/skill-chart/skill-chart.component';
 import { ReviewsEffects } from './store/review/review.effects';
 import { UserRegistrationFormComponent } from './admin-page/user-registration-form/user-registration-form.component';
+import { UsersEffects } from './store/users/users.effects';
+import {usersFeatureKey, usersReducer} from './store/users/users.reducer';
 
 @NgModule({
   declarations: [
@@ -54,12 +56,14 @@ import { UserRegistrationFormComponent } from './admin-page/user-registration-fo
     EffectsModule.forRoot([
       StudentsEffects,
       StreamEffects,
-      ReviewsEffects
+      ReviewsEffects,
+      UsersEffects
     ]),
     StoreModule.forRoot({
       [studentsFeatureKey]: studentsReducer,
       [streamFeatureKey]: streamReducer,
-      [reviewsFeatureKey]: reviewsReducer
+      [reviewsFeatureKey]: reviewsReducer,
+      [usersFeatureKey]: usersReducer
     }),
     StoreDevtoolsModule.instrument(),
   ],
