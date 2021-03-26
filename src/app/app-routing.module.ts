@@ -15,7 +15,7 @@ const routes: Routes = [
   {path: 'lecturer-page', component: LecturerPageComponent, canActivate: [LoadStreamsGuard, LoadStudentsGuard, AuthGuard]},
   {path: 'register', component: UserRegistrationFormComponent},
   {path: 'login', component: LoginPageComponent},
-  {path: '**', redirectTo: '/'}
+  {path: '**', redirectTo: '/login', pathMatch: 'full'}
 ];
 
 @NgModule({
