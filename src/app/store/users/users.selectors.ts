@@ -7,3 +7,6 @@ export const getHasUserRegistrationFailed = createSelector(getUsersFeatureState,
 export const getIsUsersLoading = createSelector(getUsersFeatureState, usersState => usersState.loading);
 export const getIsUsersLoaded = createSelector(getUsersFeatureState, usersState => usersState.loaded);
 export const getUsersError = createSelector(getUsersFeatureState, usersState => usersState.error);
+export const getHasLoginFailed = createSelector(getUsersFeatureState, usersState => usersState.hasLoginFailed);
+export const getIsAuthenticated = createSelector(getUsersFeatureState, usersState => usersState.isAuthenticated);
+export const getUser = createSelector(getUsersFeatureState, usersState => usersState.user);
