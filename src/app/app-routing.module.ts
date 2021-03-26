@@ -7,14 +7,15 @@ import { LecturerPageComponent } from './lecturer-page/lecturer-page.component';
 import { ManagerPageComponent } from './manager-page/manager-page.component';
 import {UserRegistrationFormComponent} from './admin-page/user-registration-form/user-registration-form.component';
 import {LoginPageComponent} from './login-page/login-page.component';
+import {AuthGuard} from './guards/auth.guard';
 
 const routes: Routes = [
-  {path: 'admin-page', component: AdminPageComponent, canActivate: [LoadStreamsGuard, LoadStudentsGuard]},
-  {path: 'manager-page', component: ManagerPageComponent, canActivate: [LoadStudentsGuard]},
-  {path: 'lecturer-page', component: LecturerPageComponent, canActivate: [LoadStreamsGuard, LoadStudentsGuard]},
+  {path: 'admin-page', component: AdminPageComponent, canActivate: [LoadStreamsGuard, LoadStudentsGuard, AuthGuard]},
+  {path: 'manager-page', component: ManagerPageComponent, canActivate: [LoadStudentsGuard, AuthGuard]},
+  {path: 'lecturer-page', component: LecturerPageComponent, canActivate: [LoadStreamsGuard, LoadStudentsGuard, AuthGuard]},
   {path: 'register', component: UserRegistrationFormComponent},
   {path: 'login', component: LoginPageComponent},
-  {path: '', redirectTo: '/admin-page', pathMatch: 'full'}
+  {path: '**', redirectTo: '/'}
 ];
 
 @NgModule({

@@ -26,7 +26,10 @@ export class UsersEffects {
     this.actions$.pipe(
       ofType(loginUser),
       switchMap(action => this.userService.login(action.request).pipe(
-        map(user => loginUserSuccess({user})),
+        map(user => {
+          document.cookie = `token=${user.token}`;
+          return loginUserSuccess({user});
+        }),
         catchError(error => of(loginUserFailure({error})))
         )
       )
