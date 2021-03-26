@@ -30,7 +30,6 @@ import { UserRegistrationFormComponent } from './admin-page/user-registration-fo
 import { UsersEffects } from './store/users/users.effects';
 import {usersFeatureKey, usersReducer} from './store/users/users.reducer';
 import { LoginPageComponent } from './login-page/login-page.component';
-import {JwtTokenInterceptor} from './interceptors/jwt-token.interceptor';
 
 @NgModule({
   declarations: [
@@ -73,7 +72,6 @@ import {JwtTokenInterceptor} from './interceptors/jwt-token.interceptor';
   providers: [
     { provide: MAT_DIALOG_DATA, useValue: {} },
     { provide: MatDialogRef, useValue: {} },
-    // {provide: HTTP_INTERCEPTORS, useClass: JwtTokenInterceptor, multi: true},
   ],
   bootstrap: [AppComponent],
   entryComponents: [StudentFormComponent],
