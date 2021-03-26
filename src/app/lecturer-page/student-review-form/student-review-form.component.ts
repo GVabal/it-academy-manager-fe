@@ -7,7 +7,13 @@ import { CustomError } from 'src/app/shared/customError';
 import { Stream } from 'src/app/shared/stream';
 import { Student } from 'src/app/shared/student';
 import { addReview } from 'src/app/store/review/review.action';
-import { getHasReviewAddFailed, getIsReviewsLoaded, getIsReviewsLoading } from 'src/app/store/review/review.selectors';
+import {
+  getClearForm,
+  getHasReviewAddFailed,
+  getIsReviewsLoaded,
+  getIsReviewsLoading,
+  getReviewsError
+} from 'src/app/store/review/review.selectors';
 import { selectStreams } from 'src/app/store/stream/stream.selectors';
 import { getStudentById, selectStudents } from 'src/app/store/students/students.selectors';
 
@@ -28,17 +34,14 @@ export class StudentReviewFormComponent implements OnInit {
   error$!: Observable<CustomError | null>;
   students$!: Observable<Student[]>;
   streams$!: Observable<Stream[]>;
-  selectedStudentImg = './assets/no-profile-picture.png';
+  clearForm$!: Observable<boolean>;
+  selectedStudentImg = '';
 
-  public communicationCharsRemaining$: Observable<number> | undefined;
-  public abilityToLearnCharsRemaining$: Observable<number> | undefined;
-  public extraMileCharsRemaining$: Observable<number> | undefined;
-  public motivationCharsRemaining$: Observable<number> | undefined;
-  public directionCharsRemaining$: Observable<number> | undefined;
-  public overallCharsRemaining$: Observable<number> | undefined;
-
-  showErrors = false;
-  showSuccess = false;
+  communicationCharsRemaining$: Observable<number> | undefined;
+  abilityToLearnCharsRemaining$: Observable<number> | undefined;
+  extraMileCharsRemaining$: Observable<number> | undefined;
+  motivationCharsRemaining$: Observable<number> | undefined;
+  overallCharsRemaining$: Observable<number> | undefined;
 
   constructor(private fb: FormBuilder,
               private store: Store) { }
@@ -47,17 +50,29 @@ export class StudentReviewFormComponent implements OnInit {
     this.reviewForm = this.initReviewForm();
     this.students$ = this.store.select(selectStudents);
     this.streams$ = this.store.select(selectStreams);
-
+    this.error$ = this.store.select(getReviewsError);
     this.hasAddReviewFailed$ = this.store.select(getHasReviewAddFailed);
     this.isLoading$ = this.store.select(getIsReviewsLoading);
     this.isLoaded$ = this.store.select(getIsReviewsLoaded);
+    this.clearForm$ = this.store.select(getClearForm);
 
     this.initRemainingChars();
 
     this.studentId.valueChanges.pipe(
       switchMap(id => (this.store.select(getStudentById(id)) as Observable<Student>))
     ).subscribe((student) => {
+      if (student) {
         this.selectedStudentImg = student.pictureUrl as string;
+      } else {
+        this.selectedStudentImg = '';
+      }
+    });
+
+    this.clearForm$.subscribe((clearForm) => {
+      if (clearForm) {
+        this.reviewForm.reset();
+        this.setAllGrades(this.defaultSliderValue);
+      }
     });
   }
 
@@ -81,16 +96,20 @@ export class StudentReviewFormComponent implements OnInit {
         Validators.maxLength(this.maxChars),
       ]],
       motivationGrade: this.defaultSliderValue,
-      directionComment: ['', [
-        Validators.maxLength(this.maxChars),
-      ]],
-      directionGrade: this.defaultSliderValue,
       overallComment: ['', [
         Validators.maxLength(this.maxChars),
         Validators.required,
       ]],
       overallGrade: this.defaultSliderValue
     });
+  }
+
+  private setAllGrades(grade: number): void {
+    this.communicationGrade.setValue(grade);
+    this.abilityToLearnGrade.setValue(grade);
+    this.extraMileGrade.setValue(grade);
+    this.motivationGrade.setValue(grade);
+    this.overallGrade.setValue(grade);
   }
 
   get studentId(): FormControl {
@@ -133,14 +152,6 @@ export class StudentReviewFormComponent implements OnInit {
     return this.reviewForm.get('motivationGrade') as FormControl;
   }
 
-  get directionComment(): FormControl {
-    return this.reviewForm.get('directionComment') as FormControl;
-  }
-
-  get directionGrade(): FormControl {
-    return this.reviewForm.get('directionGrade') as FormControl;
-  }
-
   get overallComment(): FormControl {
     return this.reviewForm.get('overallComment') as FormControl;
   }
@@ -150,56 +161,37 @@ export class StudentReviewFormComponent implements OnInit {
   }
 
   submitForm(): void{
-    if (this.reviewForm.valid){
-      this.store.dispatch(addReview({review: this.reviewForm.value}));
-      this.showSuccess = true;
-      this.showErrors = false;
-    }
-    else{
-      this.showErrors = true;
-      this.showSuccess = false;
-    }
+    this.store.dispatch(addReview({review: this.reviewForm.value}));
   }
 
   private initRemainingChars(): void{
     this.communicationCharsRemaining$ = concat(of(''), this.communicationComment.valueChanges).pipe(
       map((communicationComment) => {
-        this.showSuccess = false;
         return communicationComment?.length || 0;
       })
     );
 
     this.abilityToLearnCharsRemaining$ = concat(of(''), this.abilityToLearnComment.valueChanges).pipe(
       map((abilityToLearnComment) => {
-        this.showSuccess = false;
         return abilityToLearnComment?.length || 0;
       })
     );
 
     this.extraMileCharsRemaining$ = concat(of(''), this.extraMileComment.valueChanges).pipe(
       map((extraMileComment) => {
-        this.showSuccess = false;
         return extraMileComment?.length || 0;
       })
     );
 
     this.motivationCharsRemaining$ = concat(of(''), this.motivationComment.valueChanges).pipe(
       map((motivationComment) => {
-        this.showSuccess = false;
         return motivationComment?.length || 0;
       })
     );
 
     this.overallCharsRemaining$ = concat(of(''), this.overallComment.valueChanges).pipe(
       map((overallComment) => {
-        this.showSuccess = false;
         return overallComment?.length || 0;
-      })
-    );
-    this.directionCharsRemaining$ = concat(of(''), this.directionComment.valueChanges).pipe(
-      map((directionComment) => {
-        this.showSuccess = false;
-        return directionComment?.length || 0;
       })
     );
   }
