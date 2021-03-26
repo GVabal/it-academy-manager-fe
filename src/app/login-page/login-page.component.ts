@@ -26,7 +26,6 @@ export class LoginPageComponent implements OnInit {
   }
 
   submitForm(): void {
-    this.error$.subscribe(error => console.log(error));
     this.store.dispatch(loginUser({request: this.loginForm.value}));
   }
 }
