@@ -41,24 +41,17 @@ export class SkillChartComponent{
   chartLabels: Label[] = ['1', '2', '3', '4', '4', '5', '6', '7', '8', '9', '10'];
 
   chartOptions: ChartOptions  = {
-    layout: {
-      padding: {
-          left: 30,
-          right: 50,
-          top: 20,
-          bottom: 10
-      }
-    },
     responsive: true,
     scales: {
       yAxes: [{
         scaleLabel: {
-          display: true,
+          display: false,
           labelString: 'Count of Lecturers'
         },
           ticks: {
               min: 0,
-              stepSize: 1
+              stepSize: 1,
+              maxTicksLimit: 5
           }
       }],
       xAxes: [{

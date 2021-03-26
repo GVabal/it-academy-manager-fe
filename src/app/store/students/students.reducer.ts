@@ -3,7 +3,7 @@ import { createEntityAdapter, EntityState } from '@ngrx/entity';
 import { Student } from '../../shared/student';
 import { addStudent, addStudentFailure, addStudentSuccess, changeSelectedStudent, deleteStudent, deleteStudentFailure,
    deleteStudentSuccess, editStudent, editStudentFailure, editStudentSuccess, loadStudentCreate,
-   loadStudentEdit, loadStudents, loadStudentsFailure, loadStudentsSuccess } from './students.actions';
+   loadStudentEdit, loadStudents, loadStudentsFailure, loadStudentsSuccess, resetSelectedStudent } from './students.actions';
 import { CustomError } from 'src/app/shared/customError';
 
 
@@ -127,16 +127,11 @@ export const studentsReducer = createReducer(
   }),
 
   on(loadStudentsSuccess, (state, action) => {
-    let selectedStudentId = 0;
-    if (action.students[0]){
-      selectedStudentId = action.students[0].id;
-    }
     return studentsAdapter.addMany(action.students, {
       ...state,
       loading: false,
       loaded: true,
       error: null,
-      selectedStudentId
     });
   }),
 
@@ -179,6 +174,12 @@ export const studentsReducer = createReducer(
     return{
       ...state,
       selectedStudentId: action.id
+    };
+  }),
+  on(resetSelectedStudent, (state, action) => {
+    return{
+      ...state,
+      selectedStudentId: 0
     };
   })
 );
