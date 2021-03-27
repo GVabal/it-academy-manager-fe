@@ -16,7 +16,7 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getToken(): string {
-    return localStorage.getItem('token') as string;
+    return document.cookie.substring(6);
   }
 
   registerUser(request: RegistrationRequest): Observable<void> {
