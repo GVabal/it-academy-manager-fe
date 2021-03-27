@@ -3,7 +3,7 @@ import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {UserService} from '../../service/user.service';
 import {catchError, map, switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
-import {registerUser, registerUserFailure, registerUserSuccess} from './users.actions';
+import {loginUser, loginUserFailure, loginUserSuccess, registerUser, registerUserFailure, registerUserSuccess} from './users.actions';
 
 
 
@@ -17,6 +17,20 @@ export class UsersEffects {
       switchMap((action) => this.userService.registerUser(action.request).pipe(
         map(() => registerUserSuccess()),
         catchError(error => of(registerUserFailure({error})))
+        )
+      )
+    )
+  );
+
+  loginUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loginUser),
+      switchMap(action => this.userService.login(action.request).pipe(
+        map(user => {
+          document.cookie = `token=${user.token}`;
+          return loginUserSuccess({user});
+        }),
+        catchError(error => of(loginUserFailure({error})))
         )
       )
     )
