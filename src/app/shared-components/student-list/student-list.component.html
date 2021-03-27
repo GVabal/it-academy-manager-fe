@@ -11,7 +11,7 @@
 <div class="list-group">
   <button *ngIf="isAdminView" class="btn btn-sm btn-outline-primary mb-4" (click)="onCreate()" (click)="openDialog(false)">Create new Student</button>
 </div>
-<div class="list-group shadow" *ngFor="let student of students$ | async">
+<div class="list-group shadow" *ngFor="let student of (students$ | async)?.reverse()">
   <a class="list-group-item list-group-item-action" aria-current="true" (click)="onChoose(student.id)">
     <div class="d-flex w-100 justify-content-between">
       <p class="mb-1">{{ student.firstName}} {{student.lastName }}</p>
