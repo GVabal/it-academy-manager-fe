@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { StudentsEffects } from './store/students/students.effects';
 import { studentsFeatureKey, studentsReducer } from './store/students/students.reducer';
 import { AdminPageComponent } from './admin-page/admin-page.component';
@@ -26,6 +26,12 @@ import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/materia
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SkillChartComponent } from './manager-page/skill-chart/skill-chart.component';
 import { ReviewsEffects } from './store/review/review.effects';
+import { UserRegistrationFormComponent } from './admin-page/user-registration-form/user-registration-form.component';
+import { UsersEffects } from './store/users/users.effects';
+import {usersFeatureKey, usersReducer} from './store/users/users.reducer';
+import { LoginPageComponent } from './login-page/login-page.component';
+import {JwtTokenInterceptor} from './interceptors/jwt-token.interceptor';
+import {ErrorInterceptor} from './interceptors/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -39,7 +45,9 @@ import { ReviewsEffects } from './store/review/review.effects';
     StudentCardComponent,
     RadarChartComponent,
     StudentFormComponent,
-    SkillChartComponent
+    SkillChartComponent,
+    UserRegistrationFormComponent,
+    LoginPageComponent
   ],
   imports: [
     ChartsModule,
@@ -52,18 +60,22 @@ import { ReviewsEffects } from './store/review/review.effects';
     EffectsModule.forRoot([
       StudentsEffects,
       StreamEffects,
-      ReviewsEffects
+      ReviewsEffects,
+      UsersEffects
     ]),
     StoreModule.forRoot({
       [studentsFeatureKey]: studentsReducer,
       [streamFeatureKey]: streamReducer,
-      [reviewsFeatureKey]: reviewsReducer
+      [reviewsFeatureKey]: reviewsReducer,
+      [usersFeatureKey]: usersReducer
     }),
     StoreDevtoolsModule.instrument(),
   ],
   providers: [
     { provide: MAT_DIALOG_DATA, useValue: {} },
     { provide: MatDialogRef, useValue: {} },
+    {provide: HTTP_INTERCEPTORS, useClass: JwtTokenInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
   ],
   bootstrap: [AppComponent],
   entryComponents: [StudentFormComponent],

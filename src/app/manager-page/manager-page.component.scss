@@ -1,4 +1,13 @@
-.spaced-sides {
-    margin-left: 2rem;
-    margin-right: 2rem;
-  }
+.manager-page {
+  padding:2vw;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.btn{
+  color: aliceblue;
+  cursor: pointer;
+}
+.btn:focus {
+  outline: none;
+  box-shadow: none;
+}

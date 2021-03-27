@@ -29,13 +29,6 @@ export class ReviewsEffects {
     )
     );
 
-  initialLoadReviews$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(loadStudentsSuccess),
-      map(({students}) => loadReviews({id: students[0].id}))
-    )
-  );
-
   addReview$ = createEffect(() =>
     this.actions$.pipe(
       ofType(addReview),

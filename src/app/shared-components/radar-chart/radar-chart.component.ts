@@ -1,11 +1,12 @@
 import { Component, Input} from '@angular/core';
-import { ChartType, ChartOptions } from 'chart.js';
+import { ChartType, ChartOptions, ChartSize, } from 'chart.js';
 
 @Component({
   selector: 'app-radar-chart',
   template: `<div >
                 <canvas baseChart
-                width="350" height="350"
+                width=200
+                height=150
                 [datasets]="radarChartData"
                 [labels]="radarChartLabels"
                 [chartType]="radarChartType"
@@ -41,14 +42,20 @@ export class RadarChartComponent{
   options: ChartOptions = {
     responsive: true,
     scale: {
+      position: 'bottom',
+      pointLabels: {
+        fontSize: 10
+    },
       ticks: {
           max: 10,
           min: 0,
           stepSize: 2,
+          fontSize: 10
       }
-  },
-  legend: {
-    display: false
-  }
+    },
+    legend: {
+      display: false,
+    },
   };
+
 }
