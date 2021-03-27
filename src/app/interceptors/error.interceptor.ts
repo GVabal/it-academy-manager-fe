@@ -6,21 +6,21 @@ import {
   HttpInterceptor, HttpErrorResponse
 } from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {Router} from '@angular/router';
 import {catchError} from 'rxjs/operators';
+import {Store} from '@ngrx/store';
+import {logoutUser} from '../store/users/users.actions';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-  constructor(private router: Router) {}
+  constructor(private store: Store) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     return next.handle(request).pipe(
       catchError(response => {
         if (response instanceof HttpErrorResponse && response.status === 403) {
-          document.cookie = 'token= ; expires = Thu, 01 Jan 1970 00:00:00 GMT';
-          this.router.navigate(['/login']);
+          this.store.dispatch(logoutUser());
         }
         return throwError(response.error.message);
       })

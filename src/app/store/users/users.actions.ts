@@ -32,3 +32,8 @@ export const loginUserFailure = createAction(
   '[Users] Login User Failure',
   props<{error: CustomError}>()
 );
+
+export const logoutUser = createAction(
+  '[Users] Logout User'
+);
+
