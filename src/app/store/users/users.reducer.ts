@@ -1,6 +1,14 @@
 import { createReducer, on } from '@ngrx/store';
 import {CustomError} from '../../shared/customError';
-import {loginUser, loginUserFailure, loginUserSuccess, registerUser, registerUserFailure, registerUserSuccess} from './users.actions';
+import {
+  loginUser,
+  loginUserFailure,
+  loginUserSuccess,
+  logoutUser,
+  registerUser,
+  registerUserFailure,
+  registerUserSuccess
+} from './users.actions';
 import {User} from '../../shared/user';
 
 
@@ -68,6 +76,7 @@ export const usersReducer = createReducer(
       loading: false,
       loaded: true,
       hasLoginFailed: false,
+      isAuthenticated: true,
       user: action.user
     };
   }),
@@ -78,6 +87,13 @@ export const usersReducer = createReducer(
       loaded: false,
       hasLoginFailed: true,
       error: action.error
+    };
+  }),
+  on(logoutUser, (state) => {
+    return {
+      ...state,
+      isAuthenticated: false,
+      user: null
     };
   })
 );

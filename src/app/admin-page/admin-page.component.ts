@@ -2,6 +2,7 @@ import {getIsEditOrCreateForm} from '../store/students/students.selectors';
 import {Component, HostListener, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
+import {logoutUser} from '../store/users/users.actions';
 
 @Component({
   selector: 'app-admin-page',
@@ -34,5 +35,9 @@ export class AdminPageComponent implements OnInit {
   public toggleToStreams(): void {
     this.showStudents = false;
     this.showStreams = true;
+  }
+
+  logout(): void {
+    this.store.dispatch(logoutUser());
   }
 }
