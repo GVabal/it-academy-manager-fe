@@ -47,7 +47,6 @@ export class UsersEffects {
       ofType(loginUserSuccess),
       tap(({user}) => {
         document.cookie = `token=${user.token}`;
-        this.router.navigate(['/admin-page']);
       }),
       take(1)
     )
