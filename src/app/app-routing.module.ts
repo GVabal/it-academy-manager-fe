@@ -8,13 +8,34 @@ import { ManagerPageComponent } from './manager-page/manager-page.component';
 import {UserRegistrationFormComponent} from './admin-page/user-registration-form/user-registration-form.component';
 import {LoginPageComponent} from './login-page/login-page.component';
 import {AuthGuard} from './guards/auth.guard';
+import {UserRole} from './shared/userRole';
+import {LoggedInGuard} from './guards/logged-in.guard';
 
 const routes: Routes = [
-  {path: 'admin-page', component: AdminPageComponent, canActivate: [LoadStreamsGuard, LoadStudentsGuard, AuthGuard]},
-  {path: 'manager-page', component: ManagerPageComponent, canActivate: [LoadStudentsGuard, AuthGuard]},
-  {path: 'lecturer-page', component: LecturerPageComponent, canActivate: [LoadStreamsGuard, LoadStudentsGuard, AuthGuard]},
+  {
+    path: 'admin-page',
+    component: AdminPageComponent,
+    canActivate: [LoadStreamsGuard, LoadStudentsGuard, AuthGuard],
+    data: {role: UserRole.ADMIN}
+  },
+  {
+    path: 'manager-page',
+    component: ManagerPageComponent,
+    canActivate: [LoadStudentsGuard, AuthGuard],
+    data: {role: UserRole.MANAGER}
+  },
+  {
+    path: 'lecturer-page',
+    component: LecturerPageComponent,
+    canActivate: [LoadStreamsGuard, LoadStudentsGuard, AuthGuard],
+    data: {role: UserRole.LECTURER}
+  },
+  {
+    path: 'login',
+    component: LoginPageComponent,
+    canActivate: [LoggedInGuard]
+  },
   {path: 'register', component: UserRegistrationFormComponent},
-  {path: 'login', component: LoginPageComponent},
   {path: '**', redirectTo: '/login', pathMatch: 'full'}
 ];
 
