@@ -13,9 +13,7 @@ export class LecturerPageComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  
   logout(): void {
     this.store.dispatch(logoutUser());
   }
-
 }
