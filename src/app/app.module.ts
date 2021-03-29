@@ -32,6 +32,7 @@ import {usersFeatureKey, usersReducer} from './store/users/users.reducer';
 import { LoginPageComponent } from './login-page/login-page.component';
 import {JwtTokenInterceptor} from './interceptors/jwt-token.interceptor';
 import {ErrorInterceptor} from './interceptors/error.interceptor';
+import {ToastrModule} from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,11 @@ import {ErrorInterceptor} from './interceptors/error.interceptor';
     HttpClientModule,
     ReactiveFormsModule,
     MatDialogModule,
+    ToastrModule.forRoot({
+      timeOut: 4000,
+      positionClass: 'toast-bottom-center',
+      preventDuplicates: true
+    }),
     EffectsModule.forRoot([
       StudentsEffects,
       StreamEffects,

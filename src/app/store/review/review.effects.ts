@@ -4,15 +4,18 @@ import { catchError, filter, map, switchMap, withLatestFrom } from 'rxjs/operato
 import { of} from 'rxjs';
 import { ReviewService } from 'src/app/service/review.service';
 import { addReview, addReviewFailure, addReviewSuccess, loadReviews, loadReviewsFailure, loadReviewsSuccess } from './review.action';
-import { loadStudentsSuccess } from '../students/students.actions';
 import { isReviewDataInStore } from './review.selectors';
 import { Store } from '@ngrx/store';
+import {ToastrService} from 'ngx-toastr';
 
 
 @Injectable()
 export class ReviewsEffects {
 
-  constructor(private actions$: Actions, private reviewService: ReviewService, private store: Store) {}
+  constructor(private actions$: Actions,
+              private reviewService: ReviewService,
+              private store: Store,
+              private toastr: ToastrService) {}
 
 
   loadReviews$: any = createEffect(() =>
@@ -33,7 +36,10 @@ export class ReviewsEffects {
     this.actions$.pipe(
       ofType(addReview),
       switchMap((action) => this.reviewService.addReview(action.review).pipe(
-        map((review) => addReviewSuccess( { review })),
+        map((review) => {
+          this.toastr.success('Review submitted.', 'Success!');
+          return addReviewSuccess( { review });
+        }),
         catchError(error => of(addReviewFailure({ error })))
       )
       )

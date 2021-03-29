@@ -137,8 +137,6 @@
     <div class="alert alert-danger" *ngIf="overallComment.errors?.required">Overall comment is required.</div>
     <div class="alert alert-danger">{{ error.error.message }}</div>
   </ng-container>
-  <div *ngIf="(hasAddReviewFailed$ | async) === false  && (isLoaded$ | async)">Success!
   </div>
-  </div>
-  
+
 </form>

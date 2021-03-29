@@ -53,8 +53,6 @@
         <span class="visually-hidden">Loading...</span>
       </div>
       <br>
-      <span class="success-message"
-            *ngIf="(hasRegistrationFailed$ | async) === false && (isLoaded$ | async)">Success!</span>
       <span class="error-message" *ngIf="error$ | async as error">{{ error.error.message }}</span>
     </div>
   </div>

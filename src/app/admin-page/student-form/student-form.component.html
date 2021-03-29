@@ -11,7 +11,7 @@
     <div class="">
       <div class="">
         <label for="firstname" class="form-label">
-          <span class = "required-after">First name </span>
+          <span class = "required-after">First name</span>
           <ng-container *ngIf="firstName.dirty || firstName.touched">
             <span class="error-message" *ngIf="firstName.errors?.maxlength">First name is too long</span>
             <span class="error-message" *ngIf="firstName.errors?.pattern">First name must contain only letters</span>
@@ -23,7 +23,7 @@
       </div>
       <div class="">
         <label for="lastname" class="form-label">
-          <span class = "required-after">Last name (required)</span>
+          <span class = "required-after">Last name</span>
           <ng-container *ngIf="lastName.dirty || lastName.touched">
             <span class="error-message" *ngIf="lastName.errors?.maxlength">Last name is too long</span>
             <span class="error-message" *ngIf="lastName.errors?.pattern">Last name must contain only letters</span>
@@ -98,8 +98,6 @@
       </div>
       <div class="">
         <div class=" center-content">
-          <span class="success-message" *ngIf="!isEditView && (hasAddFailed$ | async) === false && (isLoaded$ |async)">Success!</span>
-          <span class="success-message" *ngIf="isEditView && (hasEditFailed$ | async) === false && (isLoaded$ |async)">Success!</span>
           <span class="error-message" *ngIf="error$ | async as error">{{ error.error.message }}</span>
         </div>
       </div>
