@@ -1,7 +1,10 @@
+import { CustomError } from 'src/app/shared/customError';
+import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {loginUser} from '../store/users/users.actions';
+import { getUsersError } from '../store/users/users.selectors';
 
 @Component({
   selector: 'app-login-page',
@@ -10,6 +13,7 @@ import {loginUser} from '../store/users/users.actions';
 })
 export class LoginPageComponent implements OnInit {
   loginForm!: FormGroup;
+  error$!: Observable<CustomError | null>;
 
   constructor(private store: Store, private fb: FormBuilder) { }
 
@@ -18,6 +22,7 @@ export class LoginPageComponent implements OnInit {
       email: ['', Validators.required],
       password: ['', Validators.required]
     });
+    this.error$ = this.store.select(getUsersError);
   }
 
   submitForm(): void {

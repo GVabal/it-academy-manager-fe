@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {RegistrationRequest} from '../shared/registrationRequest';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';

@@ -1,7 +1,17 @@
+<div *ngIf="(students$ |async)?.length === 0; else studentList">
+  <h1>
+    No students in the list
+  </h1>
+</div>
+<ng-template #studentList>
+  <h1>
+    Student List
+  </h1>
+</ng-template>
 <div class="list-group">
   <button *ngIf="isAdminView" class="btn btn-sm btn-primary mb-4" (click)="onCreate()" (click)="openDialog(false)">Create new Student</button>
 </div>
-<div class="list-group" *ngFor="let student of students$ | async">
+<div class="list-group shadow" *ngFor="let student of (students$ | async)?.reverse()">
   <a class="list-group-item list-group-item-action" aria-current="true" (click)="onChoose(student.id)">
     <div class="d-flex w-100 justify-content-between">
       <p class="mb-1">{{ student.firstName}} {{student.lastName }}</p>
