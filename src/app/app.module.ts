@@ -9,7 +9,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { StudentsEffects } from './store/students/students.effects';
 import { studentsFeatureKey, studentsReducer } from './store/students/students.reducer';
 import { AdminPageComponent } from './admin-page/admin-page.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StreamListComponent } from './admin-page/stream-list/stream-list.component';
 import { StreamEffects } from './store/stream/stream.effects';
 import { streamFeatureKey, streamReducer } from './store/stream/stream.reducer';
@@ -56,6 +56,7 @@ import {ErrorInterceptor} from './interceptors/error.interceptor';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
     MatDialogModule,
     EffectsModule.forRoot([
       StudentsEffects,
