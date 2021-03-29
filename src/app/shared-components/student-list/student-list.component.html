@@ -9,16 +9,14 @@
   </h1>
 </ng-template>
 <div class="list-group">
-  <button *ngIf="isAdminView" class="btn btn-sm btn-outline-primary mb-4" (click)="onCreate()" (click)="openDialog(false)">Create new Student</button>
+  <button *ngIf="isAdminView" class="btn btn-sm btn-primary mb-4" (click)="onCreate()" (click)="openDialog(false)">Create new Student</button>
 </div>
-<div class="list-group shadow" *ngFor="let student of students">
-  <a class="list-group-item list-group-item-action" aria-current="true" (click)="onChoose(student.id)">
-    <div class="d-flex w-100 justify-content-between">
-      <p class="mb-1">{{ student.firstName}} {{student.lastName }}</p>
+<div class="list-group shadow" *ngFor="let student of (students$ | async)?.reverse()">
+  <a class="list-group-item list-group-item-action btn btn-link" aria-current="true" (click)="onChoose(student.id)" (click)="onEdit(student)" (click)="openDialog(true)">
+     <div class="d-flex w-100 justify-content-between">
+      <p class="btn btn-link" class="mb-1">{{ student.firstName}} {{student.lastName }}</p>
       <div *ngIf="isAdminView" class="d-flex flex-row-reverse">
         <button type="button" class="btn btn-sm btn-outline-danger" (click)="deleteStudent(student.id)">Delete</button>
-        <div class="divider"></div>
-        <button class="btn btn-sm btn-outline-warning" (click)="onEdit(student)" (click)="openDialog(true)" >Edit</button>
       </div>
     </div>
   </a>

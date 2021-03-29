@@ -8,6 +8,8 @@ import { loadStudentCreate, loadStudentEdit } from 'src/app/store/students/stude
 import { CustomError } from 'src/app/shared/customError';
 import { MatDialog } from '@angular/material/dialog';
 import { StudentFormComponent } from 'src/app/admin-page/student-form/student-form.component';
+import { count, map } from 'rxjs/operators';
+import { BlockScrollStrategy } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-student-list',
@@ -27,7 +29,6 @@ export class StudentListComponent implements OnInit {
   constructor(private store: Store, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-
     this.isStudentsLoading$ = this.store.select(getIsStudentsLoading);
     this.isStudentsLoaded$ = this.store.select(getIsStudentsLoaded);
     this.hasLoadFailed$ = this.store.select(getHasStudentLoadFailed);
@@ -48,6 +49,8 @@ export class StudentListComponent implements OnInit {
         }, hasBackdrop: true,
         closeOnNavigation: true,
         maxWidth: '100%',
+        maxHeight: '850px',
+        height: '100%',
         position: {
           top: '0'
         }

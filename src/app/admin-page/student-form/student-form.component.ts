@@ -18,8 +18,8 @@ import { Student } from '../../shared/student';
 import { ProfilePictureService } from '../../service/profile-picture.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-const namePattern = '^[a-zA-ZĄąČčĘęĖėĮįŠšŲŲūŪŽž]*$';
-const occupationPattern = '^[a-zA-ZĄąČčĘęĖėĮįŠšŲųūŪŽž_-\\s]*$';
+const namePattern = '^[a-zA-ZĄąČčĘęĖėĮįŠšŲŲūŪŽžÄäÅåÖö]*$';
+const occupationPattern = '^[a-zA-ZĄąČčĘęĖėĮįŠšŲųūŪŽžÄäÅåÖö_-\\s]*$';
 const noMultipleSpacesPattern = '(?:(?![ ]{2}).)+';
 
 @Component({

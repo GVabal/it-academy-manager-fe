@@ -27,7 +27,6 @@ export class UserRegistrationFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.registrationForm = this.initRegistrationForm();
-
     this.hasRegistrationFailed$ = this.store.select(getHasUserRegistrationFailed);
     this.isLoading$ = this.store.select(getIsUsersLoading);
     this.isLoaded$ = this.store.select(getIsUsersLoaded);

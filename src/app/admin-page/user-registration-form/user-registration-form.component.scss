@@ -1,7 +1,6 @@
 form {
   padding: 20px;
   max-width: 800px;
-  margin: 5px auto 20px auto;
 }
 
 .form-label {
@@ -25,4 +24,9 @@ h1 {
 
 input, select {
   margin-bottom: 10px;
+}
+
+.card{
+min-width: 270px;
+display: block;
 }
