@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import {CustomError} from '../../shared/customError';
 import {
+  loadUser, loadUserSuccess,
   loginUser,
   loginUserFailure,
   loginUserSuccess,
@@ -94,6 +95,18 @@ export const usersReducer = createReducer(
       ...state,
       isAuthenticated: false,
       user: null
+    };
+  }),
+  on(loadUser, (state) => {
+    return {
+      ...state,
+    };
+  }),
+  on(loadUserSuccess, (state, action) => {
+    return {
+      ...state,
+      isAuthenticated: true,
+      user: action.user
     };
   })
 );

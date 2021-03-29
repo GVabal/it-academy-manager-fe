@@ -10,6 +10,7 @@ import {LoginPageComponent} from './login-page/login-page.component';
 import {AuthGuard} from './guards/auth.guard';
 import {UserRole} from './shared/userRole';
 import {LoggedInGuard} from './guards/logged-in.guard';
+import {LoadUserGuard} from './guards/load-user.guard';
 
 const routes: Routes = [
   {
@@ -33,7 +34,7 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginPageComponent,
-    canActivate: [LoggedInGuard]
+    canActivate: [LoadUserGuard, LoggedInGuard]
   },
   {path: 'register', component: UserRegistrationFormComponent},
   {path: '**', redirectTo: '/login', pathMatch: 'full'}

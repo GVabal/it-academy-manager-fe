@@ -37,3 +37,12 @@ export const logoutUser = createAction(
   '[Users] Logout User'
 );
 
+export const loadUser = createAction(
+  '[Users] Load User',
+  props<{token: string}>()
+);
+
+export const loadUserSuccess = createAction(
+  '[Users] Load User Success',
+  props<{user: User}>()
+);
