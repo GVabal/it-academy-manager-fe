@@ -1,32 +1,29 @@
-<div class="outer">
-  <div class="middle">
-    <div class="inner rounded shadow">
-      <div class="">
-        <h1>Login</h1>
-        <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
-          <div>
-            <label for="userEmail">Email address</label>
-            <input type="email" class="form-control" id="userEmail" formControlName="email"  placeholder="Enter email">
-            <div *ngIf="!email.valid && email.touched">
-              <div class="error-message">Email is required</div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="userPassword">Password</label>
-            <input type="password" class="form-control" id="userPassword"  formControlName="password" placeholder="Password">
-          </div>
-          <div *ngIf="!password.valid && password.touched">
-            <div class="error-message">Password is required</div>
-          </div>
-          <div class="d-flex justify-content-center button-container">
-            <button type="submit" class="btn btn-secondary">Submit</button>
-          </div>
-        </form>
+
+<div class=" inner content rounded shadow">
+  <div>
+    <h1>Login</h1>
+    <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
+      <div>
+        <label for="userEmail">Email address</label>
+        <input type="email" class="form-control" id="userEmail" formControlName="email"  placeholder="Enter email">
+        <div *ngIf="!email.valid && email.touched">
+          <div class="error-message">Email is required</div>
+        </div>
       </div>
-      <div *ngIf="hasLoginFailed$ | async">
-        <div class="error-message"> <b>Login failed</b></div>
-        <div class="error-message">Your email or/and password do not match. Try again.</div>
+      <div class="form-group">
+        <label for="userPassword">Password</label>
+        <input type="password" class="form-control" id="userPassword"  formControlName="password" placeholder="Password">
       </div>
-    </div>
+      <div *ngIf="!password.valid && password.touched">
+        <div class="error-message">Password is required</div>
+      </div>
+      <div class="d-flex justify-content-center button-container">
+        <button type="submit" class="btn btn-secondary">Submit</button>
+      </div>
+    </form>
+  </div>
+  <div *ngIf="hasLoginFailed$ | async">
+    <div class="error-message"> <b>Login failed</b></div>
+    <div class="error-message">Your email or/and password do not match. Try again.</div>
   </div>
 </div>

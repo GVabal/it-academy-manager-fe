@@ -1,53 +1,63 @@
 
-<mat-dialog-content class="mat-content">
-<form class="center-content" [formGroup]="studentForm" (ngSubmit)="submitForm()">
-  <div class="card">
-    <h1 *ngIf="!isEditView">New Student Form</h1>
-    <h1 *ngIf="isEditView">Student Edit Form</h1>
-    <div class="card-body">
-      <div class="row">
+<div class="d-flex flex-row-reverse" >
+  <div class="close-button"(click)="close()">
+    Close <i class="bi bi-arrow-up"></i>
+  </div>
+</div>
+<h1 *ngIf="!isEditView">New Student Form</h1>
+<h1 *ngIf="isEditView">Student Edit Form</h1>
+<form [formGroup]="studentForm" (ngSubmit)="submitForm()">
+  <div class="">
+    <div class="">
+      <div class="">
         <label for="firstname" class="form-label">
-          <span class = "required-after">First name </span>
+          <span class = "required-after">First name</span>
           <ng-container *ngIf="firstName.dirty || firstName.touched">
             <span class="error-message" *ngIf="firstName.errors?.maxlength">First name is too long</span>
             <span class="error-message" *ngIf="firstName.errors?.pattern">First name must contain only letters</span>
           </ng-container>
         </label>
-        <div class="col">
+        <div class="">
           <input id="firstname" class="form-control" type="text" placeholder="(Required)" formControlName="firstName">
         </div>
       </div>
-      <div class="row">
+      <div class="">
         <label for="lastname" class="form-label">
-          <span class = "required-after">Last name (required)</span>
+          <span class = "required-after">Last name</span>
           <ng-container *ngIf="lastName.dirty || lastName.touched">
             <span class="error-message" *ngIf="lastName.errors?.maxlength">Last name is too long</span>
             <span class="error-message" *ngIf="lastName.errors?.pattern">Last name must contain only letters</span>
           </ng-container>
         </label>
-        <div class="col">
+        <div class="">
           <input id="lastname" class="form-control" type="text" placeholder="(Required)" formControlName="lastName">
         </div>
       </div>
-      <div class="row">
+      <div class="">
         <label class="form-label">
           Profile picture
         </label>
-        <div class="col">
+        <div class="">
           <div *ngIf="imagePreviewUrl && imagePreviewUrl !== ''">
+            <div class="icons">
+              <label for="file-upload" class=""><i class="bi bi-upload"></i></label>
+              <input hidden="true" id="file-upload" type="file" accept="image/*" (change)="onFileSelect($event)">
+              <i class="bi bi-x-circle" (click)="clearSelectedImage()"></i>
+            </div>
             <img [src]="imagePreviewUrl" alt="profile picture" width="150px">
             <br>
-            <input type="file" accept="image/*" (change)="onFileSelect($event)">
-            <button type="button" (click)="clearSelectedImage()">Delete</button>
           </div>
           <div *ngIf="!imagePreviewUrl || imagePreviewUrl === ''">
+            <div class="icons">
+              <label for="file-upload" class=""><i class="bi bi-upload"></i></label>
+              <input hidden="true" type="file" id="file-upload" accept="image/*" (change)="onFileSelect($event)">
+            </div>
             <img src="./assets/no-profile-picture.png" alt="no profile picture" width="150px">
             <br>
-            <input type="file" accept="image/*" (change)="onFileSelect($event)">
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="">
         <label for="occupation" class="form-label">
           Occupation
           <ng-container *ngIf="occupation.dirty || occupation.touched">
@@ -55,11 +65,11 @@
             <span class="error-message" *ngIf="occupation.errors?.pattern">Occupation can only contain letters and symbols:- _ (No multiple spaces allowed) </span>
           </ng-container>
         </label>
-        <div class="col">
+        <div class="">
           <input id="occupation" class="form-control" type="text" formControlName="occupation">
         </div>
       </div>
-      <div class="row">
+      <div class="">
         <label for="direction" class="form-label">
           Field of interest
           <ng-container *ngIf="direction.dirty || direction.touched">
@@ -67,12 +77,12 @@
             <span class="error-message" *ngIf="direction.errors?.pattern">Field can only contain letters and symbols:- _ (No multiple spaces allowed) </span>
           </ng-container>
         </label>
-        <div class="col">
+        <div class="">
           <input id="direction" class="form-control" type="text" formControlName="direction">
         </div>
       </div>
-      <div class="row">
-        <div class="col">
+      <div class="">
+        <div class="">
           <button *ngIf="!isEditView && (isLoading$ | async) === false"
                   class="btn btn-primary"
                   [disabled]="studentForm.invalid"
@@ -86,17 +96,12 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col center-content">
-          <span class="success-message" *ngIf="!isEditView && (hasAddFailed$ | async) === false && (isLoaded$ |async)">Success!</span>
-          <span class="success-message" *ngIf="isEditView && (hasEditFailed$ | async) === false && (isLoaded$ |async)">Success!</span>
+      <div class="">
+        <div class=" center-content">
           <span class="error-message" *ngIf="error$ | async as error">{{ error.error.message }}</span>
         </div>
       </div>
     </div>
   </div>
   </form>
-</mat-dialog-content>
-<mat-dialog-actions>
-  <button class="mat-raised-button btn-sm btn-outline-primary"(click)="close()">Close</button>
-  </mat-dialog-actions>
+

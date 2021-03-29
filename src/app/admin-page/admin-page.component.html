@@ -1,41 +1,38 @@
-<div class="admin-content">
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-	<h3 class="navbar-brand">{{tabName}}</h3>
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
+  <h3 *ngIf="isMobile" class="navbar-brand">{{tabName}}</h3>
+  <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngClass]="{ 'show': isCollapsed }">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-		    <a id="btn-student" class="btn btn-link" (click) ="toggleToStudents()">Students</a>      
+        <div id="btn-student" class="nav-button" (click) ="toggleToStudents()">Students</div>      
       </li>
       <li class="nav-item">
-        <a id="btn-streams" class="btn btn-link" (click) ="toggleToStreams()">Streams</a>
+        <div id="btn-streams" class="nav-button" (click) ="toggleToStreams()">Streams</div>
       </li>
       <li class="nav-item">
-        <a id="btn-users" class="btn btn-link" (click) ="toggleToUsers()">Users</a>
+        <div id="btn-users" class="nav-button" (click) ="toggleToUsers()">Users</div>
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <a id="btn-logout" class="btn btn-link" (click)="logout()">LOGOUT</a>
+        <div class="nav-button align-right" (click)="logout() ">
+          <i class="bi bi-box-arrow-in-right"></i>  Logout
+        </div>
       </li>
     </ul>
   </div>
 </nav>
-<div class="spaced-sides" id="content-main">
-  <div class="row">
-    <div>
-      <div *ngIf="showStudents">
-        <app-student-list [isAdminView] = "true"></app-student-list>
-      </div>
-    </div>
-    <div *ngIf="showStreams">
-      <app-stream-list ></app-stream-list>
-    </div>
+<div class="admin-page">
+  <div *ngIf="showStudents">
+    <app-student-list [isAdminView] = "true"></app-student-list>
+  </div>
+  <div *ngIf="showStreams">
+    <app-stream-list ></app-stream-list>
   </div>
   <div *ngIf="showUsers">
-    <app-user-registration-form></app-user-registration-form>
-    </div> 
-  </div>
+    <app-user-registration-form [isMobile]="isMobile"></app-user-registration-form>
+  </div> 
 </div>
+

@@ -1,3 +1,4 @@
+import { LoginPageComponent } from './../login-page/login-page.component';
 import {getIsEditOrCreateForm} from '../store/students/students.selectors';
 import {Component, HostListener, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
@@ -23,12 +24,13 @@ export class AdminPageComponent implements OnInit {
   constructor(private store: Store, private dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.isMobile = window.innerWidth < 576;
     this.editOrCreateForm$ = this.store.select(getIsEditOrCreateForm);
   }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any): void {
-    this.isMobile = window.innerWidth < 770;
+    this.isMobile = window.innerWidth < 576;
   }
 
   public toggleToStudents(): void {
@@ -56,22 +58,12 @@ export class AdminPageComponent implements OnInit {
   }
 
   toggleNavbar(): void {
-    this.isCollapsed = !this.isCollapsed;
+    if (this.isMobile){
+      this.isCollapsed = !this.isCollapsed;
+    }
   }
 
   logout(): void {
     this.store.dispatch(logoutUser());
-  }
-
-  openNewUserDialog(): void {
-    this.dialog.open(UserRegistrationFormComponent, {
-      hasBackdrop: true,
-      closeOnNavigation: true,
-      maxWidth: '100%',
-      minHeight: '100%',
-      position: {
-        top: '0'
-      }
-    });
   }
 }

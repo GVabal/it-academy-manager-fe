@@ -16,17 +16,24 @@ import {
 } from './users.actions';
 import {Router} from '@angular/router';
 import {User} from '../../shared/user';
+import {ToastrService} from 'ngx-toastr';
 
 
 @Injectable()
 export class UsersEffects {
-  constructor(private actions$: Actions, private router: Router, private userService: UserService) {}
+  constructor(private actions$: Actions,
+              private router: Router,
+              private userService: UserService,
+              private toastr: ToastrService) {}
 
   addUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(registerUser),
       switchMap((action) => this.userService.registerUser(action.request).pipe(
-        map(() => registerUserSuccess()),
+        map(() => {
+          this.toastr.success('User registered.', 'Success!');
+          return registerUserSuccess();
+        }),
         catchError(error => of(registerUserFailure({error})))
         )
       )
