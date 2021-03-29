@@ -27,8 +27,8 @@ export interface UsersState {
 export const initialState: UsersState = {
   loading: false,
   loaded: false,
-  hasRegistrationFailed: true,
-  hasLoginFailed: true,
+  hasRegistrationFailed: false,
+  hasLoginFailed: false,
   error: null,
   isAuthenticated: false,
   user: null
