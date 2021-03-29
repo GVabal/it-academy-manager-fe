@@ -5,7 +5,6 @@ import {LoadStreamsGuard} from './guards/load-streams.guard';
 import {LoadStudentsGuard} from './guards/load-students.guard';
 import { LecturerPageComponent } from './lecturer-page/lecturer-page.component';
 import { ManagerPageComponent } from './manager-page/manager-page.component';
-import {UserRegistrationFormComponent} from './admin-page/user-registration-form/user-registration-form.component';
 import {LoginPageComponent} from './login-page/login-page.component';
 import {AuthGuard} from './guards/auth.guard';
 import {UserRole} from './shared/userRole';
@@ -36,7 +35,6 @@ const routes: Routes = [
     component: LoginPageComponent,
     canActivate: [LoadUserGuard, LoggedInGuard]
   },
-  {path: 'register', component: UserRegistrationFormComponent},
   {path: '**', redirectTo: '/login', pathMatch: 'full'}
 ];
 
