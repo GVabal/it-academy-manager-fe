@@ -1,9 +1,12 @@
 <nav class="navbar sticky-top navbar-dark bg-dark">
-    <button *ngIf="!isInListView " class="btn btn" (click)="onBack()" >
-        <i class="bi bi-caret-left-fill">Back</i>
-    </button>
+    <div *ngIf="!isInListView" class="nav-button" (click)="onBack()" >
+        Back
+    </div>
+    <div class="nav-button align-left" (click)="logout()">
+        <i class="bi bi-box-arrow-in-right"></i>  Logout
+    </div>
 </nav>
-<div class="manager-page">
+<div class="manager-page ">
     <div *ngIf="isInListView; else studentStatistics">
         <app-student-list [isAdminView] = "false"></app-student-list>
     </div>

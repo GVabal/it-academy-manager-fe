@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { getSelectedStudentId } from '../store/students/students.selectors';
 import { resetSelectedStudent } from '../store/students/students.actions';
+import { logoutUser } from '../store/users/users.actions';
 
 @Component({
   selector: 'app-manager-page',
@@ -25,5 +26,9 @@ export class ManagerPageComponent implements OnInit {
   onBack(): void{
     this.isInListView = !this.isInListView;
     this.store.dispatch(resetSelectedStudent());
+  }
+
+  logout(): void {
+    this.store.dispatch(logoutUser());
   }
 }

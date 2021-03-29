@@ -1,79 +1,44 @@
-form {
-  margin-top: 5px;
-  margin-bottom: 20px;
-  padding: 20px;
-  background: rgb(252, 252, 252);
+
+img{
+  border-radius: 50%;
+  margin-right: 20px;
 }
 
-.container {
-  padding: 0;
+.student-info{
+  padding-top: 20px;
+  max-width: 532px;
+  min-width: 260px;
+  width: 100%;
 }
 
-.form-label {
-  margin-bottom: 10px;
+label{
+  margin-bottom: 0;
+  text-align: left;
+  color: #212529;
+  font-size: 1.2rem;
+  font-family:'Roboto Condensed', sans-serif;
 }
 
-.error-message {
-  color: red;
-  font-size: 12px;
+.alert{
+  padding: 6px;
+  padding-left: 12px;
 }
 
-.success-message {
-  color: green;
-  font-size: 12px;
+h2{
+  margin-bottom: 0;
+  text-align: left;
+  color: #212529;
+  font-size: 1rem;
+
+  font-family:'Roboto Condensed', sans-serif;
 }
 
 textarea {
-  resize: none;
-}
-
-.top-margin {
-  margin-top: 20px;
-
+  margin-right: 1vw;
 }
 
 .remaining-text {
+  text-align: right;
   color: rgb(95, 95, 95);
   font-size: 12px;
-}
-
-.range-value-left {
-  margin-right: 10px;
-  font-size: 20px;
-}
-
-.range-value-right {
-  margin-left: 10px;
-  font-size: 20px;
-}
-
-.range-wrap {
-  margin-bottom: 10px;
-}
-
-img {
-  padding-top: 20px;
-}
-
-.comment-rating-block .row {
-  padding-right: 0;
-}
-
-.submit-area {
-  padding: 0;
-}
-
-.range {
-  width: 150px;
-}
-
-@media only screen and (max-width: 600px) {
-  .mobile {
-    display: flex;
-    flex-direction: column;
-  }
-
-  select {
-    width: 310px;
-  }
 }

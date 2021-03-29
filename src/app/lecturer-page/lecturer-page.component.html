@@ -1,8 +1,9 @@
-<nav class="navbar navbar-light bg-light">
-  <span class="navbar-brand mb-0 h1">Student Evaluation Form</span>
+<nav class="navbar sticky-top navbar-dark bg-dark">
+  <div class="nav-button align-left" (click)="logout() ">
+    <i class="bi bi-box-arrow-in-right"></i>  Logout
+  </div>
 </nav>
-
-<div class="review-form row justify-content-center">
+<div class="review-form">
   <app-student-review-form></app-student-review-form>
 </div>
 
