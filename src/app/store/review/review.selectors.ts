@@ -48,18 +48,30 @@ function mapToReviewData( reviews: Review[]): ReviewData{
     if (reviews.length > 0){
       reviews.map( review => {
         reviewData.data.overallGrade.push(review.overallGrade);
-        reviewData.data.overallComment.push(review.overallComment);
+        reviewData.data.overallComment.push(combineCommentWithAuthor(review.overallComment, review.authorFullName));
         reviewData.data.abilityToLearnGrade.push(review.abilityToLearnGrade);
-        if (review.abilityToLearnComment){reviewData.data.abilityToLearnComment.push(review.abilityToLearnComment); }
+        if (review.abilityToLearnComment){
+          reviewData.data.abilityToLearnComment.push(combineCommentWithAuthor(review.abilityToLearnComment, review.authorFullName));
+        }
         reviewData.data.motivationGrade.push(review.motivationGrade);
-        if (review.motivationComment){reviewData.data.motivationComment.push(review.motivationComment); }
+        if (review.motivationComment){
+          reviewData.data.motivationComment.push(combineCommentWithAuthor(review.motivationComment, review.authorFullName));
+        }
         reviewData.data.extraMileGrade.push(review.extraMileGrade);
-        if (review.extraMileComment){reviewData.data.extraMileComment.push(review.extraMileComment); }
+        if (review.extraMileComment){
+          reviewData.data.extraMileComment.push(combineCommentWithAuthor(review.extraMileComment, review.authorFullName));
+        }
         reviewData.data.communicationGrade.push(review.communicationGrade);
-        if (review.communicationComment){reviewData.data.communicationComment.push(review.communicationComment); }
+        if (review.communicationComment){
+          reviewData.data.communicationComment.push(combineCommentWithAuthor(review.communicationComment, review.authorFullName));
+        }
       });
     }
     reviewData.averages = [average(reviewData.data.overallGrade), average(reviewData.data.abilityToLearnGrade),
       average(reviewData.data.motivationGrade), average(reviewData.data.extraMileGrade), average(reviewData.data.communicationGrade)];
     return reviewData;
   }
+
+function combineCommentWithAuthor(comment: string, author: string): string {
+  return '"' + comment + '" - ' + author;
+}
