@@ -61,10 +61,10 @@
       </div>
       <div class="row">
         <label for="direction" class="form-label">
-          Direction
+          Field of interest
           <ng-container *ngIf="direction.dirty || direction.touched">
-            <span class="error-message" *ngIf="direction.errors?.maxlength">Direction is too long</span>
-            <span class="error-message" *ngIf="direction.errors?.pattern">Direction can only contain letters and symbols:- _ (No multiple spaces allowed) </span>
+            <span class="error-message" *ngIf="direction.errors?.maxlength">Maximum 50 characters </span>
+            <span class="error-message" *ngIf="direction.errors?.pattern">Field can only contain letters and symbols:- _ (No multiple spaces allowed) </span>
           </ng-container>
         </label>
         <div class="col">
