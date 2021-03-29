@@ -4,5 +4,17 @@
 
 .review-form {
   max-width: 800px;
-  margin: 0 auto;
+  margin: auto;
+  padding-top:2vw;
+}
+
+.align-left{
+  margin-left:auto!important;
+}
+.nav-button{
+  cursor: pointer;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  font-family: 'Roboto Condensed', sans-serif;
+  color: aliceblue;
 }

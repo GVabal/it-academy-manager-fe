@@ -10,7 +10,7 @@
     </canvas>
   </div>
   <div class="comment-button">
-    <button class="btn btn" (click)="onCommentsShow()" [disabled]="comments.length === 0">{{this.comments.length}}
+    <button class="btn btn pt-0" (click)="onCommentsShow()" [disabled]="comments.length === 0">{{this.comments.length}}
       <i class="bi bi-chat" [ngClass]="{'bi bi-chat': !showComments, 'bi bi-chat-fill': showComments}"></i>
     </button>
   </div>
