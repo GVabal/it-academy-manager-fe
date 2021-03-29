@@ -2,10 +2,12 @@
     <button *ngIf="!isInListView " class="btn btn" (click)="onBack()" >
         <i class="bi bi-caret-left-fill">Back</i>
     </button>
+    <button (click)="logout()" class="btn btn-primary btn-sm">Logout</button>
 </nav>
 <div class="manager-page">
     <div *ngIf="isInListView; else studentStatistics">
         <app-student-list [isAdminView] = "false"></app-student-list>
+        <button (click)="logout()" class="btn btn-primary btn-sm">Logout</button>
     </div>
 </div>
 <ng-template #studentStatistics>

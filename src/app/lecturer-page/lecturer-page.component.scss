@@ -6,3 +6,16 @@
   max-width: 800px;
   margin: 0 auto;
 }
+
+.btn-primary:hover{
+  background-color: rgb(66, 66, 66);
+  border-color: rgb(37, 37, 37);
+  color: rgb(172, 172, 172);
+ }
+
+.btn-primary {
+  background-color: #202020;
+  border-color: #111111;
+  color: rgb(172, 172, 172);
+  margin: 10px;
+ }
