@@ -1,5 +1,5 @@
-<mat-dialog-content>
-<form [formGroup]="registrationForm" (ngSubmit)="submitForm()">
+
+<form class="form-body" [formGroup]="registrationForm" (ngSubmit)="submitForm()">
   <div class="card">
     <h1>New User Registration</h1>
     <div class="card-body">
@@ -85,7 +85,4 @@
     </div>
   </div>
 </form>
-</mat-dialog-content>
-<mat-dialog-actions>
-  <button class="mat-raised-button btn-sm btn-outline-primary" (click)="close()">Close</button>
-  </mat-dialog-actions>
+

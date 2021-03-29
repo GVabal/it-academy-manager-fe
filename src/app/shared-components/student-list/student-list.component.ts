@@ -9,6 +9,7 @@ import { CustomError } from 'src/app/shared/customError';
 import { MatDialog } from '@angular/material/dialog';
 import { StudentFormComponent } from 'src/app/admin-page/student-form/student-form.component';
 import { count, map } from 'rxjs/operators';
+import { BlockScrollStrategy } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-student-list',
@@ -47,7 +48,8 @@ export class StudentListComponent implements OnInit {
         }, hasBackdrop: true,
         closeOnNavigation: true,
         maxWidth: '100%',
-        minHeight: '100%',
+        maxHeight: '850px',
+        height: '100%',
         position: {
           top: '0'
         }
