@@ -22,7 +22,7 @@ const routes: Routes = [
   {
     path: 'manager-page',
     component: ManagerPageComponent,
-    canActivate: [LoadStudentsGuard, AuthGuard],
+    canActivate: [LoadStudentsGuard, LoadStreamsGuard, AuthGuard],
     data: {role: UserRole.MANAGER}
   },
   {

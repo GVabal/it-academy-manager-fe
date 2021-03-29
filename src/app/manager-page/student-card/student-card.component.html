@@ -27,6 +27,14 @@
       <app-radar-chart *ngIf="(reviewsData$ | async) as reviewsData" [data]="reviewsData.averages"></app-radar-chart>
     </div>
   </div>
+  <div class="filter-margin">
+    <h2>Filter by stream</h2>
+    <select class="form-select" (change)="onSelect()" [(ngModel)] = "streamId">
+      <option [ngValue]=null selected disabled hidden>Please select</option>
+      <option [ngValue]="0"> All </option>
+      <option *ngFor="let stream of streams$ | async" [ngValue]="stream.id">{{stream.name}}</option>
+    </select>
+  </div>
 </div>
 <div *ngIf="(reviewsData$ | async) as reviewsData" >
   <app-skill-chart
@@ -65,5 +73,3 @@
   [comments]="reviewsData.data.communicationComment">
 </app-skill-chart>
 </div>
-
-
