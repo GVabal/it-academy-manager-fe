@@ -47,6 +47,7 @@ export class StudentListComponent implements OnInit {
         }, hasBackdrop: true,
         closeOnNavigation: true,
         maxWidth: '100%',
+        minHeight: '100%',
         position: {
           top: '0'
         }

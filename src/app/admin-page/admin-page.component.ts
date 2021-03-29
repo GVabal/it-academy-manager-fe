@@ -3,6 +3,8 @@ import {Component, HostListener, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {logoutUser} from '../store/users/users.actions';
+import { MatDialog } from '@angular/material/dialog';
+import { UserRegistrationFormComponent } from './user-registration-form/user-registration-form.component';
 
 @Component({
   selector: 'app-admin-page',
@@ -13,11 +15,12 @@ export class AdminPageComponent implements OnInit {
   editOrCreateForm$!: Observable<boolean>;
   showStudents = true;
   showStreams = false;
+  showUsers = false;
   isMobile = false;
   isCollapsed = false;
   tabName = 'Students';
 
-  constructor(private store: Store) { }
+  constructor(private store: Store, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.editOrCreateForm$ = this.store.select(getIsEditOrCreateForm);
@@ -31,6 +34,7 @@ export class AdminPageComponent implements OnInit {
   public toggleToStudents(): void {
     this.showStudents = true;
     this.showStreams = false;
+    this.showUsers = false;
     this.toggleNavbar();
     this.tabName = 'Students';
   }
@@ -38,6 +42,7 @@ export class AdminPageComponent implements OnInit {
   public toggleToStreams(): void {
     this.showStudents = false;
     this.showStreams = true;
+    this.showUsers = false;
     this.toggleNavbar();
     this.tabName = 'Streams';
   }
@@ -45,6 +50,7 @@ export class AdminPageComponent implements OnInit {
   public toggleToUsers(): void {
     this.showStudents = false;
     this.showStreams = false;
+    this.showUsers = true;
     this.toggleNavbar();
     this.tabName = 'Users';
   }
@@ -55,5 +61,17 @@ export class AdminPageComponent implements OnInit {
 
   logout(): void {
     this.store.dispatch(logoutUser());
+  }
+
+  openNewUserDialog(): void {
+    this.dialog.open(UserRegistrationFormComponent, {
+      hasBackdrop: true,
+      closeOnNavigation: true,
+      maxWidth: '100%',
+      minHeight: '100%',
+      position: {
+        top: '0'
+      }
+    });
   }
 }

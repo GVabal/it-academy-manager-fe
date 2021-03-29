@@ -6,6 +6,7 @@ import {UserRole} from '../../shared/userRole';
 import {Store} from '@ngrx/store';
 import {registerUser} from '../../store/users/users.actions';
 import {getHasUserRegistrationFailed, getIsUsersLoaded, getIsUsersLoading, getUsersError} from '../../store/users/users.selectors';
+import { MatDialogRef } from '@angular/material/dialog';
 
 const namePattern = /^[a-zA-ZĄąČčĘęĖėĮįŠšŲųŪūŽžÄäÅåÖö \-.']*$/;
 
@@ -23,11 +24,11 @@ export class UserRegistrationFormComponent implements OnInit {
   registrationForm!: FormGroup;
 
   constructor(private store: Store,
-              private fb: FormBuilder) { }
+              private fb: FormBuilder,
+              private dialogRef: MatDialogRef<UserRegistrationFormComponent>) { }
 
   ngOnInit(): void {
     this.registrationForm = this.initRegistrationForm();
-
     this.hasRegistrationFailed$ = this.store.select(getHasUserRegistrationFailed);
     this.isLoading$ = this.store.select(getIsUsersLoading);
     this.isLoaded$ = this.store.select(getIsUsersLoaded);
@@ -86,5 +87,9 @@ export class UserRegistrationFormComponent implements OnInit {
     } else {
       this.repeatPassword.setErrors({ matchPasswords: true });
     }
+  }
+
+  close(): void {
+    this.dialogRef.close();
   }
 }

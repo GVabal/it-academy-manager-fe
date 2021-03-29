@@ -78,6 +78,6 @@ import {ErrorInterceptor} from './interceptors/error.interceptor';
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
   ],
   bootstrap: [AppComponent],
-  entryComponents: [StudentFormComponent],
+  entryComponents: [StudentFormComponent, UserRegistrationFormComponent],
 })
 export class AppModule { }

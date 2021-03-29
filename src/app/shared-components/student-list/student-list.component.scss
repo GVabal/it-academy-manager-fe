@@ -35,3 +35,17 @@ h1{
   font-size: 2rem;
   text-align: center;
 }
+
+.list-group-item{
+  text-align: left;
+  display: block;
+  height: 100%;
+  width: 100%;
+  text-decoration: none;
+  font-size: 20px ;
+  color: black;
+}
+
+a:hover, a:visited, a:link, a:active{
+  text-decoration: none;
+}
