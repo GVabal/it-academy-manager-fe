@@ -4,7 +4,6 @@ import { catchError, filter, map, switchMap, withLatestFrom } from 'rxjs/operato
 import { of} from 'rxjs';
 import { ReviewService } from 'src/app/service/review.service';
 import { addReview, addReviewFailure, addReviewSuccess, loadReviews, loadReviewsFailure, loadReviewsSuccess } from './review.action';
-import { loadStudentsSuccess } from '../students/students.actions';
 import { isReviewDataInStore } from './review.selectors';
 import { Store } from '@ngrx/store';
 

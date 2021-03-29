@@ -14,8 +14,8 @@ export const getReviewsError = createSelector(getReviewsFeatureState, reviewsSta
 export const getClearForm = createSelector(getReviewsFeatureState, reviewsState => reviewsState.clearForm);
 export const {selectAll: selectReviews} = reviewsAdapter.getSelectors(getReviewsFeatureState);
 
-export const getReviewData =  createSelector(selectReviews, getSelectedStudentId, (reviews, id) =>
-   mapToReviewData(reviews.filter(review => review.studentId === id)));
+export const getReviewData = (id: number) => createSelector(selectReviews, getSelectedStudentId, (reviews, studentId) =>
+mapToReviewDataStream(reviews.filter(review => review.studentId === studentId ), id));
 export const isReviewDataInStore = createSelector(selectReviews, getSelectedStudentId, (reviews, id) =>
   reviews.some(review => review.studentId === id));
 
@@ -29,7 +29,8 @@ function average(list: number[]): number{
     return Number(avg.toFixed(2));
   }
 
-function mapToReviewData( reviews: Review[]): ReviewData{
+
+function mapToReviewDataStream( reviews: Review[], streamId: number): ReviewData{
     const reviewData: ReviewData = {
         averages: [],
         data: {
@@ -46,7 +47,10 @@ function mapToReviewData( reviews: Review[]): ReviewData{
         }
     };
     if (reviews.length > 0){
-      reviews.map( review => {
+      if (streamId !== 0){
+         reviews = reviews.filter(review => review.streamId === streamId);
+      }
+      reviews.map(review => {
         reviewData.data.overallGrade.push(review.overallGrade);
         reviewData.data.overallComment.push(combineCommentWithAuthor(review.overallComment, review.authorFullName));
         reviewData.data.abilityToLearnGrade.push(review.abilityToLearnGrade);
