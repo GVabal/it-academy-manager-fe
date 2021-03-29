@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {CustomError} from '../../shared/customError';
@@ -15,6 +15,7 @@ const namePattern = /^[a-zA-ZĄąČčĘęĖėĮįŠšŲųŪūŽžÄäÅåÖö \-
   styleUrls: ['./user-registration-form.component.scss']
 })
 export class UserRegistrationFormComponent implements OnInit {
+  @Input() isMobile!: boolean;
   roles: UserRole[] = [UserRole.MANAGER, UserRole.LECTURER];
   hasRegistrationFailed$!: Observable<boolean>;
   isLoading$!: Observable<boolean>;

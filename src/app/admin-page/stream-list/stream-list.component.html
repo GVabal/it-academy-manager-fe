@@ -1,3 +1,4 @@
+<h1>Stream List</h1>
 <form [formGroup]="streamForm" (ngSubmit)="submitForm()">
   <div class="input-group">
     <input class="form-control" type="text" formControlName="name">
@@ -12,12 +13,9 @@
 </form>
 <br>
 <ul class="list-group">
-  <li class="list-group-item" *ngFor="let stream of streams$ | async">
+  <li class="list-group-item pt-2 pb-2" *ngFor="let stream of streams$ | async">
     {{ stream.name }}
     <span class="spacer"></span>
-    <button class="btn btn-sm btn-outline-danger"
-            (click)="deleteStream(stream.id)"
-            [disabled]="isLoading$ | async"
-    >Remove</button>
+    <i class="bi bi-x-circle" (click)="deleteStream(stream.id)"></i>
   </li>
 </ul>

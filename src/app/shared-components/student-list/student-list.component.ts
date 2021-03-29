@@ -48,11 +48,12 @@ export class StudentListComponent implements OnInit {
           isEditView: this.isEdit,
         }, hasBackdrop: true,
         closeOnNavigation: true,
-        maxWidth: '100%',
-        maxHeight: '850px',
-        height: '100%',
+        maxWidth: '700px',
+        maxHeight: '780px',
+        height: 'calc(100vh - 64px)',
+        width: '100%',
         position: {
-          top: '0'
+          top: '64px',
         }
       });
     }

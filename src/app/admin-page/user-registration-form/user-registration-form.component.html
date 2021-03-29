@@ -1,64 +1,43 @@
-
 <form class="form-body" [formGroup]="registrationForm" (ngSubmit)="submitForm()">
-  <div class="card">
+  <div class="rounded bg-white" [ngClass]="{shadow: !isMobile}">
     <h1>New User Registration</h1>
     <div class="card-body">
-      <div class="row">
-        <label for="fullname" class="form-label">
-          Full name
-          <ng-container *ngIf="fullName.dirty || fullName.touched">
-            <span class="error-message" *ngIf="fullName.errors?.required">Name is required</span>
-            <span class="error-message" *ngIf="fullName.errors?.maxlength">Name is too long</span>
-            <span class="error-message" *ngIf="fullName.errors?.pattern">Name must contain only valid symbols</span>
-          </ng-container>
-        </label>
-        <div class="col">
-          <input id="fullname" class="form-control" type="text" formControlName="fullName" placeholder="(Required)">
-        </div>
-      </div>
-
-      <div class="row">
-        <label for="email" class="form-label">
-          Email
-          <ng-container *ngIf="email.dirty || email.touched">
-            <span class="error-message" *ngIf="email.errors?.required">Email is required</span>
-            <span class="error-message" *ngIf="email.errors?.maxlength">Email is too long</span>
-            <span class="error-message" *ngIf="email.errors?.email">Email is invalid</span>
-          </ng-container>
-        </label>
-        <div class="col">
-          <input id="email" class="form-control" type="text" formControlName="email" placeholder="(Required)">
-        </div>
-      </div>
-
-      <div class="row">
-        <label for="password" class="form-label">
-          Password
-          <ng-container *ngIf="password.dirty || password.touched">
-            <span class="error-message" *ngIf="password.errors?.required">Password is required</span>
-            <span class="error-message" *ngIf="password.errors?.minlength">Password is too short</span>
-            <span class="error-message" *ngIf="password.errors?.maxlength">Password is too long</span>
-          </ng-container>
-        </label>
-        <div class="col">
-          <input id="password" class="form-control" type="password"
-                 formControlName="password" (change)="onPasswordChange()"  placeholder="(Required)">
-        </div>
-      </div>
-
-      <div class="row">
-        <label for="repeatpassword" class="form-label">
-          Repeat password
-          <ng-container *ngIf="repeatPassword.dirty || repeatPassword.touched">
-            <span class="error-message" *ngIf="repeatPassword.errors?.matchPasswords">Passwords must match</span>
-          </ng-container>
-        </label>
-        <div class="col">
-          <input id="repeatpassword" class="form-control" type="password"
-                 formControlName="repeatPassword" (change)="onPasswordChange()">
-        </div>
-      </div>
-
+      <label for="fullname" class="form-label">
+        Full name
+        <ng-container *ngIf="fullName.dirty || fullName.touched">
+          <span class="error-message" *ngIf="fullName.errors?.required">Name is required</span>
+          <span class="error-message" *ngIf="fullName.errors?.maxlength">Name is too long</span>
+          <span class="error-message" *ngIf="fullName.errors?.pattern">Name must contain only valid symbols</span>
+        </ng-container>
+      </label>
+        <input id="fullname" class="form-control" type="text" formControlName="fullName" placeholder="(Required)">
+      <label for="email" class="form-label">
+        Email
+        <ng-container *ngIf="email.dirty || email.touched">
+          <span class="error-message" *ngIf="email.errors?.required">Email is required</span>
+          <span class="error-message" *ngIf="email.errors?.maxlength">Email is too long</span>
+          <span class="error-message" *ngIf="email.errors?.email">Email is invalid</span>
+        </ng-container>
+      </label>
+        <input id="email" class="form-control" type="text" formControlName="email" placeholder="(Required)">
+      <label for="password" class="form-label">
+        Password
+        <ng-container *ngIf="password.dirty || password.touched">
+          <span class="error-message" *ngIf="password.errors?.required">Password is required</span>
+          <span class="error-message" *ngIf="password.errors?.minlength">Password is too short</span>
+          <span class="error-message" *ngIf="password.errors?.maxlength">Password is too long</span>
+        </ng-container>
+      </label>
+        <input id="password" class="form-control" type="password"
+                formControlName="password" (change)="onPasswordChange()"  placeholder="(Required)">
+      <label for="repeatpassword" class="form-label">
+        Repeat password
+        <ng-container *ngIf="repeatPassword.dirty || repeatPassword.touched">
+          <span class="error-message" *ngIf="repeatPassword.errors?.matchPasswords">Passwords must match</span>
+        </ng-container>
+      </label>
+      <input id="repeatpassword" class="form-control" type="password"
+        formControlName="repeatPassword" (change)="onPasswordChange()">
       <label for="role" class="form-label">
         Role
         <ng-container *ngIf="role.dirty || role.touched">
@@ -69,19 +48,14 @@
         <option value=null selected disabled hidden>Select (Required)</option>
         <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
       </select>
-
-      <div class="row">
-        <div class="col">
-          <button class="btn btn-primary" *ngIf="(isLoading$ | async) === false" [disabled]="registrationForm.invalid">Register User</button>
-          <div *ngIf="isLoading$ | async" class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-          <br>
-          <span class="success-message"
-                *ngIf="(hasRegistrationFailed$ | async) === false && (isLoaded$ | async)">Success!</span>
-          <span class="error-message" *ngIf="error$ | async as error">{{ error.error.message }}</span>
-        </div>
+      <button class="btn btn-primary" *ngIf="(isLoading$ | async) === false" [disabled]="registrationForm.invalid">Register User</button>
+      <div *ngIf="isLoading$ | async" class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
       </div>
+      <br>
+      <span class="success-message"
+            *ngIf="(hasRegistrationFailed$ | async) === false && (isLoaded$ | async)">Success!</span>
+      <span class="error-message" *ngIf="error$ | async as error">{{ error.error.message }}</span>
     </div>
   </div>
 </form>
