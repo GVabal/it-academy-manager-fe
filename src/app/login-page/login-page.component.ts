@@ -24,7 +24,7 @@ export class LoginPageComponent implements OnInit {
       password: ['', Validators.required]
     });
     this.error$ = this.store.select(getUsersError);
-    this.hasLoginFailed$ = this.store.select(getHasLoginFailed)
+    this.hasLoginFailed$ = this.store.select(getHasLoginFailed);
   }
 
   submitForm(): void {
