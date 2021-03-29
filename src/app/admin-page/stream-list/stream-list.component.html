@@ -1,8 +1,7 @@
-<h1>Stream List</h1>
 <form [formGroup]="streamForm" (ngSubmit)="submitForm()">
   <div class="input-group">
     <input class="form-control" type="text" formControlName="name">
-    <button class="btn btn-sm btn-outline-primary" [disabled]="!streamForm.valid">Add stream</button>
+    <button class="btn btn-sm btn-primary" [disabled]="!streamForm.valid">Add stream</button>
   </div>
   <ng-container *ngIf="streamName.dirty || streamName.touched">
     <span class="error-message" *ngIf="streamName.errors?.pattern">

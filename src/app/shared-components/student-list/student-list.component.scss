@@ -1,9 +1,20 @@
 .mr-0 {
   margin-right: 0;
 }
+
 .ml-auto {
   margin-left:auto;
 }
+
+.mb-1 {
+  display: flex;
+  align-items: center;
+}
+
+.btn-primary{
+  margin-top: 40px;
+}
+
 .d-block {
   display:block;
 }
@@ -33,4 +44,22 @@ h1{
   font-weight: 700;
   font-size: 2rem;
   text-align: center;
+}
+
+.list-group-item{
+  text-align: left;
+  display: block;
+  height: 100%;
+  width: 100%;
+  text-decoration: none;
+  font-size: 20px ;
+  color: black;
+}
+
+a:hover, a:visited, a:link, a:active{
+  text-decoration: none;
+}
+
+.custom-dialog-container .mat-dialog-container {
+  overflow-y: hidden !important;
 }
