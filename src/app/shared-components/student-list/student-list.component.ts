@@ -16,6 +16,7 @@ import { StudentFormComponent } from 'src/app/admin-page/student-form/student-fo
 })
 export class StudentListComponent implements OnInit {
   students$: Observable<Student[]> | undefined;
+  students: Student[] = [];
   isStudentsLoading$: Observable<boolean> | undefined;
   isStudentsLoaded$: Observable<boolean> | undefined;
   hasLoadFailed$: Observable<boolean> | undefined;
@@ -31,7 +32,7 @@ export class StudentListComponent implements OnInit {
     this.isStudentsLoaded$ = this.store.select(getIsStudentsLoaded);
     this.hasLoadFailed$ = this.store.select(getHasStudentLoadFailed);
     this.error$ = this.store.select(getStudentsError);
-    this.students$ = this.store.select(selectStudents);
+    this.store.select(selectStudents).subscribe(students => this.students = students.slice().reverse());
   }
 
   openDialog(isEdit: boolean): void {
