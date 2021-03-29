@@ -1,4 +1,4 @@
-<div *ngIf="(students$ |async)?.length === 0; else studentList">
+<div *ngIf="students.length === 0; else studentList">
   <h1>
     No students in the list
   </h1>
