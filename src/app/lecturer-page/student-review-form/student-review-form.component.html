@@ -1,215 +1,142 @@
-<form [formGroup]="reviewForm" (ngSubmit)="submitForm()">
-  <div class="container">
-    <div class="row">
-      <div class="col-7">
-        <div *ngIf="selectedStudentImg && selectedStudentImg !== ''">
-          <img [src]="selectedStudentImg" alt="profile picture" width="200px">
-        </div>
-      </div>
-        <div class="col-5">
-      <div class=" row">
-        <label for="studentId" class="form-label">Choose student</label>
-      <select type="number" formControlName="studentId"  class="form-control select-margin" id="studentId">
-          <option value=null selected disabled hidden>Please select</option>
-          <option *ngFor="let student of students$ | async" [ngValue]="student.id">{{student.firstName}} {{student.lastName}}</option>
+<form class="shadow bg-white rounded p-3" [formGroup]="reviewForm" (ngSubmit)="submitForm()">
+  <div class="d-flex flex-wrap">
+    <ng-container *ngIf="selectedStudentImg && selectedStudentImg !== ''">
+      <img [src]="selectedStudentImg" alt="profile picture" width=200 height=200>
+    </ng-container>
+    <ng-container *ngIf="!selectedStudentImg || selectedStudentImg === ''">
+      <img src="./assets/no-profile-picture.png" alt="no profile picture" width=200 height=200>
+    </ng-container>
+    <div class ="student-info">
+      <label for="studentId" class="form-label">Choose student</label>
+      <select formControlName="studentId" class="form-control " id="studentId">
+        <option value=null selected disabled hidden>Please select</option>
+        <option *ngFor="let student of students$ | async"
+                [ngValue]="student.id">{{student.firstName}} {{student.lastName}}</option>
       </select>
-      <div [hidden]="studentId.untouched">
-        <div class="error-message" *ngIf="studentId.errors?.required">Please select student.</div> 
-      </div>
-      </div>
-
-      <div class=" row">
-        <label for="streamId" class="form-label">Choose your stream</label>
-        <select type="number" formControlName="streamId" class="form-control select-margin" id="stream.id">
-          <option value=null selected disabled hidden>Please select</option>
-          <option *ngFor="let stream of streams$ | async" [ngValue]="stream.id">{{stream.name}}</option>
-        </select>
-      </div>
-      <div [hidden]="streamId.untouched">
-        <div class="error-message" *ngIf="streamId.errors?.required">Please select stream.</div> 
+      <ng-container *ngIf="studentId.touched">
+        <div class="alert alert-danger" *ngIf="studentId.errors?.required">Please select student.</div>
+      </ng-container>
+      <br>
+      <label for="streamId" class="form-label">Choose your stream</label>
+      <select formControlName="streamId" class="form-control " id="streamId">
+        <option value=null selected disabled hidden>Please select</option>
+        <option *ngFor="let stream of streams$ | async" [ngValue]="stream.id">{{stream.name}}</option>
+      </select>
+      <ng-container *ngIf="streamId.touched">
+        <div class="alert alert-danger" *ngIf="streamId.errors?.required">Please select stream.</div>
+      </ng-container>
+    </div>
+  </div>
+  <div *ngIf="studentId.value && streamId.value">
+    <br>
+  <br><br>
+  <div class="" >
+    <label for="overallComment" class="form-label">Overall evaluation</label>
+    <input class="form-range" formControlName="overallGrade" id="overallGrade" type="range" min="1" max="10" step="1">
+    <div class="d-flex justify-content-between">
+      <h2>Poor</h2>
+      <h2>Excellent</h2>
+    </div>
+    <div class="pt-2">
+      <textarea maxlength="{{maxChars}}" class="form-control" formControlName="overallComment"
+                id="overallComment" rows="3" placeholder="Add comment (required)"></textarea>
+      <ng-container *ngIf="overallComment.dirty || overallComment.touched">
+        <div class="alert alert-danger" *ngIf="overallComment.errors?.maxlength">Text is too long.</div>
+        <div class="alert alert-danger" *ngIf="overallComment.errors?.required">Overall comment is required.</div>
+      </ng-container>
+      <div class="remaining-text">
+        {{ overallCharsRemaining$ | async }}/{{ maxChars }}
       </div>
     </div>
   </div>
-    <div class="row">
-        <label for="communicationComment" class="form-label">Communication</label>
-        <div class="form-group row">
-          <div class="range-wrap">
-            <div class="range-value"></div>
-            <span class="range-value-left">poor</span>
-              <input formControlName="communicationGrade" id="communicationGrade" type="range" min="1" max="10" value="1" step="1">
-            <span class="range-value-right">great</span>
-          </div>
-        </div>
-        <div class="row">
-          <textarea maxlength="{{maxChars}}" class= "form-control" formControlName="communicationComment" id="communicationComment" rows="3" placeholder="Add comment"></textarea>
-          <div class="d-flex justify-content-between">
-            <div>
-              <div [hidden]="communicationComment.valid">
-                <div class="error-message" *ngIf="communicationComment.errors?.maxlength">Text is too long.</div> 
-              </div>
-            </div>
-            <div>
-              <div class="remaining-text">
-                {{ communicationCharsRemaining$ | async }}/{{ maxChars }}
-              </div>
-            </div>
-          </div>
-       </div>
+  <br><br>
+  <div class="" >
+    <label for="communicationComment" class="form-label">Communication</label>
+    <input class="form-range" formControlName="communicationGrade" id="communicationGrade" type="range" min="1" max="10" step="1">
+    <div class="d-flex justify-content-between">
+      <h2>Poor</h2>
+      <h2>Excellent</h2>
+    </div>
+    <div class="pt-2">
+      <textarea maxlength="{{maxChars}}" class="form-control" formControlName="communicationComment"
+                id="communicationComment" rows="3" placeholder="Add comment"></textarea>
+      <div [hidden]="communicationComment.valid">
+        <div class="alert alert-danger" *ngIf="communicationComment.errors?.maxlength">Text is too long.</div>
       </div>
-
-      <div class="row">
-        <label for="abilityToLearnComment" class="form-label">Ability to learn</label>
-            <div class="form-group row">
-              <div class="range-wrap">
-                <div class="range-value"></div>
-                  <span class="range-value-left">poor</span>
-                    <input formControlName="abilityToLearnGrade" id="abilityToLearnGrade" type="range" min="1" max="10" value="1" step="1">
-                  <span class="range-value-right">great</span>
-              </div> 
-            </div>
-        <div class="row">
-          <textarea maxlength="{{maxChars}}" class="form-control" formControlName="abilityToLearnComment" id="abilityToLearnComment" rows="3" placeholder="Add comment"></textarea>
-          <div class="d-flex justify-content-between">
-            <div>
-              <div [hidden]="abilityToLearnComment.valid || abilityToLearnComment.pristine">
-                <div class="error-message" *ngIf="abilityToLearnComment.errors?.maxlength">Text is too long.</div>
-              </div>
-            </div>
-            <div>
-              <div class="remaining-text">
-                {{ abilityToLearnCharsRemaining$ | async }}/{{ maxChars }}
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="remaining-text">
+        {{ communicationCharsRemaining$ | async }}/{{ maxChars }}
       </div>
-
-      <div class="row">
-        <label for="extraMileComment" class="form-label">Extra mile</label>
-          <div class="form-group row">
-            <div class="range-wrap">
-              <div class="range-value"></div>
-                <span class="range-value-left">poor</span>
-                <input formControlName="extraMileGrade" id="extraMileGrade" type="range" min="1" max="10" value="1" step="1">
-                <span class="range-value-right">great</span>
-              </div>
-            </div>
-        <div class="row">
-        <textarea maxlength="{{maxChars}}" class="form-control" formControlName="extraMileComment" id="extraMileComment" rows="3" placeholder="Add comment"></textarea>
-        <div class="d-flex justify-content-between">
-          <div>
-            <div [hidden]="extraMileComment.valid || extraMileComment.pristine">
-              <div class="error-message" *ngIf="extraMileComment.errors?.maxlength">Text is too long.</div>
-            </div>
-          </div>
-          <div>
-            <div class="remaining-text">
-              {{  extraMileCharsRemaining$ | async }}/{{ maxChars }}
-            </div>
-          </div>
-        </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <label for="motivationComment" class="form-label">Motivation</label>
-          <div class="form-group row">
-            <div class="range-wrap">
-              <div class="range-value"></div>
-                <span class="range-value-left">poor</span>
-                <input formControlName="motivationGrade" id="motivationGrade" type="range" min="1" max="10" value="1" step="1">
-                <span class="range-value-right">great</span>
-              </div>
-            </div>
-        <div class="row">
-        <textarea maxlength="{{maxChars}}" class="form-control" formControlName="motivationComment" id="motivationComment" rows="3" placeholder="Add comment"></textarea>
-        <div class="d-flex justify-content-between">
-          <div>
-            <div [hidden]="motivationComment.valid || motivationComment.pristine">
-              <div class="error-message" *ngIf="motivationComment.errors?.maxlength">Text is too long.</div>
-            </div>
-          </div>
-          <div>
-            <div class="remaining-text">
-              {{ motivationCharsRemaining$ | async }}/{{ maxChars }}
-            </div>
-          </div>
-        </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <label for="directionComment" class="form-label">Direction</label>
-        <div class="form-group row">
-          <div class="range-wrap">
-            <div class="range-value" ></div>
-              <span class="range-value-left">poor</span>
-              <input formControlName="directionGrade" id="directionGrade" type="range" min="1" max="10" value="1" step="1">
-              <span class="range-value-right">great</span>
-            </div>
-          </div>
-        <div class="row">
-        <textarea maxlength="{{maxChars}}" class="form-control" formControlName="directionComment" id="directionComment" rows="3" placeholder="Add comment"></textarea>
-        <div class="d-flex justify-content-between">
-          <div>
-            <div [hidden]="directionComment.valid || directionComment.pristine">
-              <div class="error-message" *ngIf="directionComment.errors?.maxlength">Text is too long.</div>
-            </div>
-          </div>
-          <div>
-            <div class="remaining-text">
-              {{ directionCharsRemaining$ | async }}/{{ maxChars }}
-            </div>
-          </div>
-        </div>
-      </div>
-      </div>
-
-      <div class="row">
-        <label for="overallComment" class="form-label">Overall evaluation</label>
-        <div class="form-group row">
-          <div class="range-wrap">
-            <div class="range-value"></div>
-              <span class="range-value-left">poor</span>
-              <input formControlName="overallGrade" id="overallGrade" type="range" min="1" max="10" value="1" step="1">
-              <span class="range-value-right">great</span>
-            </div>
-          </div>
-        <div class="row">
-        <textarea maxlength="{{maxChars}}" class="form-control" required formControlName="overallComment" id="overallComment" rows="3" placeholder="Add comment (required)"></textarea>
-        <div class="d-flex justify-content-between">
-          <div>
-            <div [hidden]="overallComment.valid || overallComment.untouched">
-              <div class="error-message" *ngIf="overallComment.errors?.maxlength">Text is too long.</div>
-              <div class="error-message" *ngIf="overallComment.errors?.required">Overall comment is required.</div>
-            </div>
-          </div>
-          <div>
-            <div class="remaining-text">
-              {{ overallCharsRemaining$ | async }}/{{ maxChars }}
-            </div>
-          </div>
-        </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col">
-          <button *ngIf="(isLoading$ | async) === false"
-                  class="btn btn-primary top-margin"
-                  type="submit" >Submit review</button>
-
-          <div *ngIf="(isLoading$ | async)" class="spinner-border text-primary top-margin" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-          
-          <div *ngIf="reviewForm.invalid && showErrors">
-            <div class="error-message" *ngIf="studentId.errors?.required">Please select student.</div> 
-            <div class="error-message" *ngIf="streamId.errors?.required">Please select stream.</div> 
-            <div class="error-message" *ngIf="overallComment.errors?.required">Overall comment is required.</div>          
-          </div>
-            <div class="success-message" *ngIf="reviewForm.valid && showSuccess">Success!</div>   
-        </div>
-      </div>
+    </div>
   </div>
+  <br><br>
+  <div class="" >
+    <label for="abilityToLearnComment" class="form-label">Ability to learn</label>
+    <input class="form-range" formControlName="abilityToLearnGrade" id="abilityToLearnGrade" type="range" min="1" max="10" step="1">
+    <div class="d-flex justify-content-between">
+      <h2>Poor</h2>
+      <h2>Excellent</h2>
+    </div>
+    <div class="pt-2">
+      <textarea maxlength="{{maxChars}}" class="form-control" formControlName="abilityToLearnComment"
+                id="abilityToLearnComment" rows="3" placeholder="Add comment"></textarea>
+      <div [hidden]="abilityToLearnComment.valid || abilityToLearnComment.pristine">
+        <div class="alert alert-danger" *ngIf="abilityToLearnComment.errors?.maxlength">Text is too long.</div>
+      </div>
+      <div class="remaining-text">
+        {{ abilityToLearnCharsRemaining$ | async }}/{{ maxChars }}
+      </div>
+    </div>
+  </div>
+  <br><br>
+  <div class="" >
+    <label for="extraMileComment" class="form-label">Extra mile</label>
+    <input class="form-range" formControlName="extraMileGrade" id="extraMileGrade" type="range" min="1" max="10" step="1">
+    <div class="d-flex justify-content-between">
+      <h2>Poor</h2>
+      <h2>Excellent</h2>
+    </div>
+    <div class="pt-2">
+      <textarea maxlength="{{maxChars}}" class="form-control" formControlName="extraMileComment"
+                id="extraMileComment" rows="3" placeholder="Add comment"></textarea>
+      <div [hidden]="extraMileComment.valid || extraMileComment.pristine">
+        <div class="alert alert-danger" *ngIf="extraMileComment.errors?.maxlength">Text is too long.</div>
+      </div>
+      <div class="remaining-text">
+        {{  extraMileCharsRemaining$ | async }}/{{ maxChars }}
+      </div>
+    </div>
+  </div>
+  <br><br>
+  <div class="" >
+    <label for="motivationComment" class="form-label">Motivation</label>
+    <input class="form-range" formControlName="motivationGrade" id="motivationGrade" type="range" min="1" max="10" step="1">
+    <div class="d-flex justify-content-between">
+      <h2>Poor</h2>
+      <h2>Excellent</h2>
+    </div>
+    <div class="pt-2">
+      <textarea maxlength="{{maxChars}}" class="form-control" formControlName="motivationComment"
+                id="motivationComment" rows="3" placeholder="Add comment"></textarea>
+      <div [hidden]="motivationComment.valid || motivationComment.pristine">
+        <div class="alert alert-danger" *ngIf="motivationComment.errors?.maxlength">Text is too long.</div>
+      </div>
+      <div class="remaining-text">
+        {{ motivationCharsRemaining$ | async }}/{{ maxChars }}
+      </div>
+    </div>
+  </div>
+  <button *ngIf="(isLoading$ | async) === false" [disabled]="reviewForm.invalid"
+          class="btn btn-primary" type="submit"
+  >Submit review</button>
+  <div *ngIf="(isLoading$ | async)" class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+  <ng-container *ngIf="error$ | async as error">
+    <div class="alert alert-danger" *ngIf="studentId.errors?.required">Please select student.</div>
+    <div class="alert alert-danger" *ngIf="streamId.errors?.required">Please select stream.</div>
+    <div class="alert alert-danger" *ngIf="overallComment.errors?.required">Overall comment is required.</div>
+    <div class="alert alert-danger">{{ error }}</div>
+  </ng-container>
+  </div>
+
 </form>

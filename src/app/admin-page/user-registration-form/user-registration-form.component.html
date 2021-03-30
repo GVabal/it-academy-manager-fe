@@ -1,0 +1,62 @@
+<form class="form-body" [formGroup]="registrationForm" (ngSubmit)="submitForm()">
+  <div class="rounded bg-white" [ngClass]="{shadow: !isMobile}">
+    <h1>New User Registration</h1>
+    <div class="card-body">
+      <label for="fullname" class="form-label">
+        Full name
+        <ng-container *ngIf="fullName.dirty || fullName.touched">
+          <span class="error-message" *ngIf="fullName.errors?.required">Name is required</span>
+          <span class="error-message" *ngIf="fullName.errors?.maxlength">Name is too long</span>
+          <span class="error-message" *ngIf="fullName.errors?.pattern">Name must contain only valid symbols</span>
+        </ng-container>
+      </label>
+        <input id="fullname" class="form-control" type="text" formControlName="fullName" placeholder="(Required)">
+      <label for="email" class="form-label">
+        Email
+        <ng-container *ngIf="email.dirty || email.touched">
+          <span class="error-message" *ngIf="email.errors?.required">Email is required</span>
+          <span class="error-message" *ngIf="email.errors?.maxlength">Email is too long</span>
+          <span class="error-message" *ngIf="email.errors?.email">Email is invalid</span>
+        </ng-container>
+      </label>
+        <input id="email" class="form-control" type="text" formControlName="email" placeholder="(Required)">
+      <label for="password" class="form-label">
+        Password
+        <ng-container *ngIf="password.dirty || password.touched">
+          <span class="error-message" *ngIf="password.errors?.required">Password is required</span>
+          <span class="error-message" *ngIf="password.errors?.minlength">Password is too short</span>
+          <span class="error-message" *ngIf="password.errors?.maxlength">Password is too long</span>
+        </ng-container>
+      </label>
+        <input id="password" class="form-control" type="password"
+                formControlName="password" (change)="onPasswordChange()"  placeholder="(Required)">
+      <label for="repeatpassword" class="form-label">
+        Repeat password
+        <ng-container *ngIf="repeatPassword.dirty || repeatPassword.touched">
+          <span class="error-message" *ngIf="repeatPassword.errors?.matchPasswords">Passwords must match</span>
+        </ng-container>
+      </label>
+      <input id="repeatpassword" class="form-control" type="password"
+        formControlName="repeatPassword" (change)="onPasswordChange()">
+      <label for="role" class="form-label">
+        Role
+        <ng-container *ngIf="role.dirty || role.touched">
+          <span class="error-message" *ngIf="role.errors?.required">Role is required</span>
+        </ng-container>
+      </label>
+      <div>
+        <div id="role" class="form-check form-check-inline" *ngFor="let role of roles; let i = index;">
+          <input class="form-check-input" type="radio" id="{{i}}" [value]="role" formControlName="role">
+          <label class="form-check-label" for="{{i}}">{{ role }}</label>
+        </div>
+      </div>
+      <button class="btn btn-primary" *ngIf="(isLoading$ | async) === false" [disabled]="registrationForm.invalid">Register User</button>
+      <div *ngIf="isLoading$ | async" class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <br>
+      <span class="error-message" *ngIf="error$ | async as error">{{ error }}</span>
+    </div>
+  </div>
+</form>
+

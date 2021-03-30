@@ -1,52 +1,44 @@
-form {
-    margin-top:5px;
-    padding:50px;
-    background:rgb(252, 252, 252);
+
+img{
+  border-radius: 50%;
+  margin-right: 20px;
 }
 
-
-.form-label {
-    margin-top:30px;
-    margin-bottom:10px;
+.student-info{
+  padding-top: 20px;
+  max-width: 532px;
+  min-width: 260px;
+  width: 100%;
 }
 
-.error-message {
-    color: red;
-    font-size: 12px;
-  }
+label{
+  margin-bottom: 0;
+  text-align: left;
+  color: #212529;
+  font-size: 1.2rem;
+  font-family:'Roboto Condensed', sans-serif;
+}
 
-.success-message {
-    color: green;
-    font-size: 12px;
-  }
+.alert{
+  padding: 6px;
+  padding-left: 12px;
+}
+
+h2{
+  margin-bottom: 0;
+  text-align: left;
+  color: #212529;
+  font-size: 0.8rem;
+
+  font-family:'Roboto Condensed', sans-serif;
+}
 
 textarea {
-    resize: none;
- }
-
- .top-margin{
-    margin-top: 20px;
- 
-}
-.remaining-text{
-    color: rgb(95, 95, 95);
-    font-size: 12px;
+  margin-right: 1vw;
 }
 
- .range-value-left{
-    margin-right:10px;
-    font-size: 15px;
-    font-size: 12px;
-    color: rgb(95, 95, 95);
- }
-
- .range-value-right{
-    margin-left:10px;
-    font-size: 15px;
-    font-size: 12px;
-    color: rgb(95, 95, 95);
-}
-
-.range-wrap{
-    margin-bottom:10px;
+.remaining-text {
+  text-align: right;
+  color: rgb(95, 95, 95);
+  font-size: 12px;
 }

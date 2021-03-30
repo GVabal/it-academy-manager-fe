@@ -1,28 +1,39 @@
-<div class="spaced-sides" id="content-desktop">
-  <div class="row">
-    <div class="col-6">
-      <app-student-list [isAdminView] = "true"></app-student-list>
-    </div>
-    <div class="col-1"></div>
-    <div class="col-4">
-      <app-stream-list></app-stream-list>
-    </div>
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+  <img src="./assets/logo_white.png" [ngClass]="{'logo-mobile': this.isMobile, 'logo-web': !this.isMobile}" alt="">
+  <h3 *ngIf="isMobile" class="navbar-brand">{{tabName}}</h3>
+  <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngClass]="{ 'show': isCollapsed }">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <div id="btn-student" class="nav-button" (click) ="toggleToStudents()">Students</div>
+      </li>
+      <li class="nav-item">
+        <div id="btn-streams" class="nav-button" (click) ="toggleToStreams()">Streams</div>
+      </li>
+      <li class="nav-item">
+        <div id="btn-users" class="nav-button" (click) ="toggleToUsers()">Create User</div>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <div class="nav-button align-right" (click)="logout() ">
+          <i class="bi bi-box-arrow-in-right"></i>  Logout
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="admin-page">
+  <div *ngIf="showStudents">
+    <app-student-list [isAdminView] = "true"></app-student-list>
+  </div>
+  <div *ngIf="showStreams">
+    <app-stream-list ></app-stream-list>
+  </div>
+  <div *ngIf="showUsers">
+    <app-user-registration-form [isMobile]="isMobile"></app-user-registration-form>
   </div>
 </div>
-<div class="spaced-sides" id="content-mobile">
-  <div class="row">
-    <div>
-      <div class="btn-group">
-        <button id="btn-student" type="button" class="btn btn-primary" (click) ="toggleToStudents()">Students</button>
-        <div class="divider"></div>
-        <button id="btn-streams" type="button"  class="btn btn-primary" (click) ="toggleToStreams()">Streams</button>
-      </div>
-      <div *ngIf="showStudents">
-        <app-student-list [isAdminView] = "true"></app-student-list>
-      </div>
-    </div>
-    <div *ngIf="showStreams">
-      <app-stream-list ></app-stream-list>
-    </div>
-  </div>
-</div>
+

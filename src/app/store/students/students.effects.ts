@@ -1,4 +1,4 @@
-import { Student } from './../../shared/student';
+import { Student } from '../../shared/student';
 import { Update } from '@ngrx/entity';
 import { Injectable } from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
@@ -9,17 +9,26 @@ import { addStudent, addStudentFailure, addStudentSuccess, changeSelectedStudent
   deleteStudentSuccess, editStudent, editStudentFailure, editStudentSuccess, loadStudents,
   loadStudentsFailure, loadStudentsSuccess } from './students.actions';
 import { loadReviews } from '../review/review.action';
+import {ToastrService} from 'ngx-toastr';
+import {MatDialog} from '@angular/material/dialog';
 
 
 @Injectable()
 export class StudentsEffects {
-  constructor(private actions$: Actions, private studentService: StudentService) { }
+  constructor(private actions$: Actions,
+              private studentService: StudentService,
+              private toastr: ToastrService,
+              private dialog: MatDialog) { }
 
   addStudent$ = createEffect(() =>
     this.actions$.pipe(
       ofType(addStudent),
       switchMap((action) => this.studentService.addStudent(action.student, action.picture).pipe(
-        map(student => addStudentSuccess({ student })),
+        map(student => {
+          this.toastr.success('Student added.', 'Success!');
+          this.dialog.closeAll();
+          return addStudentSuccess({ student });
+        }),
         catchError(error => of(addStudentFailure({ error })))
       )
       )
@@ -37,6 +46,7 @@ export class StudentsEffects {
               ...student,
             }
           };
+          this.toastr.success('Changes were saved.', 'Success!');
           return editStudentSuccess({ update: updatedStudent });
         }),
         catchError(error => of(editStudentFailure({ error })))
@@ -61,7 +71,10 @@ export class StudentsEffects {
     this.actions$.pipe(
       ofType(deleteStudent),
       switchMap((action) => this.studentService.deleteStudent(action.id).pipe(
-          map(() => deleteStudentSuccess({id: action.id})),
+          map(() => {
+            this.toastr.info('Student deleted.', 'Success!');
+            return deleteStudentSuccess({id: action.id});
+          }),
           catchError(error => of(deleteStudentFailure({error}))),
         )
       )

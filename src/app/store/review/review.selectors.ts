@@ -1,4 +1,4 @@
-import { ReviewData } from './../../shared/reviewData';
+import { ReviewData } from '../../shared/reviewData';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { reviewsAdapter, reviewsFeatureKey, ReviewsState } from './review.reducer';
 import { Review } from 'src/app/shared/review';
@@ -11,10 +11,11 @@ export const getIsReviewsLoading = createSelector(getReviewsFeatureState, review
 export const getIsReviewsLoaded = createSelector(getReviewsFeatureState, reviewsState => reviewsState.loaded);
 export const getHasReviewAddFailed = createSelector(getReviewsFeatureState, reviewsState => reviewsState.hasReviewAddFailed);
 export const getReviewsError = createSelector(getReviewsFeatureState, reviewsState => reviewsState.error);
+export const getReviewClearForm = createSelector(getReviewsFeatureState, reviewsState => reviewsState.clearForm);
 export const {selectAll: selectReviews} = reviewsAdapter.getSelectors(getReviewsFeatureState);
 
-export const getReviewData =  createSelector(selectReviews, getSelectedStudentId, (reviews, id) =>
-   mapToReviewData(reviews.filter(review => review.studentId === id)));
+export const getReviewData = (id: number) => createSelector(selectReviews, getSelectedStudentId, (reviews, studentId) =>
+mapToReviewDataStream(reviews.filter(review => review.studentId === studentId ), id));
 export const isReviewDataInStore = createSelector(selectReviews, getSelectedStudentId, (reviews, id) =>
   reviews.some(review => review.studentId === id));
 
@@ -28,7 +29,8 @@ function average(list: number[]): number{
     return Number(avg.toFixed(2));
   }
 
-function mapToReviewData( reviews: Review[]): ReviewData{
+
+function mapToReviewDataStream( reviews: Review[], streamId: number): ReviewData{
     const reviewData: ReviewData = {
         averages: [],
         data: {
@@ -45,20 +47,35 @@ function mapToReviewData( reviews: Review[]): ReviewData{
         }
     };
     if (reviews.length > 0){
-      reviews.map( review => {
+      if (streamId !== 0){
+         reviews = reviews.filter(review => review.streamId === streamId);
+      }
+      reviews.map(review => {
         reviewData.data.overallGrade.push(review.overallGrade);
-        reviewData.data.overallComment.push(review.overallComment);
+        reviewData.data.overallComment.push(combineCommentWithAuthor(review.overallComment, review.authorFullName));
         reviewData.data.abilityToLearnGrade.push(review.abilityToLearnGrade);
-        if (review.abilityToLearnComment){reviewData.data.abilityToLearnComment.push(review.abilityToLearnComment); }
+        if (review.abilityToLearnComment){
+          reviewData.data.abilityToLearnComment.push(combineCommentWithAuthor(review.abilityToLearnComment, review.authorFullName));
+        }
         reviewData.data.motivationGrade.push(review.motivationGrade);
-        if (review.motivationComment){reviewData.data.motivationComment.push(review.motivationComment); }
+        if (review.motivationComment){
+          reviewData.data.motivationComment.push(combineCommentWithAuthor(review.motivationComment, review.authorFullName));
+        }
         reviewData.data.extraMileGrade.push(review.extraMileGrade);
-        if (review.extraMileComment){reviewData.data.extraMileComment.push(review.extraMileComment); }
+        if (review.extraMileComment){
+          reviewData.data.extraMileComment.push(combineCommentWithAuthor(review.extraMileComment, review.authorFullName));
+        }
         reviewData.data.communicationGrade.push(review.communicationGrade);
-        if (review.communicationComment){reviewData.data.communicationComment.push(review.communicationComment); }
+        if (review.communicationComment){
+          reviewData.data.communicationComment.push(combineCommentWithAuthor(review.communicationComment, review.authorFullName));
+        }
       });
     }
     reviewData.averages = [average(reviewData.data.overallGrade), average(reviewData.data.abilityToLearnGrade),
       average(reviewData.data.motivationGrade), average(reviewData.data.extraMileGrade), average(reviewData.data.communicationGrade)];
     return reviewData;
   }
+
+function combineCommentWithAuthor(comment: string, author: string): string {
+  return '"' + comment + '" - ' + author;
+}

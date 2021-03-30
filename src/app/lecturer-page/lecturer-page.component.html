@@ -1,13 +1,10 @@
-
-<body>
-<nav class="navbar navbar-light bg-light">
-    <span class="navbar-brand mb-0 h1">Student evaluation form</span>
-  </nav>
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-7">
-            <app-student-review-form></app-student-review-form>
-        </div>
-      </div>
+<nav class="navbar sticky-top navbar-dark bg-dark">
+  <img src="./assets/logo_white.png" class="logo-web" alt="">
+  <div class="nav-button align-left" (click)="logout() ">
+    <i class="bi bi-box-arrow-in-right"></i>  Logout
   </div>
-</body>
+</nav>
+<div class="review-form">
+  <app-student-review-form></app-student-review-form>
+</div>
+

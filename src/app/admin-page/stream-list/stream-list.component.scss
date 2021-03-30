@@ -2,20 +2,41 @@
    flex-grow: 1;
 }
 
-li {
+.list-group-item {
   display: flex;
+  align-items: center;
+}
+
+ul :hover {
+  background : rgb(245, 245, 245);
 }
 
 #form-group {
-  max-width: 400px;
-  display: inline-block
-}
-
-h1 {
-  text-align: center;
+  display: block
 }
 
 .error-message {
   color: red;
   font-size: 12px;
+}
+
+li{
+  margin-bottom: 0;
+  font-size: 18px;
+  color:  #212529;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+h1{
+  color: #212529;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.bi-x-circle{
+  margin-left: 10px;
+  margin-right: 10px;
+  color: #b52f2f;
 }

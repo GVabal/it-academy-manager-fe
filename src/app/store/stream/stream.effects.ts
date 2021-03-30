@@ -8,11 +8,14 @@ import {
   deleteStream, deleteStreamFailure, deleteStreamSuccess
 } from './stream.actions';
 import {of} from 'rxjs';
+import {ToastrService} from 'ngx-toastr';
 
 @Injectable()
 export class StreamEffects {
 
-  constructor(private actions$: Actions, private streamService: StreamService) {}
+  constructor(private actions$: Actions,
+              private streamService: StreamService,
+              private toastr: ToastrService) {}
 
  loadStreams$ = createEffect(() =>
     this.actions$.pipe(
@@ -29,7 +32,10 @@ export class StreamEffects {
     this.actions$.pipe(
       ofType(addStream),
       switchMap((action) => this.streamService.addStream(action.stream).pipe(
-          map(stream => addStreamSuccess({stream})),
+          map(stream => {
+            this.toastr.success('Stream added.', 'Success!');
+            return addStreamSuccess({stream});
+          }),
           catchError(error => of(addStreamFailure({error})))
           )
       )
@@ -40,7 +46,10 @@ export class StreamEffects {
     this.actions$.pipe(
       ofType(deleteStream),
       switchMap(action => this.streamService.deleteStream(action.id).pipe(
-        map(() => deleteStreamSuccess({id: action.id})),
+        map(() => {
+          this.toastr.info('Stream deleted.', 'Success!');
+          return deleteStreamSuccess({id: action.id});
+        }),
         catchError(error => of(deleteStreamFailure({error})))
         )
       )

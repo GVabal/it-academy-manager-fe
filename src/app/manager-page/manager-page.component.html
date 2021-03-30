@@ -1,10 +1,17 @@
-<div class="spaced-sides ">
-    <div class="row">
-        <div class="col-3">
-            <app-student-list [isAdminView] = "false"></app-student-list>
-        </div>        
-        <div class="col-9">
-            <app-student-card></app-student-card>
-        </div>
+<nav class="navbar sticky-top navbar-dark bg-dark">
+    <img src="./assets/logo_white.png" class="logo-web" alt="">
+    <div *ngIf="!isInListView" class="nav-button" (click)="onBack()" >
+        Back
+    </div>
+    <div class="nav-button align-left" (click)="logout()">
+        <i class="bi bi-box-arrow-in-right"></i>  Logout
+    </div>
+</nav>
+<div class="manager-page ">
+    <div *ngIf="isInListView; else studentStatistics">
+        <app-student-list [isAdminView] = "false"></app-student-list>
     </div>
 </div>
+<ng-template #studentStatistics>
+    <app-student-card></app-student-card>
+</ng-template>

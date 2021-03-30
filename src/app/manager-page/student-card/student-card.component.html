@@ -1,20 +1,40 @@
-<div *ngIf="this.student$ | async as student" class="mt-5 shadow bg-white rounded d-flex justify-content-between">
-    <div class="d-flex">
-      <img class="profile-picture m-4"src="{{student.pictureUrl}}">
-      <div>
-        <div class="mt-5">            
-          <h1>{{student.firstName}}</h1>
-          <h1>{{student.lastName}}</h1>
+
+<div *ngIf="this.student$ | async as student" class="shadow rounded">
+  <div class="                 
+  d-flex 
+  align-items-center 
+  justify-content-center
+  justify-content-sm-between
+  flex-sm-row
+  flex-column">
+    <div class="d-flex flex-row align-items-center student-card">
+        <div *ngIf="student.pictureUrl; else noProfilePicture ">
+          <img class="profile-picture" src={{student.pictureUrl}}>
         </div>
-        <div class="pt-3">
-            <h2>Occupation: {{student.occupation}}</h2>
-            <h2 class="pt-3">Direction: {{student.direction}}</h2>
+        <ng-template #noProfilePicture>
+          <img class="profile-picture" src="./assets/no-profile-picture.png">
+        </ng-template>
+        <div>          
+            <h1>{{student.firstName}}</h1>
+            <h1>{{student.lastName}}</h1>
+            <div class="">
+              <h2>{{student.occupation}}</h2>
+              <h2 >{{student.direction}}</h2>
+            </div>
         </div>
-      </div>  
     </div>
-    <div class="align-self-stretch radar-chart">
+    <div class="radar-chart">
       <app-radar-chart *ngIf="(reviewsData$ | async) as reviewsData" [data]="reviewsData.averages"></app-radar-chart>
     </div>
+  </div>
+  <div class="filter-padding">
+    <h2>Filter by stream</h2>
+    <select class="form-select" (change)="onSelect()" [(ngModel)] = "streamId">
+      <option [ngValue]=null selected disabled hidden>Please select</option>
+      <option [ngValue]="0"> All </option>
+      <option *ngFor="let stream of streams$ | async" [ngValue]="stream.id">{{stream.name}}</option>
+    </select>
+  </div>
 </div>
 <div *ngIf="(reviewsData$ | async) as reviewsData" >
   <app-skill-chart
@@ -53,5 +73,3 @@
   [comments]="reviewsData.data.communicationComment">
 </app-skill-chart>
 </div>
-
-
