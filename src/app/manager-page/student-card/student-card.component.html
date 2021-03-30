@@ -27,7 +27,7 @@
       <app-radar-chart *ngIf="(reviewsData$ | async) as reviewsData" [data]="reviewsData.averages"></app-radar-chart>
     </div>
   </div>
-  <div class="filter-margin">
+  <div class="filter-padding">
     <h2>Filter by stream</h2>
     <select class="form-select" (change)="onSelect()" [(ngModel)] = "streamId">
       <option [ngValue]=null selected disabled hidden>Please select</option>
