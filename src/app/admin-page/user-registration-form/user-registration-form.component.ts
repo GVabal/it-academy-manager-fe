@@ -5,7 +5,13 @@ import {CustomError} from '../../shared/customError';
 import {UserRole} from '../../shared/userRole';
 import {Store} from '@ngrx/store';
 import {registerUser} from '../../store/users/users.actions';
-import {getHasUserRegistrationFailed, getIsUsersLoaded, getIsUsersLoading, getUsersError} from '../../store/users/users.selectors';
+import {
+  getHasUserRegistrationFailed,
+  getIsUsersLoaded,
+  getIsUsersLoading,
+  getUserClearForm,
+  getUsersError
+} from '../../store/users/users.selectors';
 
 const namePattern = /^[a-zA-ZĄąČčĘęĖėĮįŠšŲųŪūŽžÄäÅåÖö \-.']*$/;
 
@@ -21,6 +27,7 @@ export class UserRegistrationFormComponent implements OnInit {
   isLoading$!: Observable<boolean>;
   isLoaded$!: Observable<boolean>;
   error$!: Observable<CustomError | null>;
+  clearForm$!: Observable<boolean>;
   registrationForm!: FormGroup;
 
   constructor(private store: Store,
@@ -32,6 +39,13 @@ export class UserRegistrationFormComponent implements OnInit {
     this.isLoading$ = this.store.select(getIsUsersLoading);
     this.isLoaded$ = this.store.select(getIsUsersLoaded);
     this.error$ = this.store.select(getUsersError);
+    this.clearForm$ = this.store.select(getUserClearForm);
+
+    this.clearForm$.subscribe((clearForm) => {
+      if (clearForm) {
+        this.registrationForm.reset();
+      }
+    });
   }
 
   private initRegistrationForm(): FormGroup {

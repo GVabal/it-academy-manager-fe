@@ -23,6 +23,7 @@ export interface UsersState {
   error: CustomError | null;
   isAuthenticated: boolean;
   user: User | null;
+  clearForm: boolean;
 }
 
 export const initialState: UsersState = {
@@ -32,7 +33,8 @@ export const initialState: UsersState = {
   hasLoginFailed: false,
   error: null,
   isAuthenticated: false,
-  user: null
+  user: null,
+  clearForm: false
 };
 
 
@@ -43,7 +45,8 @@ export const usersReducer = createReducer(
       ...state,
       loading: true,
       loaded: false,
-      error: null
+      error: null,
+      clearForm: false
     };
   }),
   on(registerUserSuccess, (state) => {
@@ -51,7 +54,8 @@ export const usersReducer = createReducer(
       ...state,
       loading: false,
       loaded: true,
-      hasRegistrationFailed: false
+      hasRegistrationFailed: false,
+      clearForm: true
     };
   }),
   on(registerUserFailure, (state, action) => {

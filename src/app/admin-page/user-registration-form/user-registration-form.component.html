@@ -44,10 +44,12 @@
           <span class="error-message" *ngIf="role.errors?.required">Role is required</span>
         </ng-container>
       </label>
-      <select id="role" class="form-control" formControlName="role">
-        <option value=null selected disabled hidden>Select (Required)</option>
-        <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
-      </select>
+      <div>
+        <div id="role" class="form-check form-check-inline" *ngFor="let role of roles; let i = index;">
+          <input class="form-check-input" type="radio" id="{{i}}" [value]="role" formControlName="role">
+          <label class="form-check-label" for="{{i}}">{{ role }}</label>
+        </div>
+      </div>
       <button class="btn btn-primary" *ngIf="(isLoading$ | async) === false" [disabled]="registrationForm.invalid">Register User</button>
       <div *ngIf="isLoading$ | async" class="spinner-border text-primary" role="status">
         <span class="visually-hidden">Loading...</span>

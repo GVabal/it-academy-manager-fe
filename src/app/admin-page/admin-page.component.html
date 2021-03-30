@@ -6,13 +6,13 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngClass]="{ 'show': isCollapsed }">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <div id="btn-student" class="nav-button" (click) ="toggleToStudents()">Students</div>      
+        <div id="btn-student" class="nav-button" (click) ="toggleToStudents()">Students</div>
       </li>
       <li class="nav-item">
         <div id="btn-streams" class="nav-button" (click) ="toggleToStreams()">Streams</div>
       </li>
       <li class="nav-item">
-        <div id="btn-users" class="nav-button" (click) ="toggleToUsers()">Users</div>
+        <div id="btn-users" class="nav-button" (click) ="toggleToUsers()">Create User</div>
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">
@@ -33,6 +33,6 @@
   </div>
   <div *ngIf="showUsers">
     <app-user-registration-form [isMobile]="isMobile"></app-user-registration-form>
-  </div> 
+  </div>
 </div>
 
