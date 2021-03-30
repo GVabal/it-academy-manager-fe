@@ -10,13 +10,15 @@ import { addStudent, addStudentFailure, addStudentSuccess, changeSelectedStudent
   loadStudentsFailure, loadStudentsSuccess } from './students.actions';
 import { loadReviews } from '../review/review.action';
 import {ToastrService} from 'ngx-toastr';
+import {MatDialog} from '@angular/material/dialog';
 
 
 @Injectable()
 export class StudentsEffects {
   constructor(private actions$: Actions,
               private studentService: StudentService,
-              private toastr: ToastrService) { }
+              private toastr: ToastrService,
+              private dialog: MatDialog) { }
 
   addStudent$ = createEffect(() =>
     this.actions$.pipe(
@@ -24,6 +26,7 @@ export class StudentsEffects {
       switchMap((action) => this.studentService.addStudent(action.student, action.picture).pipe(
         map(student => {
           this.toastr.success('Student added.', 'Success!');
+          this.dialog.closeAll();
           return addStudentSuccess({ student });
         }),
         catchError(error => of(addStudentFailure({ error })))
