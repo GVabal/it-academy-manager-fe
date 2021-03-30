@@ -61,8 +61,7 @@ import {ToastrModule} from 'ngx-toastr';
     MatDialogModule,
     ToastrModule.forRoot({
       timeOut: 4000,
-      positionClass: 'toast-bottom-center',
-      preventDuplicates: true
+      positionClass: 'toast-bottom-center'
     }),
     EffectsModule.forRoot([
       StudentsEffects,
