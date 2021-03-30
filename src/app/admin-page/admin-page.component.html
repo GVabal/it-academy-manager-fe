@@ -1,4 +1,5 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+  <img src="./assets/logo_white.png" [ngClass]="{'logo-mobile': this.isMobile, 'logo-web': !this.isMobile}" alt="">
   <h3 *ngIf="isMobile" class="navbar-brand">{{tabName}}</h3>
   <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
     <span class="navbar-toggler-icon"></span>
