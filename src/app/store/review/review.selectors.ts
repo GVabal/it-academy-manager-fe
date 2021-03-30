@@ -11,7 +11,7 @@ export const getIsReviewsLoading = createSelector(getReviewsFeatureState, review
 export const getIsReviewsLoaded = createSelector(getReviewsFeatureState, reviewsState => reviewsState.loaded);
 export const getHasReviewAddFailed = createSelector(getReviewsFeatureState, reviewsState => reviewsState.hasReviewAddFailed);
 export const getReviewsError = createSelector(getReviewsFeatureState, reviewsState => reviewsState.error);
-export const getClearForm = createSelector(getReviewsFeatureState, reviewsState => reviewsState.clearForm);
+export const getReviewClearForm = createSelector(getReviewsFeatureState, reviewsState => reviewsState.clearForm);
 export const {selectAll: selectReviews} = reviewsAdapter.getSelectors(getReviewsFeatureState);
 
 export const getReviewData = (id: number) => createSelector(selectReviews, getSelectedStudentId, (reviews, studentId) =>

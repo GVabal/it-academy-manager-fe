@@ -8,7 +8,7 @@ import { Stream } from 'src/app/shared/stream';
 import { Student } from 'src/app/shared/student';
 import { addReview } from 'src/app/store/review/review.action';
 import {
-  getClearForm,
+  getReviewClearForm,
   getHasReviewAddFailed,
   getIsReviewsLoaded,
   getIsReviewsLoading,
@@ -54,7 +54,7 @@ export class StudentReviewFormComponent implements OnInit {
     this.hasAddReviewFailed$ = this.store.select(getHasReviewAddFailed);
     this.isLoading$ = this.store.select(getIsReviewsLoading);
     this.isLoaded$ = this.store.select(getIsReviewsLoaded);
-    this.clearForm$ = this.store.select(getClearForm);
+    this.clearForm$ = this.store.select(getReviewClearForm);
 
     this.initRemainingChars();
 
