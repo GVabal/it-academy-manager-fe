@@ -27,13 +27,16 @@
       <app-radar-chart *ngIf="(reviewsData$ | async) as reviewsData" [data]="reviewsData.averages"></app-radar-chart>
     </div>
   </div>
-  <div class="filter-padding">
-    <h2>Filter by stream</h2>
-    <select class="form-select" (change)="onSelect()" [(ngModel)] = "streamId">
-      <option [ngValue]=null selected disabled hidden>Please select</option>
-      <option [ngValue]="0"> All </option>
-      <option *ngFor="let stream of streams$ | async" [ngValue]="stream.id">{{stream.name}}</option>
-    </select>
+  <div class="d-flex justify-content-between align-items-center">
+    <div class="filter-padding">
+      <h2>Filter by stream</h2>
+      <select class="form-select" (change)="onSelect()" [(ngModel)] = "streamId">
+        <option [ngValue]=null selected disabled hidden>Please select</option>
+        <option [ngValue]="0"> All </option>
+        <option *ngFor="let stream of streams$ | async" [ngValue]="stream.id">{{stream.name}}</option>
+      </select>
+    </div>
+    <h3 *ngIf="(reviewsData$ | async) as reviewsData">Reviews: {{reviewsData.data.overallComment.length}}</h3>
   </div>
 </div>
 <div *ngIf="(reviewsData$ | async) as reviewsData" >
